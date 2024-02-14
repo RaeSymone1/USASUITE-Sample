@@ -1,0 +1,181 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.WorkExperienceModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+ <div asp-validation-summary="All">
+</div>
+<form method="post">
+    <div>
+        <h2><span>Students:</span><i> Work Experience</i></h2>
+       
+        <p class="tip">
+            Please fill in the form below for work experience you want on
+            your resumé. An asterisk (*) denotes a required field. If self-employed,
+            indicate such in the "Employer" field. You will be able to add additional
+            experience.
+        </p>
+        <input type="hidden" asp-for="Data.WorkExperienceID" />
+        <div class="control-group validate-input">
+            <label for="txtEmployer">*Employer</label>
+            <input asp-for="Data.Employer" type="text" maxlength="150" id="txtEmployer" />
+             <span asp-validation-for="Data.Employer"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtAddress">*Street Address 1</label>
+            <input asp-for="Data.Address1" type="text" maxlength="100" id="txtAddress" />
+             <span asp-validation-for="Data.Address1"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtAddress2">Street Address 2</label>
+            <input asp-for="Data.Address2" type="text" maxlength="100" id="txtAddress2">
+             <span asp-validation-for="Data.Address2"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtAddress3">Street Address 3</label>
+            <input asp-for="Data.Address3" type="text" maxlength="100" id="txtAddress3" />
+             <span asp-validation-for="Data.Address3"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtCity">*City</label>
+            <input asp-for="Data.City" type="text" maxlength="60" id="txtCity" />
+             <span asp-validation-for="Data.City"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="ddlCurrAddressState">*State</label>
+            <select asp-for="Data.State" asp-items="Model.Data.StateList">
+            </select>
+            <span asp-validation-for="Data.State"></span>
+        </div>
+
+        <input id="chkSkipState" type="checkbox" /><label for="chkSkipState">Check here to skip State and enter an international address</label>
+
+        <div class="control-group validate-input">
+            <label for="ctl00_PlaceHolderMainContent_txtZipcode">*ZIP+4 Code (+4 is optional)</label>
+            <input asp-for="Data.ZipCode" type="text" maxlength="20" id="txtZipcode" />
+             <span asp-validation-for="Data.ZipCode"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtCountry">Country</label>
+            <input asp-for="Data.Country" type="text" id="txtCountry" maxlength="100" disabled="disabled" />
+            <font face="arial, verdana, geneva" style="FONT-SIZE: 9pt">&nbsp;(<i>for international addresses only</i>)</font>
+             <span asp-validation-for="Data.Country"></span>
+        </div>
+
+
+        <h5>*Employment Dates (mm/yyyy)</h5>
+        <span class="usa-form-hint">For example: 04/1986</span>
+         <div class="control-group validate-input">
+            <div class="multi-input-div">
+                <div class="usa-form-group usa-form-group-year">
+                    <label for="txtDateFrom">From</label>
+                    <input asp-for="Data.Start" type="text" id="txtDateFrom" maxlength="10" class="usa-input-inline" />
+                    <span asp-validation-for="Data.Start"></span>
+                </div>
+                <div class="usa-form-group usa-form-group-year">
+                    <label for="txtDateTo">To</label>
+                    <input asp-for="Data.End" type="text" id="txtDateTo" maxlength="10" class="usa-input-inline" />
+                   <span asp-validation-for="Data.End"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtJobTitle">*Job Title</label>
+            <input asp-for="Data.Title" type="text" maxlength="100" id="txtJobTitle" />
+            <span asp-validation-for="Data.Title"></span>
+        </div>
+
+
+
+        <h5>*Provide Series, Pay Plan and Grade if a Federal Job</h5>
+        <div class="control-group validate-input">
+            <div class="multi-input-div">
+                  <div class="usa-form-group usa-form-group-year">
+                    <label for="txtPayPlan">Pay Plan<br><span style="font-size:9pt;">(e.g., GS, WG)</span></label><br>
+                    <input asp-for="Data.Payplan" type="text" maxlength="2" id="txtPayPlan" class="phoneTextBox usa-input-medium" />
+                     <span asp-validation-for="Data.Payplan"></span>
+                </div>
+                <div class="usa-form-group usa-form-group-year">
+                    <label for="txtSeries">Series<br><span style="font-size:9pt;">(4 Digits)</span></label><br>
+                    <input asp-for="Data.Series" type="text" maxlength="4" id="txtSeries" class="phoneTextBox usa-input-medium" />
+                     <span asp-validation-for="Data.Series"></span>
+                </div>              
+                <div class="usa-form-group usa-form-group-year">
+                    <label for="txtGrade">Grade <br><span style="font-size:9pt;">(2 Digits; e.g., 07, 11)</span></label>
+                    <input asp-for="Data.Grade" type="text" maxlength="2" id="txtGrade" class="phoneTextBox usa-input-medium" />
+                     <span asp-validation-for="Data.Grade"></span>
+                </div>
+            </div>
+        </div>
+
+
+         <div class="control-group validate-input">
+            <label for="txtSalary">
+                <span>Annual Salary ($ ##,###)</span>
+            </label>
+            <input asp-for="Data.Salary" type="text" maxlength="10" id="txtSalary">
+             <span asp-validation-for="Data.Salary"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtHoursPerWeek">
+                <span>*Hours per week</span>
+            </label>
+            <input asp-for="Data.HoursPerWeek" type="text" maxlength="5" id="txtHoursPerWeek" />
+            <span asp-validation-for="Data.HoursPerWeek"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <span><label for="txtSupervisorFullName">Supervisor's Name (first and last)</label></span>
+            <input asp-for="Data.Supervisor" type="text" maxlength="100"  id="txtSupervisorFullName" />
+             <span asp-validation-for="Data.Supervisor"></span>
+        </div>
+
+        <span><label for="txtSupervisorPhone">Supervisor's Phone</label></span>
+
+        <span>
+            <div class="control-group validate-input">
+                <input asp-for="Data.SupervisorPhone" type="text" maxlength="30" id="txtSupervisorPhone" />
+                <label for="txtSupervisorPhoneExtension">Extension (If applicable)</label>
+                <input asp-for="Data.SupervisorPhoneExt" type="text" maxlength="10" id="txtSupervisorPhoneExtension" />
+                <span asp-validation-for="Data.SupervisorPhone"></span>
+                <span asp-validation-for="Data.SupervisorPhoneExt"></span>
+            </div>
+        </span>
+
+        <label for="txtDuties" style="color: Blue;">
+            <p><b>* DESCRIPTION OF DUTIES AND ACCOMPLISHMENTS:</b></p>
+            <p>
+                The overall length of your resumé is limited to 18,000 characters or
+                approximately five pages. Because of these limitations, please be sure that your
+                description of duties and accomplishments for each work experience is concise
+                but complete. If you have more than 3 work experiences to include in your
+                resumé, you will need to limit the size of the description of duties and
+                responsibilities section for each work experience. This will ensure that there
+                will be space for all the other pertinent sections of your resumé. To see how
+                your completed resumé will look, select "View" at the bottom of the main resumé
+                page. You should "View" your resumé to ensure that it meets space limitations.<br>
+                <br>
+                Please limit your response to a maximum of 20 lines.
+            </p>
+        </label>
+
+        <div class="control-group validate-input">
+            <textarea asp-for="Data.Duties" rows="2" cols="20" id="txtDuties" style="height:68px;width:448px;"></textarea>
+            <span asp-validation-for="Data.Duties"></span>
+        </div>
+        <p>
+            To save this
+            experience and add it to your resumé, select the "Save" button.
+            This will save the information online.
+        </p>
+        <input type="submit" value="Save Work Experience" title="Save Work Experience" />
+    </div>
+</form>

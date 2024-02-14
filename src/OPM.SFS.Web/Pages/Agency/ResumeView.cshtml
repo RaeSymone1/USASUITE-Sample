@@ -1,0 +1,136 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Agency.ResumeViewModel
+@{
+	 Layout = "_SideMenuLayoutAO";
+}
+<link href='~/css/resumeview.css' rel='stylesheet' type='text/css'>
+@*<a href="/Student/BuilderResume" class="usa-button">Print</a>*@
+@*<input type="button" value="Print" onclick="window.print();" class="usa-button" />*@
+<br />
+<div class="container">
+  <div class="header">
+    <div class="full-name">
+      <span>@Model.Data.TheBuilderResume.FullName</span>
+    </div>
+    <div class="contact-info">
+      <span class="address">Address: </span>
+      <span>@Model.Data.TheBuilderResume.FullAddress</span>
+      <span class="separator"></span>
+      <span class="phone">Phone: </span>
+      <span class="phone-val">@Model.Data.TheBuilderResume.Phone</span>
+    </div>
+     <div class="contact-info">
+      <span class="email">Email: </span>
+      <span class="email-val">@Model.Data.TheBuilderResume.Email</span>
+      <span class="separator"></span>
+      <span class="phone">Alternative Email: </span>
+      <span class="phone-val">@Model.Data.TheBuilderResume.AltEmail</span>
+    </div>
+    
+    <div class="about">
+      <span class="position">Objective</span>
+      <span class="desc">
+          @Model.Data.TheBuilderResume.Objective
+      </span>
+    </div>
+  </div>
+   <div class="details">
+        @if (Model.Data.TheBuilderResume.WorkExperience is not null)
+        {
+            <div class="section">
+                <div class="section__title">Work Experience</div>
+                <div class="section__list">
+                    @foreach (var w in Model.Data.TheBuilderResume.WorkExperience)
+                    {
+                        <div class="section__list-item">
+                            <div class="name">@w.Employer </div>
+                            <div class="addr">@w.AddressLine</div>
+                            <div class="duration">Dates Employed: @w.Dates</div>
+                            <div class="">Annual Salary: @w.Salary</div>
+                            <div class="">Hours per Week: @w.Hours</div>
+                            <div class="name">@w.Title</div>
+                            <div class="desc">@w.Duties</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @if(Model.Data.TheBuilderResume.Education is not null) {
+            <div class="section">
+              <div class="section__title">Education</div>
+              <div class="section__list">
+                  @foreach(var e in Model.Data.TheBuilderResume.Education){
+                    <div class="section__list-item">
+                      <div class="left">
+                        <div class="name">@e.School</div>
+                        <div class="addr">@e.AddressLine</div>
+                        <div class="duration">@e.Degree</div>
+                        <div class="name">Completion Year: @e.Year</div>
+                        <div class="desc">Major: @e.Major</div>
+                        <div class="desc">Minor: @e.Minor</div>
+                        <div class="desc">Honors: @e.Honors</div>
+                      </div>
+                    </div>
+                  }
+              </div>      
+          </div>
+          }
+
+        @if (!string.IsNullOrWhiteSpace(Model.Data.TheBuilderResume.Courses))
+        {
+            <div class="section">
+                <div class="section__title">Job-Related Training Courses</div> 
+                <div class="section__list">
+                    <div class="section__list-item">
+                        <div class="text">@Model.Data.TheBuilderResume.Courses</div>
+                    </div>
+                </div>
+            </div>
+       }
+
+       @if (!string.IsNullOrWhiteSpace(Model.Data.TheBuilderResume.JobRelatedSkills)){
+        <div class="section">
+          <div class="section__title">Job-Related Skills</div> 
+           <div class="section__list">
+             <div class="section__list-item">
+               <div class="text">@Model.Data.TheBuilderResume.JobRelatedSkills</div>
+             </div>
+           </div>
+        </div>
+    }
+        @if (!string.IsNullOrWhiteSpace(Model.Data.TheBuilderResume.Certifications))
+        {
+            <div class="section">
+                <div class="section__title">Job-Related Certificates/Licenses</div> 
+                <div class="section__list">
+                    <div class="section__list-item">
+                        <div class="text">@Model.Data.TheBuilderResume.Certifications</div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.Data.TheBuilderResume.Honors))
+        {
+            <div class="section">
+                <div class="section__title">Job-Related Honors, Awards, Memberships, Etc.</div> 
+                <div class="section__list">
+                    <div class="section__list-item">
+                        <div class="text">@Model.Data.TheBuilderResume.Honors</div>
+                    </div>
+                </div>
+            </div>
+      }
+        @if (!string.IsNullOrWhiteSpace(Model.Data.TheBuilderResume.Supplemental))
+        {
+            <div class="section">
+                <div class="section__title">Supplemental Information</div> 
+                <div class="section__list">
+                    <div class="section__list-item">
+                        <div class="text">@Model.Data.TheBuilderResume.Supplemental</div>
+                    </div>
+                </div>
+            </div>
+          }
+    </div>
+  </div>

@@ -1,0 +1,249 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.RegistrationDetailsModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+
+<div class="infopage participate">
+    <h2>
+        <span>Students:</span><i> Registration</i>
+    </h2>
+   <div asp-validation-summary="All">
+    </div>
+    <div class="usa-width-one-half">
+        <ul class="usa-accordion-bordered">
+            <li>
+                <button class="usa-accordion-button" aria-expanded="true" aria-controls="b-a1">
+                    Instruction
+                </button>
+                <div id="b-a1" class="usa-accordion-content" aria-hidden="true">
+                    <p>
+                        <strong>Only Students previously accepted by a participating university and enrolled in the Scholarship For Service (SFS) Program may register and gain access to this system.</strong>
+                        If you are not an SFS enrollee, please click on <a href="/Student/Information" title="Student Program Guide">this link</a> for information on the SFS Program. To register as an enrolled Student, complete the form below and ensure all pre-populated information is correct.
+                        Then, select <strong>Submit</strong>. If any information is incorrect, contact your Principal Investigator (PI) or <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>.
+                        
+                    </p>
+
+                    <p> Most of the data you enter below will feed into your online profile.
+                        You will have the ability to edit your profile, but certain fields can only be
+                        changed by the SFS Program Office. Once you have been approved you will receive an email confirmation with additional instructions to complete the registration process. This may take up to two business days.
+                    </p>
+                    <p>
+                        You need to create a login.gov account to sign into SFS and access your profile information. For more information please visit the <a href="/Help/Account" title="SFS Help Center">SFS help center</a>.
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="usa-grid">
+        <div class="usa-width-one-half">
+
+            <div>
+                <div>
+                    <form method="post" class="usa-form-large">
+                        <input type="hidden" id="hfUID" asp-for="Data.UID" />
+                        <div class="control-group validate-input">
+                            <label for="txtFirstName">*First Name</label>                        
+                            <input asp-for="Data.Firstname" id="txtFirstName" />
+                            <span asp-validation-for="Data.Firstname"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="txtMiddleName">Middle Name or Initial</label>
+                            <input asp-for="Data.Middlename" id="txtMiddleName" />
+                            <span asp-validation-for="Data.Middlename"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="txtLastName">*Last Name</label>
+                            <input asp-for="Data.Lastname" id="txtLastName" />
+                            <span asp-validation-for="Data.Lastname"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="txtSuffix">Suffix (e.g., Jr., III or M.D.)</label>
+                             <input asp-for="Data.Suffix" id="txtSuffix" style="width:70px;" />
+                             <span asp-validation-for="Data.Suffix"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="txtSSN">*Social Security Number</label>
+                             <input asp-for="Data.SSN" id="txtSSN" type="password" />
+                             <span asp-validation-for="Data.SSN"></span>
+                        </div>
+
+                         <div class="control-group validate-input">
+                            <label for="txtConfirmSSN">*Confirm Social Security Number</label>
+                             <input asp-for="Data.ConfirmSSN" id="txtConfirmSSN" type="password"/>
+                             <span asp-validation-for="Data.ConfirmSSN"></span>
+                        </div>                       
+
+                        <div class="control-group validate-input">
+                             <label for="txtDateOfBirth">*Date of Birth (Example: mm/dd/yyyy)</label>
+                             <input asp-for="Data.DateOfBirth" type="text" maxlength="10" id="txtDateOfBirth">
+                             <span asp-validation-for="Data.DateOfBirth"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="ddlCollege">*University/College Attending</label>
+                            <select asp-for="Data.SelectedCollege" asp-items="Model.Data.Institutions" id="ddlCollege">
+                                <option value="">- Please Select -</option>
+                            </select> 
+                            <span asp-validation-for="Data.SelectedCollege"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="ddlDegreeProgram">*Degree Program</label>
+                            <select asp-for="Data.SelectedDegree" asp-items="Model.Data.Degrees" id="ddlDegreeProgram">
+                               <option value="">- Please Select -</option>
+                            </select>
+                            <span asp-validation-for="Data.SelectedDegree"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="ddlDiscipline">*Major</label>
+                            <select asp-for="Data.SelectedDiscipline" asp-items="Model.Data.Disciplines" id="ddlDiscipline">
+                                <option value="">- Please Select -</option>
+                            </select>   
+                            <span asp-validation-for="Data.SelectedDiscipline"></span>
+                        </div>
+                        
+                        <div class="control-group validate-input">
+                            <label for="ddlMinor">Minor</label>
+                            <select asp-for="Data.SelectedMinor" asp-items="Model.Data.Disciplines" id="ddlMinor">
+                                <option value="">- Please Select -</option>
+                            </select>   
+                            <span asp-validation-for="Data.SelectedMinor"></span>
+                        </div>
+
+                          <div class="control-group validate-input">
+                            <label id="lblSecondDegreeMajor" for="ddlSecondDegreeMajor">*Second Degree Major</label>
+                            <select asp-for="Data.SelectedSecondDegreeMajor" asp-items="Model.Data.Disciplines" id="ddlSecondDegreeMajor">
+                                <option value="">- Please Select -</option>
+                            </select>   
+                            <span asp-validation-for="Data.SelectedSecondDegreeMajor"></span>
+                        </div>
+
+                        
+                          <div class="control-group validate-input">
+                            <label id="lblSecondDegreeMinor" for="ddlSecondDegreeMinor">Second Degree Minor</label>
+                            <select asp-for="Data.SelectedSecondDegreeMinor" asp-items="Model.Data.Disciplines" id="ddlSecondDegreeMinor">
+                                <option value="">- Please Select -</option>
+                            </select>   
+                            <span asp-validation-for="Data.SelectedSecondDegreeMinor"></span>
+                        </div>
+
+                         <div class="control-group validate-input">
+                            <label for="txtInitialFundingDate">*Initial Funding Semester/Quarter (mm/yyyy)</label>
+                            <input type="text" asp-for="Data.InitialFundingDate" maxlength="7" id="txtInitialFundingDate">
+                            <span asp-validation-for="Data.InitialFundingDate"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="txtDateGraduation">*Expected Graduation Date (mm/yyyy)</label>
+                            <input asp-for="Data.GraduationDate" type="text" maxlength="7" id="txtDateGraduation">
+                            <span asp-validation-for="Data.GraduationDate"></span>
+                        </div>
+
+                        <div class="control-group validate-input">
+                            <label for="txtEmail">*Email Address</label>
+                            <input asp-for="Data.Email" maxlength="120" id="txtEmail" type="text">
+                            <span asp-validation-for="Data.Email"></span>
+                        </div>
+
+                         <div class="control-group validate-input">
+                            <label for="txtEmailAlternate">*Alternate Email Address</label>
+                            <input asp-for="Data.AlternateEmail" maxlength="120" id="txtEmailAlternate" type="text">
+                            <span asp-validation-for="Data.AlternateEmail"></span>
+                        </div>
+
+                       
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="usa-width-one-half">
+            <div class="privacy-border">
+                <p style="font-weight:bold; ">SFS Student Privacy Act Statement</p>
+                <div style="font-size:x-large">
+                    <p>
+                        <strong>The CyberCorps®: Scholarship for Service (SFS) student registration system privacy act statement: </strong>Pursuant to 5 U.S.C. § 552a(e)(3), this Privacy Act Statement serves to inform you of why OPM is requesting the information on this application
+                    </p>
+                    <p>
+                        <i>Authority:</i> The National Science Foundation Act of 1950, as amended, authorizes the National Science Foundation (NSF) to promote and advance scientific progress in the United States by competitively awarding grants and cooperative agreements for research and education in the sciences, mathematics, and engineering. The CyberCorps®: Scholarship for Service (SFS) program, as a program within the Division of Undergraduate Education at NSF, was established under this charter. The U.S. Office of Personnel Management's authority to collect information in support of SFS program activities is derived from the above Law through a Memorandum of Understanding (MOU) between NSF and the U.S. Office of Personnel Management (OPM) that tasks OPM with providing the operational framework for the federal placement and tracking of students throughout the academic phase and post-graduation federal employment obligation.
+                    </p>
+                    <p>
+                        Executive Order 9397 as amended by Executive Order 13478 authorizes the collection of the Social Security Number to identify individual records in Federal personnel records systems.
+                    </p>
+                    <p>
+                        <i>Purpose:</i> The information collected is used to verify student eligibility and ensure compliance with program requirements. The information is made available to participating employers (federal agencies, independent agencies, government corporations, commissions, quasi-official agencies, or federally funded research development centers) for the purpose of internship and post-graduation placement. It may also be used for studies and statistics that will not identify you.
+                    </p>
+                    <p>
+                        <i>Routine Uses:</i> The information requested on this form may be shared externally as a "routine use" and is subject to verification via paper, electronic media, or through the use of computer matching programs with participating employers (Federal agencies, independent agencies, government corporations, commissions, quasi-official agencies, or federally funded research development centers) in order to assist you in meeting program commitment requirements. A complete list of the routine uses can be found in the system of records notice associated with this application, OPM Internal 18, CyberCorps®: Scholarship for Service, FR 79 42604, July 18, 2014.
+                    </p>
+                    <p>
+                        The information may also be shared with the Department of Treasury in the event you default on program requirements and scholarship funding received must be reimbursed to the U.S. Federal Government.
+                    </p>
+                    <p>
+                        <i>Consequences of failure to provide information.</i> Furnishing the data requested is voluntary, but failure to do so will delay or make it impossible for us to process your registration. Registering on the SFS system and completing an on-line resume is required for program participation.
+                    </p>
+
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <style>
+        .grid-extra-wide {
+            max-width: 160rem;
+        }
+
+        .privacy-border {
+            border-top: 3px solid #f1f1f1;
+            border-bottom: 3px solid #f1f1f1;
+            border-left: 3px solid #f1f1f1;
+            border-right: 3px solid #f1f1f1;
+            padding: 15px;
+        }
+    </style>
+</div>
+@section Scripts {
+    <script asp-add-nonce>
+        $(document).ready(function () {
+
+               var type = $("#ddlDegreeProgram option:selected" ).text();
+               if(type.includes("/")) {
+                        $("#lblSecondDegreeMajor").show();
+                        $("#ddlSecondDegreeMajor").show();
+                        $("#lblSecondDegreeMinor").show();
+                        $("#ddlSecondDegreeMinor").show();
+                }
+                else {
+                        $("#lblSecondDegreeMajor").hide();
+                        $("#ddlSecondDegreeMajor").hide();
+                        $("#lblSecondDegreeMinor").hide();
+                        $("#ddlSecondDegreeMinor").hide();
+                }
+		});
+		$(function () {
+			 $("#ddlDegreeProgram").on("change", function() {
+	            var type = $("#ddlDegreeProgram option:selected" ).text();
+                if(type.includes("/")) {
+                        $("#lblSecondDegreeMajor").show();
+                        $("#ddlSecondDegreeMajor").show();
+                        $("#lblSecondDegreeMinor").show();
+                        $("#ddlSecondDegreeMinor").show();
+                }
+                else {
+                        $("#lblSecondDegreeMajor").hide();
+                        $("#ddlSecondDegreeMajor").hide();
+                        $("#lblSecondDegreeMinor").hide();
+                        $("#ddlSecondDegreeMinor").hide();
+                }
+			});
+		});
+	</script>
+	}

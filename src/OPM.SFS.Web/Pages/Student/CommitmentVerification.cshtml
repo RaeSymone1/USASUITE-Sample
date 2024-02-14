@@ -1,0 +1,32 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.CommitmentVerificationModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+<h2><span>Scholar:</span><i> service commitments and verifications</i></h2>
+<div class="grid-row">
+    <div class="grid-col-12">
+        <div class="usa-alert usa-alert-info">
+                <div class="usa-alert-body">
+                    <h3 class="usa-alert-heading"></h3>
+                <p class="usa-alert-text">
+                    This page serves as your dashboard for managing service commitments and employment verification documents as you fulfill your SFS service obligation. Here’s a quick summary of what you can do:
+                    <ul>
+                        <li>When you receive a job offer (internship or postgraduate employment), add a new service commitment.</li>
+                        <li>Upload and submit documentation for that commitment and track its approval status.</li>
+                        <li>When you complete a year of service, submit the required annual employment verification documentation for that commitment.</li>
+                        <li>Add and repeat the process for any additional commitments for the length of your service obligation.</li>
+                        <li>View the status of all your commitments and employment verification documentation approvals as you complete your service obligation.</li>
+                    </ul>
+                </p>
+                </div>
+            </div>
+    </div>
+</div>
+
+<h5>Service obligation details</h5>
+<hr class="sfs-panel-bar"/>
+
+<partial name="_CommitmentsPartial" model="Model.Data" />
+
+<a href="/Student/CommitmentEdit?cid=0" class="usa-button usa-button-outline">Add new commitment</a>

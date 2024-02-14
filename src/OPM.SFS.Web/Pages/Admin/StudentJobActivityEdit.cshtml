@@ -1,0 +1,155 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.StudentJobActivityEditModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+			<form method="post">   
+                
+        <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/StudentLookup" class="usa-breadcrumb__link">
+					<span>Student Lookup</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Job Activity Edit</span>
+				</li>
+			  </ol>
+			</nav>
+
+        <h3>Administration: Edit Job Activity</h3>
+       
+        <label id="lblName" class="margin-top-5"><b>Student Name</b></label>
+        <span>@Model.Data.Studentname</span>
+        <label id="lblUnivName" class="margin-top-5"><b>University/College Attending</b></label>
+        <span>@Model.Data.University</span>
+
+        <label class="margin-top-5"><b>Discipline</b></label>
+        <span>@Model.Data.Major</span>
+
+
+        <label class="margin-top-5"><b>Degree Program</b></label>
+        <span>@Model.Data.Degree</span>
+
+        <label class="margin-top-5"><b>Expected Graduation Date</b></label>
+        <span>@Model.Data.GradDate</span>
+
+
+        <span style="background-color:White;"></span>
+        <input type="hidden" asp-for="Data.StudentID" />
+         <input type="hidden" asp-for="Data.JobActivityId" />
+        <div class="control-group validate-input">
+            <label for="txtDate">*Date Applied (mm/dd/yyyy)</label>
+            <input asp-for="Data.DateApplied" type="text" id="txtDate" tabindex="1" title="Date Applied?">
+            <span asp-validation-for="Data.DateApplied"></span>
+        </div>
+
+        <div class="control-group validate-input">
+             <label for="txtJob">*Position Title</label>
+             <input asp-for="Data.PositionTitle" type="text" id="txtJob" tabindex="2" title="Position Title?">
+             <span asp-validation-for="Data.DateApplied"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtUSAJobsControlNumber">USAJOBS Control Number / Announcement Number</label>
+            <input asp-for="Data.USAJControlNunber" type="text" id="txtUSAJobsControlNumber" tabindex="3" title="USAJOBS Control Number?">
+            <span asp-validation-for="Data.USAJControlNunber"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="ddlAgencyType">*Agency Type</label>
+            <select id="ddlAgencyType" tabindex="4" title="Agency Type?" asp-for="Data.AgencyType" asp-items="Model.Data.AgencyTypeList">
+                <option value="0">-- Please select --</option>
+            </select>
+            <span asp-validation-for="Data.AgencyType"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtAgencyName">*Agency Name</label>
+            <input asp-for="Data.AgencyName" type="text" id="txtAgencyName" tabindex="5" title="Agency Name?">
+             <span asp-validation-for="Data.AgencyName"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtDutyLocation">Duty Location</label>
+            <input asp-for="Data.DutyLocation" type="text" id="txtDutyLocation" tabindex="6" title="Duty Location?">
+             <span asp-validation-for="Data.DutyLocation"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtContactFirstName">Contact First Name</label>
+            <input asp-for="Data.ContactFirstname" type="text" id="txtContactFirstName" tabindex="7" title="Contact First Name?">
+             <span asp-validation-for="Data.ContactFirstname"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtContactLastName">Contact Last Name</label>
+            <input asp-for="Data.ContactLastname" type="text" id="txtContactLastName" tabindex="8" title="Contact Last Name?">
+             <span asp-validation-for="Data.ContactLastname"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="lblContactEmail">Contact Email Adress</label>
+            <input asp-for="Data.ContactEmailaddress" type="text" id="txtContactEmail" tabindex="9" title="Contact Email Address?">
+             <span asp-validation-for="Data.ContactEmailaddress"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtDescription">*Description of Activity</label>
+            <textarea asp-for="Data.Description" rows="2" cols="20" id="txtDescription" tabindex="10" title="Activity Description? Include your activities related to this position; i.e., applied via USAJOBS, provided resume at job fair, sent inquiry email."></textarea>
+             <span asp-validation-for="Data.Description"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="ddlStatus">*Status</label>
+            <select id="ddlStatus" title="Job Activity Status" asp-for="Data.Status" asp-items="Model.Data.StatusList">
+                <option value="0">-- Please select --</option>
+            </select>
+            <span asp-validation-for="Data.Status"></span>
+        </div>
+
+         <div class="control-group validate-input other-status" style="display:none">
+            <label for="txtStatus">Status Other</label>
+            <textarea asp-for="Data.StatusOther" rows="2" cols="20" id="txtStatus" tabindex="11" title="Current Status? Provide the current status of this application; i.e., awaiting response, interview scheduled, accepted offer, ineligible."></textarea>
+             <span asp-validation-for="Data.StatusOther"></span>
+        </div>
+        @if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+		{
+        <input type="submit" value="Submit">
+        }
+    </form>
+		</div>
+	</div>
+</div>
+
+@section scripts{ 
+    <script asp-add-nonce>
+          $(function () {
+              var otherText = $("#txtStatus").val();
+              if(otherText != null && otherText !=''){
+                  $(".other-status").show();
+              }
+
+               $("#ddlStatus").on("change", function() {
+                   var statusOption = $("#ddlStatus option:selected" ).text();
+                   if(statusOption == "Other"){
+                        $(".other-status").show();
+                   }
+                   else {
+                       $(".other-status").hide();
+                   }
+               });
+          });
+      </script>
+
+}

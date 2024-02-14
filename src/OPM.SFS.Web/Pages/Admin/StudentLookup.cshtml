@@ -1,0 +1,88 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.StudentLookupModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Student Search</span>
+				</li>
+			  </ol>
+			</nav>
+
+			<h3>Administration: Find Student</h3>
+			
+				<p>Welcome to the Administrative section of the SFS Program website. Please enter the Last Name or Email Address of the Student you are trying to edit. 
+				The field is NOT case-sensitive. If a match is found in the database, you will be directed to a page that allows modification.</p>
+
+				<form method="post" class="usa-form-large">
+					<input id="radSearchLastName" asp-for="Data.SearchOption" type="radio" value="LastName">
+					<label for="radSearchOption">Last Name</label>
+
+					<input id="radSearchEmail" asp-for="Data.SearchOption"  type="radio" value="Email">
+					<label for="radSearchOption">Email</label>
+					<span asp-validation-for="Data.SearchOption"></span>
+
+
+					<div class="control-group validate-input">
+						<label for="txtSearchFilter">*Email or Last Name</label>
+						<input type="text" id="txtSearchFilter" asp-for="Data.SearchFilter">
+						<span asp-validation-for="Data.SearchFilter"></span>
+					</div>
+
+					<input type="submit" value="Search" class="usa-button" />
+				</form>
+
+				@if(Model.Data.Students.Count > 0)
+				{
+					<table>
+						 <thead>
+							<tr>
+
+								<th></th>
+								<th>UID</th>
+								<th>SSN</th>
+								<th>Last Name</th>
+								<th>First Name</th>
+								<th>Email</th>
+								<th>Account Status</th>
+								<th>Background Complete</th>
+								<th>Profile Complete</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach(var item in Model.Data.Students)
+							{
+								<tr>
+									<td><a href="/Admin/StudentProfileEdit?sid=@item.StudentID">Select</a></td>
+									<td>@item.StudentUID</td>
+									<td>@item.SSN</td>
+									<td>@item.LastName</td>
+									<td>@item.FirstName</td>
+									<td>@item.Email</td>
+									<td title="@item.Display">@item.Status</td>
+									<td>@item.BackgroundComplete</td>
+									<td>@item.ProfileComplete</td>
+								</tr>
+							}
+						</tbody>
+				</table>
+			}
+			<h3>@Model.Data.SearchResultsMessage</h3>
+
+
+			</div>
+		</div>
+	</div>
+

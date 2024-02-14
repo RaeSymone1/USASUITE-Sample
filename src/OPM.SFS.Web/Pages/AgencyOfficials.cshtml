@@ -1,0 +1,93 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.AgencyOfficialModel
+@{
+    Layout = "_NoSideMenu";
+}
+
+
+<div class="usa-grid-full">
+    <div><a href="@Model.Data.RefererURL">Back to Main Menu</a></div>
+    <center>
+        <h2>Agency official list</h2>
+    </center>
+    <div class="usa-alert usa-alert-info">
+        <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">Agency Official - SFS Coordinator and Points of Contact</h3>
+            <p class="usa-alert-text">
+                The following list identifies Agency Officials who serve as the agency's
+                Scholarship For Service coordinator and points of contact for Students, other
+                Agency Officials, Principal Investigators and Program Office staff.
+
+                NOTE: Contacts do change and we may not be aware of this. If you encounter such,
+                please email <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>
+            </p>
+
+            In accordance with privacy and information technology security guidelines, all system users of the Scholarship For Service&nbsp; website are required to properly handle and protect Personally Identifiable Information (PII).&nbsp;  The loss of PII can result in substantial harm, embarrassment, and inconvenience to individuals and may lead to identity theft or other fraudulent use of the information.&nbsp;  You are obligated to protect PII from unauthorized disclosure by:
+            <br>
+            <ol>
+                <li style="text-align:left">  Encrypting any PII data that is downloaded from this website</li>
+                <li style="text-align:left">  Erasing any PII data downloaded from this website within 90 days unless its official use is still required</li>
+                <li style="text-align:left">  Ensure proper protection and disposition of printed documents containing PII obtained from this website</li>
+            </ol>
+
+        </div>
+    </div>
+    <div class="usa-width-one-whole" style="margin:10px;">
+        <center><a href="?handler=ExcelView">Download to Excel</a> (All Data)</center>
+    </div>
+
+<table id="agencyofficials" class="usa-table-borderless" style="width: 818px;">
+   <thead>
+        <tr>
+            <th>
+                Agency Offical Name
+            </th>
+            <th>
+                Agency
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+               Email
+            </th>
+             <th>
+               Phone Number
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         @if (Model.Data.AgencyOfficials.Count() > 0)
+        {
+            @foreach (var item in Model.Data.AgencyOfficials)
+            {
+               <tr>                   
+                   <td>
+                       @item.Name
+                   </td>
+                   <td>
+                       @item.Agency
+                   </td>
+                    <td>
+                       @item.AgencyType
+                   </td>
+                    <td>
+                       @item.Email 
+                   </td>
+                    <td>
+                       @item.Phone 
+                   </td>
+               </tr>
+            }
+        }
+    </tbody>
+</table>
+</div>
+
+@section Scripts {
+    <script>
+   $(document).ready(function () {
+        $("#agencyofficials").DataTable();
+    });
+    </script>
+}

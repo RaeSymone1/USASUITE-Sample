@@ -1,0 +1,40 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Agency.RegisterPIVModel
+@{
+	Layout = "_SideMenuLayoutAO";
+}
+<div class="grid-container-widescreen">
+    <div class="grid-row">      
+        <div class="grid-col-10">
+             <h2 id="h2PageHeaderText" class="PageHeader">Register Your Smartcard</h2>
+            @if(Model.Data != null && !string.IsNullOrWhiteSpace(Model.Data.Message ))
+            {
+                <div class="usa-alert usa-alert-success">
+                    <div class="usa-alert-body">
+                        <p class="usa-alert-text">
+                           @Model.Data.Message
+                        </p>
+                    </div>
+               </div>
+            }
+            <p>
+                In order to navigate through the system with your Smartcard, you must register it. 
+                Please enter your email address. An email will be sent to confirm and complete your 
+                Smartcard registration.
+            </p>
+            <div id="admin-alt-login">
+                 <form method="post" class="usa-form">
+                <fieldset>
+                    <legend class="usa-drop_text">Agency Official Login</legend>
+                    <div class="control-group validate-input">
+                        <label id="lblUserID" class="control-label" for="txtUserID">Email Address</label>
+                        <input placeholder="Enter your email address" asp-for="Data.Email" id="txtEmail" />
+                        <span asp-validation-for="Data.Email"></span>
+                    </div>                    
+                    <input type="submit" value="Submit" class="usa-button" />
+                </fieldset>
+            </form>
+            </div>
+        </div>
+    </div>
+ </div>

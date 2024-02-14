@@ -1,0 +1,54 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.CommitmentRejectModel
+@{
+	Layout = "_AdminLayout";
+}
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+			<h3><span>Admins:</span><i> Commitment Reject Information</i></h3>
+
+			<div asp-validation-summary="All">
+				<span>One or more errors occcured.</span>
+			</div>
+
+			<div class="multi-input-div">
+				<h4>Commitment Information</h4>
+				<label for="lblSSN" class="no-margin-top" style="font-weight:bold;">Student Social Security Number</label>
+				<span id="lblSSN">@Model.Data.FormattedSSN</span>
+				<br>
+
+				<label for="lblLName" class="no-margin-top" style="font-weight:bold;">Student's Last Name</label>
+				<span id="lblLName">@Model.Data.LastName</span>
+
+				<label for="lblFName" class="no-margin-top" style="font-weight:bold;">Student's First Name</label>
+				<span id="lblFName">@Model.Data.FirstName</span>
+
+				<label for="lblCommitType" class="no-margin-top" style="font-weight:bold;">Commitment Type</label>
+				<span id="lblCommitType">@Model.Data.CommitType</span>
+
+				<label for="lblAgency" class="no-margin-top" style="font-weight:bold;">Commitment Agency</label>
+				<span id="lblAgency">@Model.Data.Agency</span>
+
+				<label for="lblJobTitle" class="no-margin-top" style="font-weight:bold;">Commitment Job Title</label>
+				<span id="lblFName">@Model.Data.JobTitle</span>
+			</div>
+
+			<form method="post" class="usa-form-large">
+				<input type="hidden" id="hfCommitmentId" asp-for="Data.CommitID" />
+				<div class="commitment-preapproval">
+					<div class="control-group validate-input">
+						<label for="txtRejectNote">Commitment Rejection Notes</label>
+						<textarea asp-for="Data.RejectNote" rows="2" cols="20" id="txtJustification" size="10" placeholder="Please enter notes on this rejection" style="overflow-y: scroll;" maxlength="1000"></textarea>
+						<span asp-validation-for="Data.RejectNote"></span>
+					</div>
+				</div>
+	            @if (User.FindFirst("AdminRole").Value != "Read Only")
+				{
+					<input type="submit" value="Submit" class="usa-button">
+				}
+			</form>
+
+		</div>
+	</div>
+</div>

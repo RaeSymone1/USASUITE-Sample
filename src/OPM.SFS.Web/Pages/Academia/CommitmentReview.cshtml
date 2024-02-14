@@ -1,0 +1,453 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Academia.CommitmentReviewModel
+@{
+	Layout = "_PILayout";
+}
+@using OPM.SFS.Web.SharedCode;
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+			<h3><span>Principal Investigators:</span><i> Commitment Review</i></h3>
+			<a href="/Academia/Commitments">Back to Commitment List</a>
+			<div asp-validation-summary="All">
+				<span>One or more errors occcured.</span>
+			</div>
+			<div>
+			<button id="btn-add-resume" data-object-trigger="modal" data-target="#modal-resume-add">
+				View Documents
+			</button>
+			</div>
+			<div class="multi-input-div">
+				<h3>Student Information</h3>
+				<label for="lblSSN" class="no-margin-top" style="font-weight:bold;">Student Social Security Number</label>
+				<span id="lblSSN">@Model.Data.FormattedSSN</span>
+				<br>
+
+				<label for="lblLName" class="no-margin-top" style="font-weight:bold;">Student's Last Name</label>
+				<span id="lblLName">@Model.Data.LastName</span>
+
+				<label for="lblFName" class="no-margin-top" style="font-weight:bold;">Student's First Name</label>
+				<span id="lblFName">@Model.Data.FirstName</span>
+			</div>
+
+			<form method="post" class="usa-form-large">
+				<input type="hidden" id="hfCommitmentId" asp-for="Data.CommitmentId" />
+				<input type="hidden" id="hfShowForm" asp-for="Data.ShowForm" />
+				<div class="control-group validate-input">
+					<label for="ddlAgencyType">*Agency Type</label>
+					<select id="ddlAgencyType" asp-for="Data.AgencyType" asp-items="Model.Data.AgencyTypeList" disabled>
+						<option value="">Select Agency Type</option>
+					</select>
+					 <span asp-validation-for="Data.AgencyType"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlAgency">*Agency</label>
+					<select id="ddlAgency" class="agencySelect" asp-items="Model.Data.AgencyList" asp-for="Data.Agency" disabled>		
+					</select>
+					 <span asp-validation-for="Data.Agency"></span>
+		 
+				</div>
+	
+				 @if(Model.Data.SubAgencyList is not null && Model.Data.SubAgencyList.Count() > 0)
+				{  
+					<div class="control-group validate-input subagencies">
+						<label for="ddlSubAgency">*Sub Agency</label>
+						<select id="ddlSubAgency" class="agencySelect" asp-items="Model.Data.SubAgencyList" asp-for="Data.SubAgency" disabled>		
+						</select>
+						 <span asp-validation-for="Data.SubAgency"></span>		 
+					</div>
+				}
+				else
+				{
+					<div class="control-group validate-input subagencies" style="display:none">
+						<label for="ddlSubAgency">*Sub Agency</label>
+						<select id="ddlSubAgency" class="agencySelect" asp-for="Data.SubAgency" disabled>		
+						</select>
+						 <span asp-validation-for="Data.SubAgency"></span>		 
+					</div>
+				}
+
+				<input type="hidden" id="hfApprovalWorkflow" asp-for="Data.AgencyApprovalWorkflow" />
+				<div class="control-group validate-input">
+					<label for="ddlCommitmentType">*Commitment Type</label>
+					<select id="ddlCommitmentType" asp-for="Data.CommitmentType" asp-items="Model.Data.CommitmentTypeList" disabled>
+					</select>
+					<span asp-validation-for="Data.CommitmentType"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtJobTitle">*Job Title</label>
+					<input type="text" id="txtJobTitle" title="JobTitle" asp-for="Data.JobTitle" disabled>
+					<span asp-validation-for="Data.JobTitle"></span>
+				</div>
+
+				<!--Approved Workflow/Full Form-->
+				
+					<div id="approved-wkflow-Section" style="display:none" class="commitment-approved">
+						<h3>Salary Range</h3>
+
+						<div class="control-group validate-input">
+							<select id="ddlRate" asp-for="Data.PayRate" asp-items="Model.Data.PayRateList" disabled>
+							</select>
+							<span asp-validation-for="Data.PayRate"></span>
+						</div>
+
+						<div class="control-group validate-input">
+							<label for="txtSalMin" class="no-margin-top">*From</label>
+							<input type="text" maxlength="9" id="txtSalMin" size="10" asp-for="Data.SalaryMin" disabled>
+							<span asp-validation-for="Data.SalaryMin"></span>
+						</div>
+
+						<div class="control-group validate-input">
+							<label for="txtSalMax">*To</label>
+							<input type="text" maxlength="9" id="txtSalMax" size="10" asp-for="Data.SalaryMax" disabled>
+							<span asp-validation-for="Data.SalaryMax"></span>
+						</div>
+
+
+						<div class="control-group validate-input">
+							<label for="txtPlan">*Pay Plan (e.g., GS)</label>
+							<input type="text" maxlength="5" id="txtPlan" title="Plan" class="usa-input-inline" size="2" aria-label="Plan" asp-for="Data.PayPlan" disabled>
+							<span asp-validation-for="Data.PayPlan"></span>
+						</div>
+						<div class="control-group validate-input">
+							<label for="txtSeries">*Series (e.g., 1111)</label>
+							<input type="text" maxlength="5" id="txtSeries" title="Series" class="usa-input-inline" size="4" aria-label="Series" asp-for="Data.Series" disabled>
+							<span asp-validation-for="Data.Series"></span>
+						</div>
+						<div class="control-group validate-input">
+							<label for="txtGrade">*Grade (e.g., 11)</label>
+							<input type="text" maxlength="5" id="txtGrade" title="Grade" class="usa-input-inline" size="2" aria-label="Grade" asp-for="Data.Grade" disabled>
+							<span asp-validation-for="Data.Grade"></span>
+						</div>
+						<div>
+							<h3>Duty Location Information</h3>
+							<legend>Duty Location Information</legend>
+							<span class="no-margin-top">
+								<div class="control-group validate-input">
+									@*<input id="chkInternational" type="checkbox">*@
+									<input asp-for="Data.IsInternational" disabled>
+									<label for="Data_IsInternational">International Location?</label>
+								</div>
+							</span>
+
+							<div class="control-group validate-input">
+								<label for="txtCountry">*Country</label>
+								<input type="text" id="txtCountry" asp-for="Data.Country" disabled>
+								<span asp-validation-for="Data.Country"></span>
+							</div>	
+							
+							<div class="control-group validate-input">
+								<label for="txtCity">*City</label>
+								<input type="text" id="txtCity" asp-for="Data.City" disabled>
+								<span asp-validation-for="Data.City"></span>
+							</div>
+
+							<div class="control-group validate-input">
+								<label for="ddlState">*State</label>
+								<select id="ddlState" asp-for="Data.State" asp-items="Model.Data.StateList" disabled>
+									<option value="">-- Please Select --</option>
+								</select>
+								<span asp-validation-for="Data.State"></span>
+							</div>
+
+							<div class="control-group validate-input">
+								<label for="txtZipCode">*Zip+4 Code (e.g., 62389-2341, +4 Optional)</label>
+								<input type="text" maxlength="10" id="txtZipCode" asp-for="Data.PostalCode" disabled>
+								<span asp-validation-for="Data.PostalCode"></span>
+							</div>
+						</div>
+
+						<h3>Manager/Supervisor Information</h3>
+						<legend>Manager/Supervisor Information</legend>
+
+						<div class="control-group validate-input">
+							<label for="txtSupeFirstName" class="no-margin-top">*First Name</label>
+							<input type="text" maxlength="15" id="txtSupeFirstName" asp-for="Data.SupervisorFirstName" disabled>
+							<span asp-validation-for="Data.SupervisorFirstName"></span>
+						</div>
+
+
+						<div class="control-group validate-input">
+							<label for="txtSupeLastName">*Last Name</label>
+							<input type="text" maxlength="20" id="txtSupeLastName" asp-for="Data.SupervisorLastName" disabled>
+							<span asp-validation-for="Data.SupervisorLastName"></span>
+						</div>
+
+						<div class="control-group validate-input">
+							<label for="txtSupeEmail">*Email Address</label>
+							<input type="text" maxlength="120" id="txtSupeEmail" class="style1" asp-for="Data.SupervisorEmailAddress" disabled>
+							<span asp-validation-for="Data.SupervisorEmailAddress"></span>
+						</div>
+
+						<h5>*Manager/Supervisor Business Phone Number</h5>
+						<span class="usa-form-hint">For example: 206-430-0934  Ex. 12345</span>
+
+						<div class="multi-input-div">
+							<div class="usa-form-group usa-form-group-month">
+								<div class="control-group validate-input">
+									<label for="txtSuperAreaCode">Area Code</label>
+									<input type="text" maxlength="3" id="txtSupeAreaCode" title="Manager/Supervisor Area Code" class="phoneTextBox usa-input-inline" aria-label="Manager Area Code" asp-for="Data.SupervisorPhoneAreaCode" disabled>
+									<span asp-validation-for="Data.SupervisorPhoneAreaCode"></span>
+								</div>
+							</div>
+							<div class="usa-form-group usa-form-group-day">
+								<br>
+								<div class="control-group validate-input">
+									<label for="txtSupePhonePrefix">Prefix</label>
+									<input type="text" maxlength="3" id="txtSupePhonePrefix" class="phoneTextBox usa-input-inline" aria-label="Manager Phone Prefix" asp-for="Data.SupervisorPhonePrefix" disabled>
+									<span asp-validation-for="Data.SupervisorPhonePrefix"></span>
+								</div>
+							</div>
+							<div class="usa-form-group usa-form-group-year">
+								<br>
+								<div class="control-group validate-input">
+									<label for="txtSupePhone">Suffix</label>
+									<input type="text" maxlength="4" id="txtSupePhone" class="phoneTextBox usa-input-inline" aria-label="Manager Phone Suffix" asp-for="Data.SupervisorPhoneSuffix" disabled>
+									<span asp-validation-for="Data.SupervisorPhoneSuffix"></span>	
+								</div>
+							</div>
+							<div class="usa-form-group usa-form-group-year">
+								<div class="control-group validate-input">
+									<label for="txtSupeExtension"><span style="font-size: 9pt;">(optional)</span> Extension</label>
+									<input type="text" maxlength="6" id="txtSupeExtension" class="phoneTextBox usa-input-medium" asp-for="Data.SupervisorPhoneExtension" disabled>
+									<span asp-validation-for="Data.SupervisorPhoneExtension"></span>
+								</div>
+							</div>
+						</div>
+						<br />
+						<h3 class="no-margin-top">Mentor/Contact Information</h3>
+						<legend>Mentor/Contact Information</legend>
+
+						<div class="control-group validate-input">
+							<label for="txtMenFName" class="no-margin-top">First Name</label>
+							<input type="text" maxlength="15" id="txtMenFName" size="20" asp-for="Data.MentorFirstName" disabled>
+							<span asp-validation-for="Data.MentorFirstName"></span>
+						</div>
+
+						<div class="control-group validate-input">
+							<label for="txtMenLName">Last Name</label>
+							<input type="text" maxlength="20" id="txtMenLName" size="20" asp-for="Data.MentorLastName" disabled>
+							<span asp-validation-for="Data.MentorFirstName"></span>
+						</div>
+
+						<div class="control-group validate-input">
+							<label for="txtMenEmail">Email Address</label>
+							<input type="text" maxlength="120" id="txtMenEmail" class="style1" asp-for="Data.MentorEmailAddress" disabled>
+							<span asp-validation-for="Data.MentorEmailAddress"></span>
+						</div>
+
+
+						<h5>Mentor/Contact Business Phone Number</h5>
+						<span class="usa-form-hint">For example: 206-430-0934  Ex. 12345</span>
+						<div class="multi-input-div">
+							<div class="usa-form-group usa-form-group-month">
+								<div class="control-group validate-input">
+									<label for="txtMenAreaCode">Area Code</label>
+									<input type="text" maxlength="3" id="txtMenAreaCode" title="MenAreaCode" class="usa-input-inline" size="3" aria-label="Mentor Area Code" asp-for="Data.MentorPhoneAreaCode" disabled>
+									<span asp-validation-for="Data.MentorPhoneAreaCode"></span>
+								</div>
+							</div>
+							<div class="usa-form-group usa-form-group-day">
+								<br>
+								<div class="control-group validate-input">
+									<label for="txtMenPrefix">Prefix</label>
+									<input type="text" maxlength="3" id="txtMenPrefix" title="MenPhonePrefix" class="usa-input-inline" size="3" aria-label="Mentor Phone Prefix" asp-for="Data.MentorPhonePrefix" disabled>
+									<span asp-validation-for="Data.MentorPhonePrefix"></span>
+								</div>
+							</div>
+							<div class="usa-form-group usa-form-group-year">
+								<br>
+								<div class="control-group validate-input">
+									<label for="txtMenSuffix">Suffix</label>
+									<input type="text" maxlength="4" id="txtMenSuffix" title="MenPhoneSuffix" class="usa-input-inline" size="4" aria-label="Mentor Phone Suffix" asp-for="Data.MentorPhoneSuffix" disabled> 
+									<span asp-validation-for="Data.MentorPhoneSuffix"></span>
+								</div>
+							</div>
+							<div class="usa-form-group usa-form-group-year">
+								<div class="control-group validate-input">
+									<label for="txtMenExt"><span style="font-size: 9pt;">(optional)</span> Extension</label>
+									<input type="text" maxlength="6" id="txtMenExt" title="MenExt" class="usa-input-inline" size="4" asp-for="Data.MentorPhoneExtension" disabled>
+									<span asp-validation-for="Data.MentorPhoneExtension"></span>
+								</div>
+							</div>
+						</div>
+						<h5>*Projected Start Date</h5>
+						<span class="usa-form-hint" id="dobStartHint">For example: 04 28 1986</span>
+						<div class="multi-input-div">
+							<div class="usa-form-group usa-form-group-month">
+								<div class="control-group validate-input">
+									<label for="txtProjectStartMonth">Month</label>
+									<input type="text" maxlength="2" id="txtProjectStartMonth" title="ProjectedMonth" class="usa-input-inline" size="3" asp-for="Data.StartDateMonth" disabled>
+									<span asp-validation-for="Data.StartDateMonth"></span>
+								</div>
+							</div>
+
+							<div class="usa-form-group usa-form-group-day">
+								<div class="control-group validate-input">
+									<label for="txtProjectStartDay">Day</label>
+									<input type="text" maxlength="2" id="txtProjectStartDay" title="ProjectedDay" class="usa-input-inline" size="3" asp-for="Data.StartDateDay" disabled>
+									<span asp-validation-for="Data.StartDateDay"></span>
+								</div>
+							</div>
+
+							<div class="usa-form-group usa-form-group-year">
+								<div class="control-group validate-input">
+									<label for="txtProjectStartYear">Year</label>
+									<input type="text" maxlength="4" id="txtProjectStartYear" title="ProjectedYear" class="usa-input-inline" size="5" asp-for="Data.StartDateYear" disabled>
+									<span asp-validation-for="Data.StartDateYear"></span>
+								</div>
+							</div>
+						</div>
+
+						<h5>Projected End Date</h5>
+						<span class="usa-form-hint" id="dobEndHint">For example: 04 28 1986</span>
+						<div class="multi-input-div">
+							<div class="usa-form-group usa-form-group-month">
+								<div class="control-group validate-input">
+									<label for="txtProjectEndMonth">Month</label>
+									<input type="text" maxlength="2" id="txtProjectEndMonth" title="ProjectedMonth" class="usa-input-inline" size="3"  asp-for="Data.EndDateMonth" disabled>
+									<span asp-validation-for="Data.EndDateMonth"></span>
+								</div>
+							</div>
+
+							<div class="usa-form-group usa-form-group-day">
+								<div class="control-group validate-input">
+									<label for="txtProjectEndDay">Day</label>
+									<input type="text" maxlength="2" id="txtProjectEndDay" title="ProjectedDay" class="usa-input-inline" size="3" asp-for="Data.EndDateDay" disabled>
+									<span asp-validation-for="Data.EndDateDay"></span>
+								</div>
+							</div>
+
+							<div class="usa-form-group usa-form-group-year">
+								<div class="control-group validate-input">
+									<label for="txtProjectEndYear">Year</label>
+									<input type="text" maxlength="4" id="txtProjectEndYear" title="ProjectedYear" class="usa-input-inline" size="5" asp-for="Data.EndDateYear" disabled>
+									<span asp-validation-for="Data.EndDateYear"></span>
+								</div>
+							</div>
+						</div>
+
+						<h5>Job Search Type</h5>		
+						<legend>Job Search Type</legend>
+						<div class="control-group validate-input">
+							<label for="ddlJobOpportunity" class="no-margin-top">*How did you find this job opportunity?</label>
+							<select id="ddlJobOpportunity" asp-for="Data.JobSearchType" asp-items="Model.Data.JobSearchTypeList" disabled>
+								<option selected="selected" value="">-- Please select --</option>
+							</select>
+							<span asp-validation-for="Data.JobSearchType"></span>
+						</div>		
+					</div>
+				
+				<!--End Approved Worfklow/Full Form-->
+				
+				<div class="commitment-preapproval">
+						<div class="control-group validate-input">
+							<label for="txtJustification">Justification</label>
+							<textarea asp-for="Data.Justification" rows="2" cols="20" id="txtJustification" size="10" placeholder="Please provide a statement on why this non-executive Federal position should be approved" style="overflow-y: scroll;" maxlength="1000" disabled></textarea>
+							<span asp-validation-for="Data.Justification"></span>
+						</div>
+				</div>
+				
+
+@*				 @if(Model.Data.SavedDocuments is not null && Model.Data.SavedDocuments.Count() > 0)
+                {  
+					 <h3>Commitment Documents</h3>
+                    <table> 
+						<thead>
+						<tr>
+							<th>
+								Document Name
+							</th>
+							<th>
+								Type
+							</th>
+							<th>                            
+							</th>							              
+						</tr>
+                            @foreach(var doc in Model.Data.SavedDocuments)
+                            {
+                                <tr>
+                                    <td>@doc.Name</td>
+									<td>@doc.Type</td>
+                                    <td><a href="?handler=ViewDocument&id=@doc.Id" class="usa-button">View </a></td>                                                             
+                                </tr>                  
+                            }
+                    </table>
+                }*@
+
+				@if (Model.Data.Status == CommitmentProcessConst.ApprovalPendingPI)
+				{
+					<div class="grid-row grid-gap">					
+						<div class="grid-col-8"><input asp-page-handler="Approve" type="submit" value="Recommend Approval" class="usa-button"></div>
+						<div class="grid-col-4"><input asp-page-handler="Reject" type="submit" value="Recommend Reject" class="usa-button"></div>					
+					</div>
+				}
+			</form>		
+			
+		</div>					
+	</div>
+</div>
+<div id="addResumeModal" class="sfs-modal modal">
+	<h2 class="resume-modal-header">View Student Document</h2>
+	@if (Model.Data.SavedDocuments != null && Model.Data.SavedDocuments.Count > 0)
+	{
+
+		<table>
+			<thead>
+				<tr>
+					<th>
+						Name
+					</th>
+					<th>
+						Type
+					</th>
+					<th>
+
+					</th>
+				</tr>
+			</thead>
+
+			@foreach (var doc in Model.Data.SavedDocuments)
+			{
+				<tbody>
+					<tr>
+						<td>@doc.Name</td>
+						<td>@doc.Type </td>
+						<td><a href="?handler=ViewDocument&fid=@doc.Id" class="usa-button">View </a></td>
+					</tr>
+				</tbody>
+			}
+		</table>
+	}
+	else
+	{
+		<h3>No documents found for this student.</h3>
+	}
+</div>
+@section scripts{ 
+	<script asp-add-nonce>
+		$(function () {
+			var showFullForm =  $("#hfShowForm").val();
+			SetForm(showFullForm);
+		});
+
+		function SetForm(showFull) {
+			console.log(showFull);
+			 if(showFull == "Tentative"){
+					 $(".commitment-approved").hide();
+					 $(".commitment-preapproval").show();			
+				 }
+				 else {
+					 $(".commitment-approved").show();
+					 $(".commitment-preapproval").hide();		
+				 }
+		}
+		$('#btn-add-resume').click(function (event) {
+			$('#addResumeModal').modal();
+			return false;
+		});
+	</script>
+	}

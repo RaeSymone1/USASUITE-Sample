@@ -1,0 +1,172 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Academia.RegistrationModel
+@{
+	Layout = "_SideMenuLayoutPI";
+}
+
+<div class="infopage participate grid-extra-wide">
+<h2 class="login-header"><span>Principal Investigator:</span><i> Registration</i></h2>
+<p>
+	To register as a Principal Investigator from a participating institution,
+	complete the form below and then select <strong> Submit</strong>. Required fields
+	are indicated by an asterisk(*). Please do not use acronyms. Please use your school email as your email address. Once you have
+	been approved you will receive an email confirmation. This may take up to two business days.
+</p>
+
+ <div asp-validation-summary="All">
+</div>
+<form method="post">
+
+
+	<div class="usa-grid" style="margin-left:0px; padding: 0px;">
+
+		<div class="usa-width-one-half border border-primary">
+
+			<div class="control-group validate-input">
+				<label for="txtFirstName">*First Name</label>
+				<input asp-for="Data.FirstName" type="text" maxlength="15" id="txtFirstName" tabindex="1">
+				<span asp-validation-for="Data.FirstName"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="txtLastName">*Last Name</label>
+				<input asp-for="Data.LastName" type="text" maxlength="20" id="txtLastName" tabindex="2">
+				<span asp-validation-for="Data.LastName"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="drpRole">*Role</label>
+				<select id="drpRole" tabindex="3" asp-for="Data.Role" asp-items="Model.Data.RoleList">
+					<option value="0"> - Please Select - </option>
+				</select>
+				<span asp-validation-for="Data.Role"></span>
+			</div>
+
+
+			<div class="control-group validate-input">
+				<label for="ddlUniversity">*University/College</label>
+				<select id="ddlUniversity" tabindex="4" asp-for="Data.Institution" asp-items="Model.Data.InstitutionList">
+					<option value="0"> - Please Select - </option>
+				</select>
+				<span asp-validation-for="Data.Institution"></span>
+			</div>
+			
+			<div class="control-group validate-input">
+				<label for="txtDepartment">*Department/Field</label>
+				<input asp-for="Data.Department" type="text" maxlength="50" id="txtDepartment" tabindex="5">
+				<span asp-validation-for="Data.Department"></span>
+			</div>
+			
+
+			<div class="control-group validate-input">
+				<label for="txtAddress1">*Address 1</label>
+				<input asp-for="Data.AddressLineOne" type="text" maxlength="40" tabindex="6">
+				<span asp-validation-for="Data.AddressLineOne"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="ctl00_PlaceHolderMainContent_txtAddress2" id="ctl00_PlaceHolderMainContent_Label6">Address 2</label>
+				<input name="ctl00$PlaceHolderMainContent$txtAddress2" type="text" maxlength="40" id="ctl00_PlaceHolderMainContent_txtAddress2" tabindex="7">
+				<span asp-validation-for="Data.AddressLineOne"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="txtCity">*City</label>
+				<input asp-for="Data.City" type="text" maxlength="30" id="txtCity" tabindex="8">
+				<span asp-validation-for="Data.City"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="ddlState">*State</label>
+				<select asp-for="Data.State" asp-items="Model.Data.StateList" tabindex="9">
+					<option value="0"> - Please Select - </option>
+				</select>
+				<span asp-validation-for="Data.State"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="txtZIP">*ZIP+4 Code</label>
+				<input asp-for="Data.PostalCode" type="text" maxlength="9" id="txtZIP" tabindex="10">
+				<span asp-validation-for="Data.PostalCode"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="txtPhone">*Phone Number</label>
+				<input asp-for="Data.Phone" type="text" maxlength="30" id="txtPhone" tabindex="11">
+				<span asp-validation-for="Data.Phone"></span>
+			</div>
+			
+			<div class="control-group validate-input">
+				<label for="txtExtension" >Ext:</label>
+				<input asp-for="Data.Extension" type="text" maxlength="6" id="txtExtension" tabindex="12">
+				<span asp-validation-for="Data.Extension"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="txtFax">Fax Number</label>
+				<input asp-for="Data.Fax" type="text" maxlength="30" id="txtFax" tabindex="13">
+				<span asp-validation-for="Data.Fax"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="txtEmail">*Email Address</label>
+				<input asp-for="Data.Email" type="text" maxlength="120" id="txtEmail" tabindex="14">
+				<span asp-validation-for="Data.Fax"></span>
+			</div>
+
+			<div class="control-group validate-input">
+				<label for="txtWebsite">Website</label>
+				<input asp-for="Data.Website" type="text" maxlength="120" id="txtWebsite" tabindex="15">
+				<span asp-validation-for="Data.Website"></span>
+			</div>
+			<br>
+
+			<input type="submit" value="Submit" tabindex="20">
+
+		</div>
+
+
+		<div class="usa-width-one-half">
+
+			<div class="privacy-border">
+				<div style="font-size:x-large">
+					<p>
+						<strong>The CyberCorps®: Scholarship for Service (SFS) Principal Investigator (PI) registration system </strong>
+					</p>
+
+					<p>
+						<strong>Privacy Act Statement:</strong>  Pursuant to 5 U.S.C. § 552a(e)(3), this Privacy Act Statement serves to inform you of why OPM is requesting the information on this application
+					</p>
+
+					<p>
+						<i>Authority:</i> The National Science Foundation Act of 1950, as amended, authorizes the National Science Foundation (NSF) to promote and advance scientific progress in the United States by competitively awarding grants and cooperative agreements for research and education in the sciences, mathematics, and engineering. The CyberCorps®: Scholarship for Service (SFS) program, as a program within the Division of Undergraduate Education at NSF, was established under this charter. The U.S. Office of Personnel Management's authority to collect information in support of SFS program activities is derived from the above Law through a Memorandum of Understanding (MOU) between NSF and the U.S. Office of Personnel Management (OPM) that tasks OPM with providing the operational framework for the federal placement and tracking of students throughout the academic phase and post-graduation federal employment obligation.
+					</p>
+					<p>
+						<i>Purpose:</i> The information collected is used to identify information from Principal Investigators (PIs) to grant them access to their participating students’ records and enable interested individuals to inquire about, and vie for, SFS program scholarships. It may also be used for studies and statistics that will not identify you.
+					</p>
+					<p>
+						<i>Routine Uses:</i> The information requested on this form may be shared externally as a “routine use” and is subject to verification via paper or electronic media records. The information collected is as follows: (1) the PIs full name; (2) the name of the educational institution; (3) the department or branch; (4) the institutions address; (5) phone and fax numbers; and (6) the PIs email address. This information will be made available to all site visitors. A complete list of the routine uses can be found in the system of records notice associated with this application, OPM Internal 18, CyberCorps® Scholarship for Service, FR 79 42604, July 18, 2014.
+					</p>
+					<p>
+						<i>Consequences of failure to provide information.</i> Furnishing the data requested is voluntary, but failure to do so will prevent your school from being listed as a participating institution on the SFS website, and you will not be permitted to have access to the participating student’s information in your program.
+					</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	  <style>
+            .grid-extra-wide {
+                max-width: 160rem;
+            }
+
+            .privacy-border {
+                border-top: 3px solid #f1f1f1;
+                border-bottom: 3px solid #f1f1f1;
+                border-left: 3px solid #f1f1f1;
+                border-right: 3px solid #f1f1f1;
+                padding: 15px;
+            }
+        </style>
+</form>
+</div>

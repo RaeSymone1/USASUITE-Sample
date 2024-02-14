@@ -1,0 +1,129 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.CommitmentDocumentsModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+@using OPM.SFS.Web.SharedCode;
+
+<h2><span>Students:</span><i> Commitment Documents</i></h2>
+
+@if (Model.Data.Status == CommitmentProcessConst.Incomplete)
+{
+    <h4>Please upload the following documents to complete your commitment</h4>
+}
+<div asp-validation-summary="All">
+        <span>One or more errors occcured.</span>
+ </div>
+<div class="usa-alert usa-alert-info">          
+    <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">File Upload Information</h3>
+    <p class="usa-alert-text">
+        Uploaded documents must be less than 5MB and in one of the following document formats: TXT, PDF, Word (DOC or DOCX) or Excel (XLS, XSLX).
+    </p>
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+
+    <input type="hidden" id="hfCommitmentId" asp-for="Data.CommitmentID" />
+    <input type="hidden" id="hfApprovalFlow" asp-for="Data.ApprovalFlow" />
+    <input type="hidden" id="hfSavedDocumentCount" asp-for="Data.SavedDocumentCount" />
+    <input type="hidden" id="hfStatus" asp-for="Data.Status" />
+    <!--Document List for edit-->
+    @if(Model.Data.SavedDocuments is not null && Model.Data.SavedDocuments.Count() > 0)
+    {
+        @if (Model.Data.Status == CommitmentProcessConst.Incomplete || Model.Data.Status == CommitmentProcessConst.RequestFinalDocs)
+        {
+            <h4>The following documents will be submited with this commitment</h4>
+        }
+        else
+        {
+            <h4>The following documents were submitted with this commitment</h4>
+        }
+
+        <table>    
+            
+                 <thead>
+                    <tr>
+                        <th>
+                            Document Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            
+                        </th>
+                        @if (Model.Data.Status == CommitmentProcessConst.Incomplete || Model.Data.Status == CommitmentProcessConst.RequestFinalDocs)
+                        {
+                             <th>                           
+                            </th>    
+                        }
+                   
+                    </tr>
+                </thead>
+                @foreach(var doc in Model.Data.SavedDocuments)
+                {
+                    <tr>
+                        <td>@doc.Name</td>
+                        <td>@doc.Type</td>
+                        <td><a href="?handler=ViewDocument&fid=@doc.Id" class="usa-button">View </a></td>
+                    @if (Model.Data.Status == CommitmentProcessConst.Incomplete || Model.Data.Status == CommitmentProcessConst.RequestFinalDocs)
+                    {
+                        <td><a href="?handler=DeleteDocument&fid=@doc.Id&cid=@Model.Data.CommitmentID" class="usa-button">Delete </a></td>
+                    }
+                </tr>                  
+                }
+        </table>
+    }
+    else
+    {
+         <div class="usa-alert usa-alert-warning">
+            <div class="usa-alert-body">
+                <p class="usa-alert-text">                    
+					Upload your Position Description and Final Job Offer letter to submit your commitment. 
+                </p>
+            </div>
+       </div>
+    }
+
+    @if(Model.Data.Status == CommitmentProcessConst.Incomplete || Model.Data.Status ==  CommitmentProcessConst.RequestFinalDocs){
+
+        @if (Model.Data.CanSubmit)
+        {
+            <input asp-page-handler="SubmitCommitment" type="submit" value="Submit Commitment for Approval" />
+
+        }
+        <!--Document upload area-->
+        @if (Model.Data.ApprovalFlow == CommitmentProcessConst.CommitmentApprovalTentative && !Model.Data.HideUploadForTenative)
+        {           
+            <div class="preapproval">
+                <label>*Upload tentative job offer letter</label>
+                <input type="file" asp-for="Data.TenativeJobOffer" />
+                <input asp-page-handler="UploadTenativeJobOffer" type="submit" value="Upload Tentative Job Offer" />
+                <span asp-validation-for="Data.TenativeJobOffer"></span>
+            </div>
+        }
+        @if (Model.Data.ApprovalFlow == CommitmentProcessConst.CommitmentApprovalFinal && !Model.Data.HideUploadForFinalJobLetter)
+        {           
+             <div class="approved">
+                <label>*Upload final job offer letter</label>
+                 <input type="file" asp-for="Data.FinalJobOffer" />
+                 <input asp-page-handler="UploadFinalJobOffer" type="submit" value="Upload Final Job Offer Letter"/>
+                 <span asp-validation-for="Data.FinalJobOffer"></span>
+              </div>
+        }
+        @if (Model.Data.ApprovalFlow == CommitmentProcessConst.CommitmentApprovalFinal && !Model.Data.HideUploadForPositionDescription)
+        {           
+           <div class="approved">
+                <label>*Upload position description document</label>
+                 <input type="file" asp-for="Data.PostionDescription" />
+                 <input asp-page-handler="UploadPosDescription" type="submit" value="Upload Position Description" />
+                  <span asp-validation-for="Data.PostionDescription"></span>
+           </div>
+        }
+
+          <br />
+      }
+    
+</form>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>OPM.SFS.Web</id>
+    <title>Scholarship For Service</title>
+    <version>1.0.0</version>
+    <authors>HRSITPMO</authors>
+    <owners>OPM</owners>
+    <language>en-us</language>
+    <projectUrl>http://sfs.opm.gov</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Scholarship For Service (SFS) is a unique program designed to recruit and train the next generation of IT professionals</description>
+    <summary>Scholarship for next generation IT professionals</summary>
+    <tags>SFS ScholarshipForService</tags>
+  </metadata>
+  <files>
+    <file src="bin\sfs\**\*.*" target="" />
+  </files>
+</package>

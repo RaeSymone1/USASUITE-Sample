@@ -1,0 +1,115 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.AgencyEditModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container">
+	<div class="grid-row">
+		<div class="grid-col">
+
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/AgencyList" class="usa-breadcrumb__link">
+					<span>Agencies</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Agency Edit</span>
+				</li>
+			  </ol>
+			</nav>
+
+
+			<h3>Administration: Agency Edit </h3>
+			
+
+			<div asp-validation-summary="All">
+				<span>One or more errors occcured.</span>
+			</div>
+			<form method="post" class="usa-form-large">
+				<input type="hidden" id="hfAgencyID" asp-for="Data.AgencyID" />
+				<div class="control-group validate-input">
+					<label for="ddlAgencyType">*Agency Type</label>
+					<select id="ddlAgencyType"asp-items="Model.Data.AgencyTypeList" asp-for="Data.AgencyType">		
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.AgencyType"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtAgencyName">*Agency Name</label>
+					<input type="text" id="txtAgencyName" asp-for="Data.AgencyName">
+					<span asp-validation-for="Data.AgencyName"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlParentAgency">Parent Agency</label>
+					<select id="ddlParentAgency"asp-items="Model.Data.ParentAgencyList" asp-for="Data.ParentAgency">	
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.ParentAgency"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlCommitmentApprovalProcess">Commitment Approval Flow</label>
+					<select id="ddlCommitmentApprovalProcess"asp-items="Model.Data.ApprovalProcessList" asp-for="Data.CommitmentApprovalWorkflow">	
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.CommitmentApprovalWorkflow"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCity">City</label>
+					<input type="text" id="txtCity" asp-for="Data.City">
+					<span asp-validation-for="Data.City"></span>
+				</div>
+
+			@*	<div class="control-group validate-input">
+					<label for="txtCounty">County</label>
+					<input type="text" id="txtCounty" asp-for="Data.County">
+					<span asp-validation-for="Data.County"></span>
+				</div>*@
+
+				<div class="control-group validate-input">
+					<label for="ddlState">State</label>
+					<select id="ddlState"asp-items="Model.Data.StateList" asp-for="Data.State">	
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.State"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCountry">Country</label>
+					<input type="text" id="txtCountry" asp-for="Data.Country">
+					<span asp-validation-for="Data.Country"></span>
+				</div>
+				@if (User.FindFirst("AdminRole").Value != "Read Only")
+				{
+					@if (Model.Data.AgencyID > 0)
+					{
+						<input asp-page-handler="Save" type="submit" value="Save" class="usa-button" />
+						@if (User.FindFirst("AdminRole").Value != "General User")
+						{
+							<input asp-page-handler="Delete" type="submit" value="Delete" class="usa-button" />
+						}
+					}
+					else
+					{
+						<input asp-page-handler="Save" type="submit" value="Save" class="usa-button" />
+					}
+				}
+			</form>
+
+
+
+			</div>
+		</div>
+	</div>
+

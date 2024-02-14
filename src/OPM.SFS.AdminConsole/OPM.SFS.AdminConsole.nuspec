@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>OPM.SFS.AdminConsole</id>
+	<title>SFS.AdminConsole</title>
+    <version>1.0.0</version>
+    <authors>HRSITPMO</authors>
+    <owners>OPM</owners>
+    <projectUrl>https://www.sfs.opm.gov/</projectUrl>
+	<description>SFS Admin Console Project</description>
+  </metadata>
+  <files>
+    <file src="bin\sfsadmin\**\*.*" target="" />
+  </files>
+</package>

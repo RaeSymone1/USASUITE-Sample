@@ -1,0 +1,106 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Academia.CommitmentsModel
+@{
+    Layout = "_PILayout";
+}
+<h2><span>Principal Investigators:</span><i> Commitment List</i></h2>
+<div class="usa-alert usa-alert-info">
+  <div class="usa-alert-body">
+    <h3 class="usa-alert-heading">Principal Investigator - SFS Commitment List</h3>
+    <p class="usa-alert-text">The commitment list displays all students commitments submitted to the Principal Investigator(s) for approval. 
+                               The list can be sorted by selecting any table header. By selecting the "show" dropdown you can change the number of records displayed
+                               and typing into the search box will display records with the desired search result.
+                               Click the "View" link to display the selected record.
+                               Upon opening a commitment record, the Principal Investigator can request additional information from the student, reject or approve the commitment.
+                               Approved commitments are submitted to the Program Office for approval. <br>
+
+       NOTE: Please contact us by email if you have question on how to use these features. <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>
+
+        </p>                                                        
+  </div>
+</div>
+
+  @if(!string.IsNullOrWhiteSpace(Model.Data.AlertDisplay)){
+        <div class="usa-alert usa-alert-success">
+            <div class="usa-alert-body">
+                <p class="usa-alert-text">
+                   @Model.Data.AlertDisplay
+                </p>
+            </div>
+       </div>
+    }   
+
+<a href="?handler=ExcelView" class="usa-button">Download To Excel</a>
+
+<table id="picommitments" class="usa-table-borderless">
+   <thead>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+               Student
+            </th>
+            <th>
+                Commitment Type
+            </th>
+            <th>
+               Agency Name
+            </th>
+             <th>
+               Agency Type
+            </th>
+             <th>
+               Job Title
+            </th>
+            <th>
+               Start Date
+            </th>
+            <th>
+               Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         @if (Model.Data.Commitments.Count() > 0)
+        {
+            @foreach (var item in Model.Data.Commitments)
+            {
+               <tr>
+                   <td>                      
+                        <a href="/Academia/CommitmentReview?cid=@item.CommitmentID&sid=@item.StudentID">View</a>
+                    </td>
+                    <td>
+                        @item.StudentName
+                    </td>
+                   <td>
+                       @item.CommitmentType
+                   </td>
+                   <td>
+                       @item.AgencyName
+                   </td>
+                   <td>
+                       @item.AgencyType
+                   </td>
+                    <td>
+                       @item.JobTitle
+                   </td>
+                    <td>
+                       @item.StartDate                       
+                   </td>
+                    <td title="@item.StatusDescription" style="color:red;">
+                      @item.Status
+                   </td>
+               </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script asp-add-nonce>
+   $(document).ready(function () {
+        $("#picommitments").DataTable();
+    });
+    </script>
+}

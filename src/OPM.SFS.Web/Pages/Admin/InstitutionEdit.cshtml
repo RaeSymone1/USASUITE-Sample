@@ -1,0 +1,165 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.InstitutionEditModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container">
+	<div class="grid-row">
+		<div class="grid-col">
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+                <li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/InstitutionList" class="usa-breadcrumb__link">
+					<span>Institutions</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Institution Edit</span>
+				</li>
+			  </ol>
+			</nav>
+
+			<h3>Administration: <em>Institution Edit</em></h3>
+			
+			<div asp-validation-summary="All">
+				<span>One or more errors occcured.</span>
+			</div>
+			@if (Model.Data.ShowSuccessMessage)
+			{
+				<div class="usa-alert usa-alert-success">
+					<div class="usa-alert-body">
+						<p class="usa-alert-text">
+							@Model.Data.SuccessMessage
+						</p>
+					</div>
+				</div>
+			}
+
+			<a href="/Admin/InstitutionContacts?iid=@Model.Data.InstitutionID" class="usa-button">View/Edit Contacts</a>
+			<form method="post" class="usa-form-large">
+				<input type="hidden" asp-for="Data.InstitutionID" />
+				<div class="control-group validate-input">
+					<label for="txtInstitution">*Institution Name</label>
+					<input type="text" id="txtInstitution" asp-for="Data.Institution">
+					 <span asp-validation-for="Data.Institution"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlInstititionType">*Institution Type</label>
+					<select id="ddlInstititionType"asp-items="Model.Data.TypeList" asp-for="Data.Type">		
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.Type"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlParent">*Parent Institution</label>
+					<select id="ddlParent"asp-items="Model.Data.ParentInstititionList" asp-for="Data.ParentInstitution">		
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.ParentInstitution"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCity">City</label>
+					<input type="text" id="txtCity" asp-for="Data.City">
+					<span asp-validation-for="Data.City"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlState">State</label>
+					<select id="ddlState" asp-items="Model.Data.StateList" asp-for="Data.State">	
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.State"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPostalCode">Postal Code</label>
+					<input type="text" id="txtPostalCode" asp-for="Data.PostalCode">
+					<span asp-validation-for="Data.PostalCode"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtHomePage">Home Page Link</label>
+					<input type="text" id="txtHomePage" asp-for="Data.HomePage">
+					<span asp-validation-for="Data.HomePage"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtProgramPage">SFS Program Page</label>
+					<input type="text" id="txtProgramPage" asp-for="Data.ProgramPage">
+					<span asp-validation-for="Data.ProgramPage"></span>
+				</div>
+
+				<div class="control-group validate-input">				
+					 <label for="ddlAcademicSchedule">Academic Schedule</label>
+					<select id="ddlAcademicSchedule" asp-items="Model.Data.AcademicScheduleList" asp-for="Data.AcademicSchedule">	
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.AcademicSchedule"></span>		
+				</div>
+				@if(Model.Data.ParentInstitution.HasValue && Model.Data.ParentInstitution > 0)
+				{
+				<div class="control-group validate-input">
+					<label for="txtGrantNumber">Grant Number</label>
+					<input type="text" id="txtGrantNumber" disabled="disabled" asp-for="Data.GrantNumber">
+					<span asp-validation-for="Data.GrantNumber"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtGrantExp">*Grant Expiration Date (Example: mm/dd/yyyy)</label>
+					<input type="text" id="txtGrantExp" disabled="disabled" asp-for="Data.GrantExpiration">
+					<span asp-validation-for="Data.GrantExpiration"></span>
+				</div>
+				}
+				else {
+				<div class="control-group validate-input">
+					<label for="txtGrantNumber">Grant Number</label>
+					<input type="text" id="txtGrantNumber" asp-for="Data.GrantNumber">
+					<span asp-validation-for="Data.GrantNumber"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtGrantExp">*Grant Expiration Date (Example: mm/dd/yyyy)</label>
+					<input type="text" id="txtGrantExp" asp-for="Data.GrantExpiration">
+					<span asp-validation-for="Data.GrantExpiration"></span>
+				</div>
+				}
+				<input type="checkbox" id="ckIsAcceptingApplications" asp-for="Data.IsAcceptingApplications"/>
+				<label for="ckIsAcceptingApplications">Is Accepting Applications</label>
+
+				<input type="checkbox" id="ckIsActive" asp-for="Data.IsActive"/>
+				<label for="ckIsActive">Is Active</label>
+			@if (User.FindFirst("AdminRole").Value != "Read Only")
+		    {
+				 <input type="submit" value="Save" class="usa-button" />
+			}
+			</form>
+			</div>
+		</div>
+	</div>
+
+	@section Scripts {
+    <script asp-add-nonce>
+		$(function () {
+			 $("#ddlInstititionType").on("change", function() {
+	                     var type = $("#ddlInstititionType option:selected" ).text();
+                        if(type == "Pathways CC"){
+                            $("#txtGrantNumber").prop( "disabled", true );
+                            $("#txtGrantExp").prop( "disabled", true );
+                        }
+                        else {
+                            $("#txtGrantNumber").prop( "disabled", false );
+                            $("#txtGrantExp").prop( "disabled", false );
+                        }
+					});
+		});
+	</script>
+	}

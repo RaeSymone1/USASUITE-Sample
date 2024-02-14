@@ -1,0 +1,146 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.ResumeEducationModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+ <div asp-validation-summary="All">
+</div>
+<form method="post" autocomplete="off">  
+        <h2><span>Students:</span><i> Education</i></h2>       
+        <p>
+            Please fill out the education form below. An asterisk (*) denotes a required field.
+            When finished, select the button at the bottom.<br><br>
+
+            When including your high school education or GED, you only need to complete the
+            School Name, City, State, ZIP Code (if known), and Year Diploma or GED Received.
+        </p>
+
+         <input type="hidden" asp-for="Data.EducationId" />
+           <div class="control-group validate-input">
+            <label for="txtSchoolName">*School Name</label>
+            <input asp-for="Data.SchoolName" type="text" id="txtSchoolName" />
+              <span asp-validation-for="Data.SchoolName"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="ddSchoolType"><span>*School Type</span></label>
+            <select asp-for="Data.SchoolType" asp-items="Model.Data.SchoolTypeList">
+            </select>
+            <span asp-validation-for="Data.SchoolType"></span>
+       </div>
+
+        <div class="control-group validate-input">
+            <label for="txtCity">*City</label>
+            <input asp-for="Data.City" type="text" id="txtCity" />
+            <span asp-validation-for="Data.City"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="ddStates"><span>State</span></label>
+            <select id="ddStates" asp-for="Data.State" asp-items="Model.Data.StateList">
+            </select>
+            <span asp-validation-for="Data.State"></span>
+        </div>
+
+        <input id="chkSkipState" type="checkbox" /><label for="chkSkipState">Check here to skip State and enter an international address</label>
+
+         <div class="control-group validate-input">
+            <label for="txtZipcode">Zip+4 Code</label>
+            <input asp-for="Data.Zipcode" type="text" maxlength="20" id="txtZipcode">
+            <span>&nbsp;(+4 is optional)</span>
+            <span asp-validation-for="Data.Zipcode"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtCountry">Country</label>
+            <input asp-for="Data.Country" type="text" maxlength="40" id="txtCountry">
+            <font face="arial, verdana, geneva" style="FONT-SIZE: 9pt">
+                &nbsp;(<i>
+                    for international
+                    addresses only
+                </i>)
+            </font>
+            <span asp-validation-for="Data.Country"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="ddDegree"><span>*Degree</span></label>
+             <select id="ddDegree" asp-for="Data.Degree" asp-items="Model.Data.DegreeList">
+            </select>
+            <span asp-validation-for="Data.Degree"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtSpecifyDegree">Or specify Degree</label>
+            <input asp-for="Data.DegreeText" type="text" id="txtSpecifyDegree" />
+            <span asp-validation-for="Data.DegreeText"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtYear">*Year Received<br>(yyyy)</label>
+            <input asp-for="Data.Year" type="text" id="txtYear" />
+            <span asp-validation-for="Data.Year"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtGradePointAverage">Grade Point Average</label>
+            <input asp-for="Data.GPA" type="text" id="txtGradePointAverage" />
+            <span asp-validation-for="Data.GPA"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtOfTotalPoints">Of Total Points</label>
+            <input asp-for="Data.TotalPoints" type="text" id="txtOfTotalPoints" />
+             <span asp-validation-for="Data.TotalPoints"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtCreditsEarned">*Total Credits Earned</label>
+            <input asp-for="Data.Credits" type="text" id="txtCreditsEarned" />
+            <span asp-validation-for="Data.Credits"></span>
+        </div>
+
+        <h3>*Credit Type</h3>
+       
+        <legend>*Credit Type</legend>
+         <div class="control-group validate-input">
+            <span class="usa-unstyled-list" style="font-weight:bold;">
+            <input asp-for="Data.CreditType" type="radio" value="Semester" /><label for="rbSemesterHours">Semester Hours</label></span>
+            <span class="usa-unstyled-list" style="font-weight:bold;">
+            <input asp-for="Data.CreditType" type="radio" value="Quarter" /><label for="rbQuarterHours">Quarter Hours</label></span>
+            <span class="usa-unstyled-list" style="font-weight:bold;">
+            <input asp-for="Data.CreditType" type="radio" value="Other" /><label for="rbOthers">Other</label></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtOtherCreditType">Other Credit Type</label>
+            <input asp-for="Data.CreditTypeOther" type="text" maxlength="20" id="txtOtherCreditType" />
+        </div>
+       
+
+        <div class="control-group validate-input">
+            <label for="txtMajor">Major</label>
+            <input asp-for="Data.Major" type="text" id="txtMajor" />
+            <span asp-validation-for="Data.Major"></span>
+        </div>
+
+        <div class="control-group validate-input">
+            <label for="txtMinor">Minor</label>
+            <input asp-for="Data.Minor" type="text" id="txtMinor" />
+            <span asp-validation-for="Data.Minor"></span>
+        </div>
+
+         <div class="control-group validate-input">
+            <label for="txtHonors">Honors</label>
+            <input asp-for="Data.Honors" type="text" maxlength="100" id="txtHonors" />
+             <span asp-validation-for="Data.Honors"></span>
+        </div>
+
+        <p>
+            To save this
+            Education entry and add it to your resumé, select the "Save" button
+            below. This will save the information online.
+        </p>
+        <input type="submit" value="Save Education Experience" id="btnAddEducation" />
+    </div>
+</form>

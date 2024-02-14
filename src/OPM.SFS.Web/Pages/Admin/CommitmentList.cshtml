@@ -1,0 +1,85 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.CommitmentListModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Commitments" class="usa-breadcrumb__link">
+					<span>Commitments Administration</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Commitments</span>
+				</li>
+			  </ol>
+			</nav>
+
+
+
+			<h3>Commmitment List</h3>
+
+			<span>Total Student(s) Commitments: @Model.Data.Commitments.Count()</span>
+			<br /><br/>
+			<a href="?handler=ExcelView" class="usa-button">Download to Excel</a>
+			<table id="adminCommitListTable">
+				<thead>
+					<tr>
+						<td>Action</td>
+						<td>Student</td>
+						<td>Institution</td>
+						<td>Commitment Type</td>
+						<td>Agency Name</td>
+						<td>Agency Type</td>
+						<td>Start Date</td>
+						<td>Status</td>
+					@*	<td>Rejected Note</td>*@
+						<td>Submission Date/Time</td>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.Data.Commitments.Count() > 0)
+					{
+						@foreach (var item in Model.Data.Commitments)
+						{
+							<tr>
+								<td><a href="/Admin/CommitmentEdit?sid=@item.StudentID&cid=@item.CommitmentID">Review</a></td>
+								<td>@item.StudentFullName</td>
+								<td>@item.Institution</td>
+								<td>@item.CommitmentType</td>
+								<td>@item.Agency</td>
+								<td>@item.AgencyType</td>
+								<td>@item.StartDate</td>
+								<td title="@item.StatusDisplay" style="color:red;">@item.Status</td>
+								@*<td>@item.RejectNote</td>*@
+								<td>@item.SubmitDate</td>
+							</tr>
+						}
+
+					}
+					
+			  </tbody>
+			</table>
+	    </div>
+	</div>
+
+</div>
+
+@section Scripts {
+    <script asp-add-nonce>
+   $(document).ready(function () {
+        $("#adminCommitListTable").DataTable();
+    });
+    </script>
+}

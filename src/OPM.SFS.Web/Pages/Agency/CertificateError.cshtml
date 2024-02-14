@@ -1,0 +1,30 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Agency.CertificateErrorModel
+@{
+	Layout = "_SideMenuLayoutAO";
+}
+
+<div class="grid-container-widescreen">
+    <div class="grid-row">      
+        <div class="grid-col-10">
+             <h2 id="h2PageHeaderText" class="PageHeader">Smartcard Certificate Error</h2>
+            <p>
+                In order to navigate through the system with your Smartcard, you must register it. 
+                Please insert the Smartcard first then fill out the form below. 
+            </p>
+           <div style="font-size:10pt; text-align:justify; padding:15px 50px;">
+                <strong>            
+                    You were directed to this page because an error occurred while processing your Smartcard for 
+                    the SFS website. The likely cause of the error is one of the following reasons below: 
+                    <br><br>Your Smartcard is...
+                </strong>
+                    <ul>
+                        <li><b><i>revoked</i></b></li>
+                        <li><b><i>expired</i></b></li>
+                        <li><b><i>invalid</i></b></li>
+                    </ul>
+                <strong>Please contact your agency.</strong>               
+            </div>
+        </div>
+    </div>
+ </div>

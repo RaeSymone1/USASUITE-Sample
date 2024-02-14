@@ -1,0 +1,98 @@
+﻿<div id="addstudentModal" class="sfs-modal modal">
+    <h3 class="student-modal-header">Add Student</h3>
+    <span id="error-message" style="color:red; font:bold"></span>
+    <form role="form" id="newStudentForm">
+        <div>
+            <label for="ddlCollege">SFS Grantee/Participating Institution (required)</label>
+            <select id="ddlCollege">
+                <option value="-1">Please select</option>
+            </select>
+        </div>
+        <div>
+            <label for="ddlContract">Contract (required)</label>
+            <select id="ddlContract">
+                <option value="-1">Please select</option>
+            </select>
+        </div>
+        <div class="multi-input-div">
+            <div class="modal-partial-label">
+                <label for="ddlEnrolledSession">Enrolled Session (required)</label>
+                <select id="ddlEnrolledSession">
+                    <option value="-1">Please select</option>
+                </select>
+            </div>
+            <div class="modal-partial-label">
+            </div>
+            <div class="modal-partial-label">
+                <label for="ddlEnrolledYear">Enrolled Year (required)</label>
+                <select id="ddlEnrolledYear">
+                    <option value="-1">Please select</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="multi-input-div">
+            <div class="modal-partial-label">
+                <label for="ddlFundingEndSession">Funding End Session (required)</label>
+                <select id="ddlFundingEndSession">
+                    <option value="-1">Please select</option>
+                </select>
+            </div>
+            <div class="modal-partial-label">
+            </div>
+            <div class="modal-partial-label">
+                <label for="ddlFundingEndYear">Funding End Year (required)</label>
+                <select id="ddlFundingEndYear">
+                    <option value="-1">Please select</option>
+                </select>
+            </div>
+        </div>
+
+        <label for="txtExpGradDate">Expected Graduation Date (required)</label>
+        <input type="date" id="txtExpGradDate">
+
+        <div class="multi-input-div">
+            <div class="modal-partial-label">
+                <label for="txtFirstName">First Name (required)</label>
+                <input type="text" maxlength="255" id="txtFirstName">
+            </div>
+            <div class="modal-partial-label">
+                <label for="txtLastName">Last Name (required)</label>
+                <input type="text" maxlength="50" id="txtLastName">
+            </div>
+        </div>
+
+        <label for="txtEmail">Email (required)</label>
+        <input type="text" id="txtEmail">
+
+        <label for="ddlCitizenship">Citizenship (required)</label>
+        <select id="ddlCitizenship">
+            <option value="-1">Please select</option>
+        </select>
+
+        <label for="ddlDegree">Degree (required)</label>
+        <select id="ddlDegree">
+            <option value="-1">Please select</option>
+        </select>
+
+        <label for="ddlMajor">Major (required)</label>
+        <select id="ddlMajor">
+            <option value="-1">Please select</option>
+        </select>
+
+        <label for="ddlMinor">Minor</label>
+        <select id="ddlMinor">
+            <option value="-1">Please select</option>
+        </select>
+        <label id="lblSecondMajor" for="ddlSecondMajor">Second Major (required)</label>
+        <select id="ddlSecondMajor">
+            <option value="-1">Please select</option>
+        </select>
+
+        <label id="lblSecondMinor" for="ddlSecondMinor">Second Degree Minor</label>
+        <select id="ddlSecondMinor">
+            <option value="-1">Please select</option>
+        </select>
+        <button id="btn-add-data" style="margin-top:1em" class="usa-button usa-button-primary">Add Student</button>
+    </form>
+</div>

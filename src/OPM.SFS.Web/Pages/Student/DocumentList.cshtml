@@ -1,0 +1,141 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.DocumentListModel
+@{
+	Layout = "_SideMenuLayoutStudent";
+}
+@Html.AntiForgeryToken()
+<h2><i>Students: Documents</i></h2>
+<label id="errors" class="ErrorText" style="display:none;"></label>
+@if (!string.IsNullOrWhiteSpace(Model.Data.MalwareResultDocument))
+{
+    <div class="usa-alert usa-alert-error" role="alert">
+        <div class="usa-alert-body">       
+            <p class="usa-alert-text">
+                There was a problem uploading your document, @Model.Data.MalwareResultDocument. Please make sure it meets our acceptable formats and try again. 
+            </p>
+        </div>
+    </div>
+}
+<nav class="usajobs-nav-secondary" role="navigation">
+    <div class="usajobs-nav-secondary__body">
+        <ul class="usajobs-nav-secondary__menu">
+            <li class="usajobs-nav-secondary__container">
+                <a class="usajobs-nav-secondary__item" href="/Student/ResumeList">
+                    Resumes (@Model.Data.ResumeCount/ @Model.Data.MaxResumes)
+                </a>
+            </li>
+            <li class="usajobs-nav-secondary__container">
+                <a class="usajobs-nav-secondary__item is-active" href="/Student/DocumentList">
+                    Other (@Model.Data.DocumentList.Count()/ @Model.Data.MaxDocuments)
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="grid-row">
+   @foreach(var doc in Model.Data.DocumentList){
+       <div class="tablet:grid-col-4 sfs-document-container">      
+            <div class="sfs-document">
+                <div class="sfs-figure">
+                    <span class="sfs-document--placeholder__icon"></span>
+                </div>              
+                <a href="?handler=ViewDocument&fid=@doc.DocumentID" class="sfs-view-document" title="View Document">View </a>
+                                     
+                <div class="sfs-document__details">
+                    <p class="sfs-document-title">@doc.Name</p>
+                    <p class="sfs-document-dated">
+                        Created on @doc.Date
+                    </p>
+                    <div class="sfs-document-options">                  
+                     <span>
+                        <a class="delete-doc" href="javascript:void(0);" data-id="@doc.DocumentID">Delete</a>
+                    </span>                      
+                    </div>
+                </div>
+            </div>      
+        </div>
+     }
+</div>
+
+@if (Model.Data.DocumentList.Count < Model.Data.MaxDocuments)
+{
+    <div class="grid-row">    
+        <div class="tablet:grid-col-4">
+            <div class="sfs-document-add">
+                <button id="btn-add-document" class="sfs-document-add-trigger" data-object-trigger="modal" data-target="#modal-resume-add">
+                    <span class="sfs-document-add__icon"></span>
+                   Upload Document
+                </button>
+                <input type="file" id="resultToUpload" class="form-control" style="visibility:hidden" />
+            </div>
+            <p>
+                Uploaded documents must be less than 5MB and in one of the following document formats: TXT, PDF, Word (DOC or DOCX) or Excel (XLS, XSLX).
+            </p>
+        </div>
+        <div class="usa-width-one-third document-help-content">
+            <h3>Do not include in documents</h3>
+            <ul>
+                <li>Classified or government sensitive information</li>
+                <li>Social Security Number (SSN)</li>
+                <li>Photos of yourself</li>
+                <li>Personal information, such as age, gender, religious affiliation, etc.</li>
+            </ul>
+        </div>    
+    </div>
+}
+
+ <div id="addDocumentUpload" class="sfs-modal modal">
+        <h2 class="resume-modal-header">Upload Document</h2>
+        <label for="upload-doc-name">Document Name:</label>
+        <input id="upload-doc-name" type="text" />
+        <span id="doc-name-error" class="ErrorText" style="display:none" for="upload-doc-name">Error!</span>
+        <fieldset class="usa-fieldset-inputs" style="padding: 15px;">
+            <div class="usa-width-one-half">
+                <ul class="usa-unstyled-list">      
+                    @foreach(var type in Model.Data.DocTypes.Take(7))
+                    {                     
+                        <li>
+                            <input id="@type.DocumentTypeID" name="DocumentType" type="radio" value="@type.DocumentTypeID">
+                            <label for="@type.Code">@type.DocumentTypeDispley</label>
+                        </li>
+                   
+                    }               
+                </ul>
+            </div>    
+             <div class="usa-width-one-half">
+                <ul class="usa-unstyled-list">      
+                    @foreach(var type in Model.Data.DocTypes.Skip(7).Take(20))
+                    {                     
+                        <li>
+                            <input id="@type.DocumentTypeID" name="DocumentType" type="radio" value="@type.DocumentTypeID">
+                            <label for="@type.Code">@type.DocumentTypeDispley</label>
+                        </li>                   
+                    }               
+                </ul>
+            </div> 
+        </fieldset>
+         
+        <button id="btn-upload-document" class="usa-button usa-button-primary">Complete Upload</button>
+        <div class="loader" style="display: none">
+            <img src="/img/spinner.gif" />
+            <span class="loadingText">Uploading document. Please wait..</span>
+        </div>
+</div>
+
+<div id="confirmDeleteModal" class="sfs-modal modal">
+ <h2 class="resume-modal-header">Delete Confirmation</h2>  
+    <form asp-page-handler="delete" id="delete-doc-form">
+        <input type="hidden" id="docid" name="docid" />
+        <div>This document will be deleted from your account. Once deleted the document cannot be recovered. </div>
+    </form>   
+    <button id="btn-cancel-delete" class="usa-button usa-button-primary">Cancel</button>
+    <button id="btn-confirm-delete" class="usa-button usa-button-primary">Delete Document</button>
+    <div class="loader" style="display:none">
+        <img src="/img/spinner.gif"/>
+        <span class="loadingText">Deleting document. Please wait..</span>
+    </div>
+</div>
+
+@section scripts{ 
+     <script src="~/js/documentRepo.js"></script>
+}

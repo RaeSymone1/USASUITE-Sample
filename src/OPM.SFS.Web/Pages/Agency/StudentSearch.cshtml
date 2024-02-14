@@ -1,0 +1,184 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Agency.StudentSearchModel
+@{
+    Layout = "_SideMenuLayoutAO";
+}
+
+@if(!Model.Data.ShowResults){
+<form method="post">
+    <h2>Agency Officials: <i> Student Search Inquiry</i></h2>
+    <p>
+        You can search the database of students that are <em>available for placement</em>.
+        This search will generate a list of students available for placement based on the
+        criteria you select below and will allow you to view, download, and/or print
+        their resumés.  The more criteria selected, the narrower the search.
+        Select <strong>Submit</strong> to conduct search.
+    </p>
+    <p><b>Date Available for Internship</b></p>  
+
+     <div class="control-group validate-input">
+        <label for="ddlMonthsIntern">Months</label>
+        <select id="ddlMonthsIntern" style="width:100%;" asp-for="Data.InternQuarter" asp-items="Model.Data.QuarterList">
+            <option value="-1"> - No Selection - </option>
+        </select>
+        <span asp-validation-for="Data.InternQuarter"></span>
+    </div>
+    <br/>
+    <div class="control-group validate-input">
+        <label for="ddlInternYear" class="no-margin">Year</label>
+        <select id="ddlInternYear" style="width:100%;" asp-for="Data.InternYear" asp-items="Model.Data.YearList">
+            <option value=""> - No Selection - </option>
+        </select>
+        <span asp-validation-for="Data.InternYear"></span>
+    </div>
+
+    <p><b>Date Available for Post Graduation Placement</b></p> 
+
+     <div class="control-group validate-input">
+        <label for="ddlMonthsPostGrad">Months</label>
+        <select id="ddlMonthsPostGrad" style="width:100%;" asp-for="Data.PostGradQuarter" asp-items="Model.Data.QuarterList">
+            <option value="-1"> - No Selection - </option>
+        </select>
+        <span asp-validation-for="Data.PostGradQuarter"></span>
+    </div>
+    <br/>
+    <div class="control-group validate-input">
+        <label for="ddlPostGradYear" class="no-margin">Year</label>
+        <select id="ddlPostGradYear" style="width:100%;" asp-for="Data.PostGradYear" asp-items="Model.Data.YearList">
+            <option value=""> - No Selection - </option>
+        </select>
+        <span asp-validation-for="Data.PostGradYear"></span>
+    </div>
+    
+
+    <p><b>Others</b></p>
+    <div class="control-group validate-input">
+        <label for="ddlDegreeProgram" class="no-margin">Degree Program</label>
+        <select id="ddlDegreeProgram" style="width:100%;" asp-for="Data.Degree" asp-items="Model.Data.DegreeList">
+            <option value=""> - No Selection - </option>
+        </select>
+        <span asp-validation-for="Data.Degree"></span>
+    </div>
+
+     <div class="control-group validate-input">
+        <label for="ddlUniversity">University/Community College</label>
+        <select id="ddlUniversity" style="width:100%;" asp-for="Data.Institition" asp-items="Model.Data.InstitutionList">
+            <option value=""> - No Selection - </option>
+        </select>
+        <span asp-validation-for="Data.Institition"></span>
+    </div>
+
+    <div class="control-group validate-input">
+        <label for="ddlDiscipline">Discipline</label>
+        <select id="ddlDiscipline" style="width:100%;" asp-for="Data.Discipline" asp-items="Model.Data.DisciplineList">
+            <option value=""> - No Selection - </option>
+        </select>
+        <span asp-validation-for="Data.Discipline"></span>
+    </div>
+
+    <p><b>To access the resumé of a particular student, please enter their name below:</b></p>
+
+     <div class="control-group validate-input">
+        <label for="txtLastName" class="no-margin">Last Name</label>
+        <input asp-for="Data.Lastname" type="text" id="txtLastName">
+        <span asp-validation-for="Data.Lastname"></span>
+    </div>
+
+     <div class="control-group validate-input">
+        <label for="txtFirstName">First Name</label>
+        <input asp-for="Data.Firstname" type="text" id="txtFirstName">
+        <span asp-validation-for="Data.Firstname"></span>
+    </div>
+
+    <input type="submit" value="Submit" >
+   
+  </form>
+  }
+
+ 
+    
+
+  @if(Model.Data.SearchResults.Count > 0)
+  {       
+       <h2>Agency Officials:  <em>Student Search Results</em></h2>
+      <div>
+        To view, download and/or print a particular resumé, select the name of the student whose resumé you want to see.  From the resumé browser menu, select <b>File | Save As</b> to download/save, and select ".txt" as the file type; select <b>File | Print</b> to print.
+        <p>To change the order in which your results appear, select the column heading you want the list to be sorted by.  If you encounter a problem or notice an error, please email us at <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>.</p>
+        <p>
+            To skip these results and continue, select <a href="/Agency/Dashboard">
+                Agency Officials
+                Main Menu
+            </a>.  To initiate a new search, select <a href="/Agency/StudentSearch">here</a>.
+        </p>
+        <p>NOTE: When students have been matched for both internships and permanent placements, their name will not be listed.</p>
+    </div>
+    <h3>@Model.Data.SearchResults.Count students found.</h3>
+    
+    <table id="searchresults">
+				<thead>
+					<tr>
+						<th>
+							Student Name
+						</th>
+                        <th>
+							Institution
+						</th>
+						<th>
+							Degree Program
+						</th>						
+						<th>
+							Discipline
+					    </th>
+                        <th>
+							Internship Availability
+					    </th>
+                         <th>
+							Post-Grad Availability
+					    </th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.Data.SearchResults.Count() > 0)
+					{
+						@foreach (var item in Model.Data.SearchResults)
+						{
+							<tr>
+								<td>									
+									<a target="_blank" href="/Agency/ResumeView?sid=@item.StudentID">@item.StudentName</a>									
+								</td>
+                                <td>
+									@item.Institution
+								</td>
+								<td>
+									@item.Degree
+								</td>
+								
+								<td>
+									@item.Discipline 
+								</td>
+                                <td>
+									@item.InternshipDate 
+								</td>
+                                <td>
+									@item.PostGradDate 
+								</td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+
+  }
+@if(Model.Data.SearchResults.Count == 0 && Model.Data.ShowResults)
+{
+     <h2>Agency Officials:  <em>Student Search Results</em></h2>
+    <h3>No results found for this search.</h3> 
+    <a href="/Agency/StudentSearch" class="usa-button">New Search</a>
+}
+@section Scripts {
+    <script asp-add-nonce>
+       $(document).ready(function () {
+            $("#searchresults").DataTable();
+        });
+    </script>
+}

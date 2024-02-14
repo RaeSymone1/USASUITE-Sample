@@ -1,0 +1,44 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.RegistrationCodesModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container">
+	<div class="grid-row">
+		<div class="grid-col">
+
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Registration Codes</span>
+				</li>
+			  </ol>
+			</nav>
+
+			<h3>Administration: <i>Registration Code</i></h3>
+			@if(Model.Data.RegistrationCodes != null && Model.Data.RegistrationCodes.Count > 0){
+				<table>
+					<tbody>
+						<tr>
+							<td>Quarter</td>
+							<td>Code</td>
+						</tr>
+						@foreach(var item in Model.Data.RegistrationCodes)
+						{
+							<tr>
+								<th>@item.Quartername</th>
+								<td>@item.Code</td>
+							</tr>	
+						}
+					</tbody>
+			</table>
+			}
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,65 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.AccountListModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Accounts</span>
+				</li>
+			  </ol>
+			</nav>
+
+			<h3>Administration: Account Maintenance</h3>
+			
+			<a id="excel-btn_link" href="?handler=ExcelView" class="usa-button">Download to Excel</a>
+			<div class="usa-alert  usa-alert-info usa-alert-info">
+				<div class="usa-alert-body">
+					<p class="usa-alert__text">Use this page to filter and edit registered accounts for Agency Officials and Principal Investigators. </p>
+				</div>
+			</div>
+
+			<input type="radio" id="radAO" name="radPI" value="AO" checked="checked" />
+         	<label for="radAO">Agency Officials</label>
+
+         	<input type="radio" id="radPI" name="radPI" value="PI"  />
+         	<label for="radPI">Principal Investigators</label>
+
+			<table id="accounts">
+				<partial name="_AdminAccountListPartial" model="Model.Data" />				
+			</table>
+			
+
+
+			</div>
+		</div>
+	</div>
+	@section Scripts {
+    <script asp-add-nonce>
+   $(document).ready(function () {
+        $("#accounts").DataTable();
+
+		$('input[type=radio][name=radPI]').change(function() {
+			//$("#loadingMsg").show();
+			var type = $(this).val();
+			$("#accounts").load(`?handler=ChangeAccountType&type=${type}`, function() {
+				 $("#accounts").DataTable({
+                   destroy: true
+                });
+			});
+			$("#excel-btn_link").attr("href",`?handler=ExcelView&type=${type}`);
+		});
+    });
+    </script>
+}

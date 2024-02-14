@@ -1,0 +1,73 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.SystemAdminModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+    <div class="grid-row">
+        <div class="grid-col">
+            <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>System Admin</span>
+				</li>
+			  </ol>
+			</nav>
+
+				<h3>SFS System Administration</h3>
+			@if(!string.IsNullOrWhiteSpace(Model.IsSuccess))
+			{
+				<span style="color:green;font-weight:bold">Load has completed!</span><br />
+			}
+
+			<div>
+					<span>Set Student Dashboard defaults for auto-calculated fields. Ran in batches of 1000 (1 = first 1K, 2 = second 1K, etc)</span>
+				<form asp-page-handler="dashboard"  method="post" class="usa-form-large">
+						<select asp-for="Data.SelectedOption" asp-items="Model.Data.Options">
+							<option value="">Choose an option</option>
+						</select>
+						<div class="control-group validate-input">
+							<label for="txtBatchSize">Batch Size</label>
+							<input type="text" id="txtBatchSize" asp-for="Data.BatchSize">
+							<label for="txtBatchNumber">Input For Selection</label>
+							<input type="text" id="txtBatchNumber" asp-for="Data.Input">
+							<span asp-validation-for="Data.Input"></span>
+						</div>
+
+						<input type="submit" value="Set Dashboard Defaults" class="usa-button" />
+					</form>
+				</div>
+			<hr>
+			<div>
+				<span>Unlink PIV Certificate for Admin User </span>
+				<form asp-page-handler="removecert" method="post">
+					<div class="control-group validate-input">
+						<label for="txtAdminUserID">Admin User ID</label>
+						<input type="text" id="txtUserID" asp-for="Data.UserID">
+						<span asp-validation-for="Data.UserID"></span>
+					</div>
+					<button class="btn btn-default">Unlink PIV Certificate</button>
+				</form>
+			</div>
+			<hr>
+			<div>
+				<span>Toggle PIV Enforcement Admin User </span>
+				<form asp-page-handler="togglepiv" method="post">
+					<div class="control-group validate-input">
+						<label for="txtAdminUserID">Admin User ID</label>
+						<input type="text" id="txtUserID" asp-for="Data.UserID">
+						<span asp-validation-for="Data.UserID"></span>
+					</div>
+					<button class="btn btn-default">Toggle PIV Enforcement</button>
+				</form>
+			</div>
+
+        </div>
+    </div>
+</div>

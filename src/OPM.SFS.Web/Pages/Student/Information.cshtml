@@ -1,0 +1,126 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.InformationModel
+@{
+     Layout = "_NoSideMenu";
+}
+
+<div id="main-content">
+
+    <section class="usa-section no-padding">
+        <div class="usa-grid">
+            <div class="usa-width-one-whole">
+
+                <nav class="usajobs-nav-secondary" role="navigation" data-object="nav-secondary" data-target="#usajobs-nav-secondary-menu--profile">
+                    <div class="usajobs-nav-secondary__body" id="usajobs-menu-profile">
+                        <ul class="usajobs-nav-secondary__menu">
+                            <li class="usajobs-nav-secondary__container">
+                                <a class="usajobs-nav-secondary__item" href="/">SFS Main</a>
+                            </li>
+                            <li class="usajobs-nav-secondary__container">
+                                <a class="usajobs-nav-secondary__item" href="/Student/Overview">Become an SFS Student</a>
+                            </li>
+                            <li class="usajobs-nav-secondary__container">
+                                <a class="usajobs-nav-secondary__item" href="/Student/Login">Current SFS Students</a>
+                            </li>
+                            <li class="usajobs-nav-secondary__container more is-hidden" style="display: none;">
+                                <a class="usajobs-nav-secondary__more-toggle" href="#more" data-behavior="nav-secondary.toggle" data-target="#usajobs-nav-secondary-menu--profile">
+                                    <svg class="svg-inline--fa fa-plus fa-w-14" aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path fill="currentColor" d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z"></path>
+                                    </svg><!-- <span class="fas fa-plus"></span> -->
+                                </a>
+                                <ul class="usajobs-nav-secondary__more-container" id="usajobs-nav-secondary-menu--profile" data-state="is-closed">
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="usa-section participate">
+        <div class="usa-grid">
+            <div class="usa-width-two-thirds">
+                <h2 class="usa-serif">The SFS Program Experience</h2>
+                <p>
+                    Programs of study are varied and cover fields such as Computer Science/Engineering, Security of Emerging Technologies (e.g., internet of things,
+                    medical implants), Cyber Law and Privacy, and Policy. Students pursue studies in well-established cybersecurity programs, engage with hands-on
+                    experiences, participate in cyber competitions and pursue opportunities for professional development (e.g., earn industry certifications,
+                    present at conferences). They are required to complete a summer internship to hone their skills and gain professional experience. Often they
+                    stay at their place of internship for post-graduation placement.
+                </p>
+
+            </div>
+            <div class="usa-width-one-third" style="text-align: center;">
+                <img src="~/img/computer-students.jpg" width="185" height="278" alt="Students at a computer" />
+            </div>
+        </div>
+    </section>
+
+    <section class="usa-section getstarted">
+        <div class="usa-grid">
+            <div class="usa-width-one-fourth" style="text-align: center;">
+                <img src="~/img/scholarship.jpg" width="202" height="238" alt="Scholarship money" style="margin-top: 70px;" />
+            </div>
+            <div class="usa-width-three-fourths">
+                <h2>Scholarship Components</h2>
+                <ul>
+                    <li>Up to 3 years of support for undergraduate and graduate (MS or PhD) education</li>
+                    <li>Academic-year stipends of $25,000 per year for undergraduate students and $34,000 per year for graduate students</li>
+                    <li>Tuition and education related fees (does not include items such as meal plans, housing, or parking)</li>
+                    <li>Professional allowance of $6,000 for SFS Job Fair and other travel, professional certification, etc.</li>
+                    <li>Participation in virtual and in-person job fairs in Washington, D.C.</li>
+                    <li>Post-graduation government service requirement for a period equivalent to the length of scholarship</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="usa-section participate">
+        <div class="usa-grid">
+            <div class="usa-width-one-whole">
+                <h2 class="usa-serif">Am I Eligible To Participate?</h2>
+                <h3>Are you...</h3>
+            </div>
+            <div class="usa-width-two-thirds">
+                <ul>
+                    <li>A citizen or lawful permanent resident of the United States? In addition, you must be one of the following:</li>
+                    <li>
+                        Full-time student within three years of graduation with a bachelor's or master's degree in a coherent formal program that is
+                        focused on cybersecurity at an awardee institution; or Research-based doctoral student
+                    </li>
+                    <li>
+                        A community college student at an SFS Community College Cyber Pilot (C3P) awardee institution pursing an associates degree or
+                        specialized certification in the field of cybersecurity; AND already have a bachelor's degree, or are a veteran of the Armed Forces.
+                    </li>
+                    <li>Other university specific eligibility requirements</li>
+                </ul>
+                <p><em>You must meet criteria for Federal employment and be able to obtain a security clearance, if required.</em></p>
+                <p>
+                    <em>
+                        Sophomores at community colleges are eligible for one year of support if there is a formal agreement between a community college
+                        and a four-year institution to transfer the student for two years of additional support to complete a bachelor's degree.
+                    </em>
+                </p>
+            </div>
+            <div class="usa-width-one-third">
+                <span class="yes"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="usa-section getstarted">
+        <div class="usa-grid">
+            <div class="usa-width-one-whole">
+
+                <h2>How Do I Apply?</h2>
+                <p>
+                    Interested students need to apply directly with participating institutions – the list of institutions can be found on the link below.
+                    Just <a href="mailto:sfs@opm.gov">send an email</a> asking for availability and application instructions.
+                </p>
+                <p>Check out the <a href="/Academia/Institutions">participating institutions</a>.</p>
+            </div>
+        </div>
+    </section>
+   </div>

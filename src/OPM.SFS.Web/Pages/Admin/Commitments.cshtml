@@ -1,0 +1,114 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.CommitmentsModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container">
+	<div class="grid-row">
+		<div class="grid-col">
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Commitments</span>
+				</li>
+			  </ol>
+			</nav>
+
+
+			<h3>Administration: <i>Commitment Dashboard</i></h3>
+			
+			<a href="/Admin/CommitmentList" class="usa-button"> View All Commitments</a>
+			<br />
+			<form method="post" class="usa-form-large">
+				<div class="control-group validate-input">
+					<label for="ddlCommitmentApprovalStatus">*Status</label>
+					<select id="ddlCommitmentApprovalStatus" class="agencySelect" asp-items="Model.Data.ApprovalStatusList" asp-for="Data.ApprovalStatus">		
+						<option value="0">-- Select --</option>
+					</select>
+					 <span asp-validation-for="Data.ApprovalStatus"></span>		 
+				</div>
+				<div class="control-group validate-input">
+					<label for="txtStartDate" class="no-margin-top">From</label>
+					<input type="text" id="txtStartDate" asp-for="Data.LastApprovedStartdate" placeholder="mm/dd/yyyy">
+					<span asp-validation-for="Data.LastApprovedStartdate"></span>	 
+				</div>
+				<div class="control-group validate-input">
+					<label for="txtEndDate" class="no-margin-top">To</label>
+					<input type="text" id="txtEndDate" asp-for="Data.LastApprovedEndDate" placeholder="mm/dd/yyyy">
+					<span asp-validation-for="Data.LastApprovedStartdate"></span>	 
+				</div>
+				<input type="submit" value="Update Results" class="usa-button">
+			</form>
+
+
+			<div class="admin-commitment-results">
+				<table border="2" style="margin:auto; text-align:center">
+					<tbody><tr style="background-color:lavender">
+						<td colspan="4" style="font-weight:bold; font-size:large">
+							Commitment(s) By Agency Type
+							</td>
+								</tr>
+								<tr>
+									<td colspan="4" style="color:darkblue">@Model.Data.ReportDescription</td>
+								</tr>
+								<tr style="color:blue">
+									<td>Agency Type</td>
+									<td>Total</td>
+									<td>Percentage</td>
+									<td></td>
+								</tr>
+								@if (Model.Data != null && Model.Data.CommitmentsByAgencyType != null)
+								{
+									@foreach (var item in Model.Data.CommitmentsByAgencyType)
+									{
+										<tr>
+											<td style="width:200px;text-align:left;">@item.TypeName</td>
+											<td style="width:200px;text-align:center;">@item.Total</td>
+											<td style="width:75px;text-align:center;">@item.Percentage </td>
+											<td style="width:75px;text-align:center;"><a href="/Admin/CommitmentList?at=@item.TypeID&sd=@Model.Data.LastApprovedStartdate&ed=@Model.Data.LastApprovedEndDate&s=@Model.Data.ApprovalStatus">View</a></td>
+										</tr>
+									}
+								}
+							</tbody>
+				</table>
+				<br /><br />
+				<table border="2" style="margin: auto; text-align: center">
+						<tbody><tr style="background-color:lavender">
+							<td colspan="3" style="font-weight:bold; font-size:large">
+								Commitment(s) By Commitment Type
+								</td>
+						</tr>
+						<tr>
+							<td colspan="3" style="color:darkblue">@Model.Data.ReportDescription</td>
+						</tr>
+						<tr style="color:blue">
+							<td>Commitment Type</td>
+							<td>Total</td>
+							<td></td>
+						</tr>
+						@if (Model.Data != null && Model.Data.CommitmentsByType != null)
+						{
+							@foreach (var item in Model.Data.CommitmentsByType)
+							{
+								<tr>
+									<td style="width:200px;text-align:left;">@item.TypeName</td>
+									<td style="width:75px;text-align:center;">@item.Total</td>
+									<td style="width:75px;text-align:center;"><a href="/Admin/CommitmentList?ct=@item.TypeID&sd=@Model.Data.LastApprovedStartdate&ed=@Model.Data.LastApprovedEndDate&s=@Model.Data.ApprovalStatus">View</a></td>
+								</tr>
+							}
+						}
+
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,137 @@
+﻿<!doctype html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="SFS">
+    <meta name="description" content="Start your cybersecurity career with the U.S. government">
+    <meta property="og:description" content="Start your cybersecurity career with the U.S. government">
+    <title>CyberCorps&#174;: Scholarship for Service</title>
+    <link rel="stylesheet" href="/css/sfsbase.css" />
+</head>
+<body>
+    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    <div class="official-website">
+        <div class="usa-grid">
+            <div class="usa-width-three-fourths">
+                <a href="http://www.opm.gov">
+                    <img src="~/img/OPM-header.png" alt="OPM Seal">
+                    <span>Official Website of the U.S. Office of Personnel Management</span>
+                </a>
+            </div>
+            <div class="usa-width-one-fourth" style="text-align: right;">
+                <span style="font-size: 11px; font-style: italic; display: inline-block; line-height: 14px; text-align: right;">
+                    OMB # 3206-0246
+                    <br>
+                    Expires: 11/4/2024
+                </span>
+            </div>
+        </div>
+    </div>
+    <partial name="_Header" />
+
+   
+    <div class="usa-overlay">
+
+    </div>
+    <div class="usa-hero interior"></div>
+
+    <main class="grid-container-widescreen usa-section usa-content usa-layout-docs grid-extra-wide" id="main-content">
+         <div class="grid-row grid-gap">
+            <aside id="StudMenuArea" class="tablet:grid-col-3">
+                @if (User.Identity.IsAuthenticated && User.IsInRole("ST"))
+                {
+                    <ul class="usa-sidenav-list" id="ulStudentOverview">
+                        <li><a href="/AgencyOfficials">Agency Official List</a></li>
+                        <li><a href="/Student/BackgroundInfo">Background Information</a></li>
+                         <li>
+                            <a class="usa-current" style="color: #212121" href="javascript:void(0);">Current Job Opportunities</a>
+                            <ul class="usa-sidenav-sub_list">
+                                 <li>
+                                    <a href="https://www.usajobs.gov/Search/Results?k=Cybersecurity&amp;p=1" target="_blank" title="Select this link to see current Cybersecurity opportunities posted to USAJOBS. This link includes a filter that limits the jobs for internships and recent graduates.">Cybersecurity Opportunities</a>
+                                </li>
+                                <li>
+                                    <a href="https://intern.usajobs.gov/" target="_blank" title="This link displays internship opportunities found within the Federal Government .">Federal Internship Portal</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.usajobs.gov/Search/Results?hp=student&amp;k=Information%20Security&amp;p=1" target="_blank" title="Select this link to see current Information Security (Student) opportunities posted to USAJOBS. This link includes a filter that limits the jobs for internships and recent graduates.">Information Security Opportunities</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.usajobs.gov/Search/Results?k=Information%20Assurance&amp;p=1" target="_blank" title="Select this link to see current Information Assurance opportunities posted to USAJOBS. This includes all available positions in Cybersecurity.">Information Assurance Opportunities</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.nitrd.gov/stem4all/" target="_blank" title="Internship and Training Opportunities – NITRD STEM Portal">Internship opportunities - NITRD</a>
+                                </li>
+                                 <li>
+                                     <a href="https://www.intelligencecareers.gov/" target="_blank" title="Learn more about federal government career opportunities and job openings in the U.S. Intelligence Community.">Intelligence Careers</a>
+                                 </li>
+
+                            </ul>
+                        </li>
+                        <li><a href="/Student/ResumeList">Documents/Resumes</a></li>
+                        <li><a href="/Help/Account" target="_blank">SFS Help Center</a></li>
+                        <li><a href="/Student/JobActivity">Job Activity Report</a></li>
+                        <li><a href="/Logout">Log out</a></li>                   
+                        <li><a href="/Student/Profile">Profile Change</a></li>
+                       
+                        @if (User.FindFirst("EVFToggle").Value == "True")
+                        {
+                                <li>
+                                <a href="/Student/CommitmentVerification">Add service commitments and verifications</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a href="/Student/Commitments">Report a Commitment</a></li>
+                        }
+                        <li>
+                            <a class="usa-current" style="color: #212121" href="javascript:void(0);">Resources</a>
+                            <ul class="usa-sidenav-sub_list">
+                                <li>
+                                    <a href="/docs/Job Fair 2024 SFS Briefing for Scholars _Jan 2024_FINAL.pdf" target="_blank">Job fair 2024 scholar portal slide deck</a>
+                                </li>
+                                <li>
+                                    <a href="/docs/EMPLOYMENT VERIFICATION FORM v2.pdf" target="_blank" title="SFS Employment Verification Form">SFS Employment Verification Form</a>
+                                </li>
+                                <li>
+                                    <a href="/docs/FINAL%20SFS-Student%20Guidance%20Document.pdf" target="_blank" title="Student Program Information & Guidance">Student Program Information & Guidance</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.usajobs.gov/Notification/Events" target="_blank" title="USAJOBS Events">USAJOBS Events</a>
+                                </li>
+                            </ul>
+                        </li>
+                         <li><a href="/Student/Dashboard">SFS Main</a></li>                
+                    </ul>
+                }
+                else
+                {
+                    <ul class="usa-sidenav-list" id="ulStudentOverview">
+                        <li><a href="/">SFS Main</a></li>
+                        <li><a href="/Student/Information">Find Out More</a></li>
+                        <li><a href="/Student/FAQs">FAQs</a></li>
+                        <li><a href="/Academia/Institutions">Participating Institutions</a></li>
+                        <li><a href="/Student/Contacts">Contacts</a></li>
+                        <li><a href="/Student/Resources">Resources</a></li>
+                        <li><a href="/Student/Registration">Registration</a></li>
+                        <li><a href="/Student/Login">Login</a></li>
+                    </ul>
+                }
+            </aside>     
+        
+            <section class="tablet:grid-col-8 usa-layout-docs-main_content">
+                <div id="main-content-wrapper">
+                    @RenderBody()
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <partial name="_Footer" />
+    <script src="/js/sfsbasebundle.js"></script>
+    @RenderSection("scripts", required: false)
+    <partial name="_SessionExpireAlert" />
+</body>
+</html>

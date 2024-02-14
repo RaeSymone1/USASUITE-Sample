@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3fc573a1-62b2-4cae-ac36-4dea6f8dd3f8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Communication.Email" Version="1.0.1" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+    <PackageReference Include="DistributedLock.SqlServer" Version="1.0.3" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+    <PackageReference Include="Microsoft.Azure.EventGrid" Version="3.2.1" />
+    <PackageReference Include="Sgbj.Cron.CronTimer" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OPM.SFS.Data\OPM.SFS.Core.csproj" />
+  </ItemGroup>
+
+</Project>

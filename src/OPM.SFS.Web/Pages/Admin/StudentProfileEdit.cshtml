@@ -1,0 +1,571 @@
+﻿  @page
+@model OPM.SFS.Web.Pages.Admin.StudentProfileEditModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+				<ol class="usa-breadcrumb__list">
+					<li class="usa-breadcrumb__list-item">
+						<a href="/Admin/Home" class="usa-breadcrumb__link">
+							<span>Home</span>
+						</a>
+					</li>
+					<li class="usa-breadcrumb__list-item">
+						<a href="/Admin/StudentLookup" class="usa-breadcrumb__link">
+							<span>Student Lookup</span>
+						</a>
+					</li>
+					<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+						<span>Student Edit</span>
+					</li>
+				</ol>
+			</nav>
+
+			<h3>Administration: Student Profile Maintenance</h3>
+
+			@if (Model.Data.IsPendingRegistrationApproval)
+			{
+				<div class="usa-alert usa-alert-warning">
+					<div class="usa-alert-body">
+					<p class="usa-alert-text">
+						This student's account is pending registration approval. Adding commitments and job activities are disabled until 
+						the student's account has been approved and profile completed. 
+					</p>
+				</div>
+			</div>
+			}
+
+			@if (!Model.Data.IsPendingRegistrationApproval)
+			{
+				<a href="/Admin/StudentDocuments?sid=@Model.Data.StudentID" class="usa-button">View Documents</a>
+				<a href="/Admin/StudentJobActivity?sid=@Model.Data.StudentID" class="usa-button">View Job Activity</a>		
+				 @if (User.FindFirst("AdminRole").Value != "Read Only")
+				 {
+					<a href="/Admin/CommitmentAdd?sid=@Model.Data.StudentID" class="usa-button"> Add Commitments</a>
+				}
+			}
+			else
+			{
+				<a href="/Admin/StudentDocuments?sid=@Model.Data.StudentID" class="usa-button">View Documents</a>
+			}
+				
+		
+		  @if(Model.Data.ShowSuccessMessage){
+				<div class="usa-alert usa-alert-success">
+					<div class="usa-alert-body">
+						<p class="usa-alert-text">
+							Student profile updated successfully.
+						</p>
+					</div>
+			   </div>
+			}   
+			<form method="post" class="usa-form-large">
+				<div asp-validation-summary="All">
+					<span>Please correct the following errors</span>
+				</div>
+				<h3>Account Status</h3>
+				<input type="hidden" asp-for="Data.LoginGovID" />
+				<div class="control-group validate-input">
+					<label for="ddlAccountStatus">*Account Status</label>
+					<select asp-for="Data.ProfileStatusID" asp-items="Model.Data.ProfileStatusList">
+					</select>
+					<span asp-validation-for="Data.ProfileStatusID"></span>
+				</div>
+				
+				@if (!string.IsNullOrWhiteSpace(Model.Data.LoginGovID) && User.FindFirst("AdminRole").Value != "Read Only")
+				{
+					//<span style="color:red">Linked with Login.gov</span>
+					<div class="usa-alert usa-alert-info">
+						<div class="usa-alert-body">
+							<h3 class="usa-alert-heading">Linked with Login.gov</h3>
+							<p class="usa-alert-text">
+								This account has been linked with Login.gov.
+								<a href="?handler=UnlinkAccount&id=@Model.Data.StudentID" id="UnlinkButton" class="usa-button">Unlink Account </a>
+							</p>
+						</div>
+					</div>
+					
+				}				
+
+				<h3>Name</h3>
+
+				<input type="hidden" asp-for="Data.StudentID" />
+				<span>Student UID: @Model.Data.StudentUID </span>
+				<div class="control-group validate-input">
+					<label for="txtFirstName">*First Name</label>
+					<input id="txtFirstName" asp-for="Data.Firstname">
+					<span asp-validation-for="Data.Firstname"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtMiddleName">Middle Name or Initial</label>
+					<input id="txtMiddleName" asp-for="Data.Middlename">
+					<span asp-validation-for="Data.Middlename"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtLastName">*Last Name</label>
+					<input id="txtLastName" asp-for="Data.Lastname">
+					<span asp-validation-for="Data.Lastname"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtSuffix">Suffix (e.g., Jr., III or M.D.)</label>
+					<input id="txtSuffix" asp-for="Data.Suffix">
+					<span asp-validation-for="Data.Suffix"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtDateOfBirth">*Date of Birth (Example: mm/dd/yyyy)</label>
+					<input id="txtDateOfBirth" asp-for="Data.DateOfBirth">
+					<span asp-validation-for="Data.DateOfBirth"></span>
+				</div>
+
+				<label for="SSN" style="font-weight:bold;">Social Security Number</label>
+				***-**-<span id="SSN" title="Last for digits of Social Security Number"> @Model.Data.Last4SSN </span>
+
+				@if(!string.IsNullOrWhiteSpace(Model.Data.LoginGovID))
+				{
+					<div class="control-group validate-input">
+					<label for="txtEmail">*Email Address</label>
+					<span>@Model.Data.Email</span><br/>
+					<span style="color:red;font-size:small">*Email Address must be changed at login.gov</span>
+					@*<input id="txtEmail" asp-for="Data.Email" read>
+					<span asp-validation-for="Data.Email"></span>*@
+					</div>
+				}
+				else 
+				{
+					<div class="control-group validate-input">
+						<label for="txtEmail">*Email Address</label>
+						<input id="txtEmail" asp-for="Data.Email">
+						<span asp-validation-for="Data.Email"></span>
+					</div>
+				}
+
+				<div class="control-group validate-input">
+					<label for="txtAlternateEmail">*Alternate Email Address</label>
+					<input id="txtAlternateEmail" asp-for="Data.AlternateEmail">
+					<span asp-validation-for="Data.AlternateEmail"></span>
+				</div>
+
+
+				<h3>Current Address</h3>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrentAddress1">*Address 1</label>
+					<input id="txtCurrentAddress1" asp-for="Data.CurrAddress1">
+					<span asp-validation-for="Data.CurrAddress1"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrentAddress2">Address 2</label>
+					<input id="txtCurrentAddress2" asp-for="Data.CurrAddress2">
+					<span asp-validation-for="Data.CurrAddress2"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrCity">*City</label>
+					<input id="txtCurrCity" asp-for="Data.CurrCity">
+					<span asp-validation-for="Data.CurrCity"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlCurrAddressState">*State</label>
+					<select id="CurrStateID" asp-for="Data.CurrStateID" asp-items="Model.Data.StateList">
+					</select>
+					<span asp-validation-for="Data.CurrStateID"></span>
+				</div>
+
+
+				<input id="chkOmitState" type="checkbox" asp-for="Data.CurrOmitState">
+				<label for="chkOmitState">Check here to omit State, if not a U.S.A. address</label>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrZip">*ZIP+4 Code (+4 is optional)</label>
+					<input id="txtCurrZip" asp-for="Data.CurrPostalCode">
+					<span asp-validation-for="Data.CurrPostalCode"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrCountry">Country (if not a U.S.A. address)</label>
+					<input id="txtCurrCountry" asp-for="Data.CurrCountry">
+					<span asp-validation-for="Data.CurrCountry"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrPhone">*Phone Number</label>
+					<input id="txtCurrPhone" asp-for="Data.CurrPhone">
+					<span asp-validation-for="Data.CurrPhone"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrExt">Ext</label>
+					<input id="txtCurrExt" asp-for="Data.CurrExtension">
+					<span asp-validation-for="Data.CurrExtension"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtCurrFax">Fax Number</label>
+					<input id="txtCurrFax" asp-for="Data.CurrFax">
+					<span asp-validation-for="Data.CurrOtherPhone"></span>
+				</div>
+
+				<h3>Permanent Address</h3>
+
+				<input id="ckUseCurrent" type="checkbox" asp-for="Data.PermUseCurretAddressAsPerm">
+				<label for="ckUseCurrent">Check here to use the Current Address as the Permanent Address</label>
+
+				<div class="control-group validate-input">
+					<label for="txtPermAddress1">*Address 1</label>
+					<input id="txtPermAddress1" asp-for="Data.PermAddress1">
+					<span asp-validation-for="Data.PermAddress1"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPermAddress2">Address 2</label>
+					<input id="txtPermAddress2" asp-for="Data.PermAddress2">
+					<span asp-validation-for="Data.PermAddress2"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPermCity">*City</label>
+					<input id="txtPermCity" asp-for="Data.PermCity">
+					<span asp-validation-for="Data.PermCity"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="ddlCurrAddressState">*State</label>
+					<select id="PermStateID" asp-for="Data.PermStateID" asp-items="Model.Data.StateList">
+					</select>
+					<span asp-validation-for="Data.PermStateID"></span>
+				</div>
+
+
+				<input id="chkOmitPermState" type="checkbox" asp-for="Data.PermOmitState">
+				<label for="chkOmitPermState">Check here to omit State, if not a U.S.A. address</label>
+
+				<div class="control-group validate-input">
+					<label for="txtPermZip">*ZIP+4 Code (+4 is optional)</label>
+					<input id="txtPermZip" asp-for="Data.PermPostalCode">
+					<span asp-validation-for="Data.PermPostalCode"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPermCountry">Country</label>
+					<input id="txtPermCountry" asp-for="Data.PermCountry">&nbsp;&nbsp;<span style="font-weight: bold; font-size: 12px">(if not a U.S.A. address)</span>
+					<span asp-validation-for="Data.PermCountry"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPermPhone">*Phone Number</label>
+					<input id="txtPermPhone" asp-for="Data.PermPhone">
+					<span asp-validation-for="Data.PermPhone"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPermExtension">Ext.</label>
+					<input name="txtPermExtension" asp-for="Data.PermExtension">
+					<span asp-validation-for="Data.PermExtension"></span>
+				</div>
+
+
+				<div class="control-group validate-input">
+					<label for="txtPermFax">Fax Number</label>
+					<input id="txtPermFax" asp-for="Data.PermFax">
+					<span asp-validation-for="Data.PermFax"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtOtherPhoneNumber">Other Phone Number</label>
+					<input id="txtOtherPhoneNumber" asp-for="Data.PermOtherPhone">
+					<span asp-validation-for="Data.PermOtherPhone"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtOtherPhoneExt">Ext.</label>
+					<input id="txtOtherPhoneExt" asp-for="Data.PermOtherExtension">
+					<span asp-validation-for="Data.PermOtherExtension"></span>
+				</div>
+
+				<h3>Emergency Contact</h3>
+
+				<div class="control-group validate-input">
+					<label for="txtEmerFirstName">*First Name</label>
+					<input id="txtEmerFirstName" asp-for="Data.ContactFirstname">
+					<span asp-validation-for="Data.ContactFirstname"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtEmerMiddleName">Middle Name or Initial</label>
+					<input id="txtEmerMiddleName" asp-for="Data.ContactMiddlename">
+					<span asp-validation-for="Data.ContactMiddlename"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtEmerLastName">*Last Name</label>
+					<input id="txtEmerLastName" asp-for="Data.ContactLastname">
+					<span asp-validation-for="Data.ContactLastname"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtEmerRelationship">*Relationship</label>
+					<input id="txtEmerRelationship" asp-for="Data.ContactRelationship">
+					<span asp-validation-for="Data.ContactRelationship"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtEmergencyEmail">Email Address</label>
+					<input id="txtEmergencyEmail" asp-for="Data.ContactEmail">
+					<span asp-validation-for="Data.ContactEmail"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtEmergencyPhone">*Phone Number</label>
+					<input id="txtEmergencyPhone" asp-for="Data.ContactPhone">
+					<span asp-validation-for="Data.ContactPhone"></span>
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtEmerExt">Ext.</label>
+					<input id="txtEmerExt" asp-for="Data.ContactExtension">
+					<span asp-validation-for="Data.ContactExtension"></span>
+				</div>
+				<br />
+
+			    @for (int i = 0; i < Model.Data.Fundings.Count; i++)
+				{
+                    <ul class="usa-accordion-bordered">
+
+                        <li>
+                            <button class="usa-accordion-button" type="button"  aria-expanded="false" aria-controls="a1">
+									<h3>College @(i + 1) Information</h3>
+                            </button>
+                            <div id="a1" class="usa-accordion-content" aria-hidden="true">                                
+                                <input type="hidden" asp-for="Data.Fundings[i].ID" />
+                                <div class="control-group validate-input">
+                                    <label for="ddlCollege">*University/College Attending</label>
+                                    <select asp-for="Data.Fundings[i].SelectedCollege" asp-items="Model.Data.Institutions">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].SelectedCollege"></span>
+                                </div>
+                                <div class="control-group validate-input">
+                                    <label for="ddlEnrolledSession">*Enrolled Session</label>
+                                    <select asp-for="Data.Fundings[i].EnrolledSession" asp-items="Model.Data.SessionList">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].EnrolledSession"></span>
+                                </div>
+                                <div class="control-group validate-input">
+                                    <label for="ddlEnrolledYear">*Enrolled Year</label>
+                                    <select asp-for="Data.Fundings[i].EnrolledYear" asp-items="Model.Data.YearList">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].EnrolledYear"></span>
+                                </div>
+                                <div class="control-group validate-input">
+                                    <label for="ddlFundingEndSession">*Funding End Session</label>
+                                    <select asp-for="Data.Fundings[i].FundingEndSession" asp-items="Model.Data.SessionList">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].FundingEndSession"></span>
+                                </div>
+                                <div class="control-group validate-input">
+                                    <label for="ddlFundingEndYear">*Funding End Year</label>
+                                    <select asp-for="Data.Fundings[i].FundingEndYear" asp-items="Model.Data.YearList">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].FundingEndYear"></span>
+                                </div>
+
+                                <div class="control-group validate-input">
+                                    <label for="ddlDegreeProgram">*Degree Program</label>
+                                    <select asp-for="Data.Fundings[i].SelectedDegree" class="degreeprogram" asp-items="Model.Data.Degrees">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].SelectedDegree"></span>
+                                </div>
+
+                                <div class="control-group validate-input">
+                                    <label for="ddlDiscipline">*Major</label>
+                                    <select asp-for="Data.Fundings[i].SelectedDiscipline" asp-items="Model.Data.Disciplines">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].SelectedDiscipline"></span>
+                                </div>
+
+                                <div class="control-group validate-input">
+                                    <label for="ddlMinor">Minor</label>
+                                    <select asp-for="Data.Fundings[i].SelectedMinor" asp-items="Model.Data.Disciplines">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].SelectedMinor"></span>
+                                </div>
+
+
+                                <div class="control-group validate-input">
+                                    <label id="lblSecondDegreeMajor" class="SecondDegreeMajorLabel" for="ddlSecondDegreeMajor">Second Degree Major</label>
+                                    <select asp-for="Data.Fundings[i].SelectedSecondDegreeMajor" class="SecondDegreeMajor" asp-items="Model.Data.Disciplines">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].SelectedSecondDegreeMajor"></span>
+                                </div>
+
+                                <div class="control-group validate-input">
+                                    <label id="lblSecondDegreeMinor" class="SecondDegreeMinorLabel" for="ddlSecondDegreeMinor">Second Degree Minor</label>
+                                    <select asp-for="Data.Fundings[i].SelectedSecondDegreeMinor" class="SecondDegreeMinor" asp-items="Model.Data.Disciplines">
+                                        <option value="">- Please Select -</option>
+                                    </select>
+                                    <span asp-validation-for="Data.Fundings[i].SelectedSecondDegreeMinor"></span>
+                                </div>
+
+                                <div class="control-group validate-input">
+                                    <label for="txtExpectedGraduationDate">*Expected Graduation Date (mm/yyyy)</label>
+                                    <input id="txtExpectedGraduationDate" asp-for="Data.Fundings[i].ExpectedGradDate">
+                                    <span asp-validation-for="Data.Fundings[i].ExpectedGradDate"></span>
+                                </div>
+
+                                <div class="control-group validate-input">
+                                    <label for="txtDateAvailableForIntership">*Date Available for Internship (mm/yyyy)</label>
+                                    <input id="txtDateAvailableForIntership" asp-for="Data.Fundings[i].DateAvailIntern">
+                                    <span asp-validation-for="Data.Fundings[i].DateAvailIntern"></span>
+                                </div>
+
+                                <div class="control-group validate-input">
+                                    <label for="txtDateAvailableForPostGradCommitment">*Date Available for Post-Grad Commitment (mm/yyyy)</label>
+                                    <input id="txtDateAvailableForPostGradCommitment" asp-for="Data.Fundings[i].DateAvailPostGrad">
+                                    <span asp-validation-for="Data.Fundings[i].DateAvailPostGrad"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                }
+				<h3>Security Certificates</h3>
+				<span asp-validation-for="Data.SelectedCertificates"></span>
+				<ul class="usa-unstyled-list">
+					@foreach (var item in Model.Data.Certificates)
+					{
+						<li>
+							<input name="Data.SelectedCertificates" type="checkbox" value="@item.ID" checked="@item.Selected" />
+							<label for="@item.ID">@item.Name</label>
+						</li>
+					}
+				</ul>
+				@{
+					bool DeleteEnabled = false;
+				}
+			    @if (User.FindFirst("AdminRole").Value != "Read Only")
+				{
+					<input asp-page-handler="Submit" type="submit" value="Submit" class="usa-button">
+				}
+
+				@if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+				{
+					@for (int i = 0; i < Model.Data.Fundings.Count; i++)
+					{
+						@if ((Model.Data.Fundings[i].EnrolledSession == Model.Data.Fundings[i].FundingEndSession) & (Model.Data.Fundings[i].EnrolledYear == Model.Data.Fundings[i].FundingEndYear))
+						{
+							DeleteEnabled = true;
+						}
+					}
+				}
+				@if (DeleteEnabled)
+			    {
+						<a href="?handler=DeleteAccount&id=@Model.Data.StudentID" id="DeleteButton" class="usa-button">Delete Account</a>
+			    }
+				
+			</form>
+		</div>
+	</div>
+</div>
+@section scripts{
+    <script asp-add-nonce>
+        $(document).ready(function () {
+            $("#DeleteButton").click(function () {
+                if (!confirm("Are you sure you want to delete this account from the SFS system ?")) {
+                    return false;
+                }
+
+            });
+
+            $("#UnlinkButton").click(function () {
+                if (!confirm("Are you sure you want to unlink this account from Login.gov?")) {
+                    return false;
+                }
+
+            });
+
+            $(document).ready(function () {
+
+                for (var i = 0; i < $(".degreeprogram").children("option:selected").length; i++) {
+                    var type = $(".degreeprogram").children("option:selected")[i].innerHTML;
+                    var majorlabeltoggle = $(".SecondDegreeMajorLabel")
+                    var majorddltoggle = $(".SecondDegreeMajor")
+                    var minorlabeltoggle = $(".SecondDegreeMinorLabel")
+                    var minorddltoggle = $(".SecondDegreeMinor")
+                    if (type.includes("/")) {
+                        $(majorlabeltoggle[i]).show();
+                        $(majorddltoggle[i]).show();
+                        $(minorlabeltoggle[i]).show();
+                        $(minorddltoggle[i]).show();
+                    }
+                    else {
+                        $(majorlabeltoggle[i]).hide();
+                        $(majorddltoggle[i]).hide();
+                        $(minorlabeltoggle[i]).hide();
+                        $(minorddltoggle[i]).hide();
+                    }
+                }
+            });
+
+            $(".degreeprogram").change(function () {
+				var i = this.id.replace(/[^0-9]/g, '');
+				var type = this.selectedOptions[0].innerHTML
+                var majorlabeltoggle = $(".SecondDegreeMajorLabel")
+                var majorddltoggle = $(".SecondDegreeMajor")
+                var minorlabeltoggle = $(".SecondDegreeMinorLabel")
+                var minorddltoggle = $(".SecondDegreeMinor")
+                if (type.includes("/")) {
+                    $(majorlabeltoggle[i]).show();
+                    $(majorddltoggle[i]).show();
+                    $(minorlabeltoggle[i]).show();
+                    $(minorddltoggle[i]).show();
+                }
+                else {
+                    $(majorlabeltoggle[i]).hide();
+                    $(majorddltoggle[i]).hide();
+                    $(minorlabeltoggle[i]).hide();
+                    $(minorddltoggle[i]).hide();
+                }
+            });
+
+            $("#ckUseCurrent").change(function () {
+                if (this.checked) {
+                    $("#txtPermAddress1").val($("#txtCurrentAddress1").val());
+                    $("#txtPermAddress2").val($("#txtCurrentAddress2").val());
+                    $("#txtPermCity").val($("#txtCurrCity").val());
+                    $("#PermStateID").val($("#CurrStateID").val());
+                    $("#txtPermZip").val($("#txtCurrZip").val());
+                    $("#txtPermCountry").val($("#txtCurrCountry").val());
+                }
+                else {
+                    $("#txtPermAddress1").val('');
+                    $("#txtPermAddress2").val('');
+                    $("#txtPermCity").val('');
+                    $("#PermStateID").val(0);
+                    $("#txtPermZip").val('');
+                    $("#txtPermCountry").val('');
+                }
+
+            });
+        });
+
+
+
+    </script>
+}

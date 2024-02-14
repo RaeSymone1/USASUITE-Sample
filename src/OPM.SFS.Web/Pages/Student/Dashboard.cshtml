@@ -1,0 +1,16 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.DashboardModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+
+<script type="text/javascript" src="~/js/idleSessionTimeout.js"></script>
+<div style="text-align:center">
+    <h3>Welcome @User.Identity.Name! </h3>
+    <h4>You have successfully logged into the SFS student portal!</h4>
+    <br />
+    <h4> <a href="/Logout">Log Out</a></h4>
+</div>
+
+
+

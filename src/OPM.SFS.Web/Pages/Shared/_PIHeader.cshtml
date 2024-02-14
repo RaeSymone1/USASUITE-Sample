@@ -1,0 +1,90 @@
+﻿<header class="usa-header usa-header-extended" role="banner">
+    <div>
+        <div class="usa-navbar">
+            <div class="usa-logo">
+                <a href="/">
+                    <img src="~/img/sfs-logo.svg" class="logo" alt="SFS Logo" />
+                </a>
+            </div>
+            <button class="usa-menu-btn">Menu</button>
+        </div>
+        <nav id="MenuWrapper" role="navigation" class="usa-nav">
+            <div class="usa-nav-inner" style="white-space:nowrap">
+                <button class="usa-nav-close">
+                    <img src="~/img/close.svg" alt="close" />
+                </button>
+                <ul id="LoggedoutMenu" runat="server" class="usa-nav-primary usa-accordion">
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-controls="extended-nav-section-one" aria-expanded="false">
+                            <span>Scholar Information</span>
+                        </button>
+                        <ul id="extended-nav-section-one" class="usa-nav-submenu" aria-hidden="true">
+                            <li><a href="/Academia/StudentDashboard">Student Dashboard</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-controls="extended-nav-section-two" aria-expanded="false">
+                            <span>Commitments</span>
+                        </button>
+                        <ul id="extended-nav-section-two" class="usa-nav-submenu" aria-hidden="true">
+                            <li><a href="/Academia/Commitments">List</a></li>
+                            <li><a href="/Academia/CommitmentDashboard">Dashboard</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-controls="extended-nav-section-three" aria-expanded="false">
+                            <span>Program Documents</span>
+                        </button>
+                        <ul id="extended-nav-section-three" class="usa-nav-submenu" aria-hidden="true">
+                            <li><a href="/docs/Job Fair 2024 SFS Briefing for PIs _Jan 2024_FINAL.pdf" target="_blank"> Job fair 2024 PI portal slide deck</a></li>
+                            <li><a href="/docs/Job Fair 2024 SFS Briefing for Scholars _Jan 2024_FINAL.pdf" target="_blank">Job fair 2024 scholar portal slide deck</a></li>
+                            <li><a href="/docs/Fillable_Form_CyberCorps_SFS_SA_Ver_2023-06A_proposed update to Citizenship section.pdf" target="_blank">Service Agreement</a></li>
+                            <li><a href="/docs/New Cohort Questionnaire vJAN2024.pdf" target="_blank">New Cohort Questionnaire</a></li>
+                            <li><a href="/docs/EMPLOYMENT%20VERIFICATION%20FORM%20v2.pdf" target="_blank">SFS Employment Verification Form</a></li>
+                            <li><a>Deferral Request - Coming soon!</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-controls="extended-nav-section-four" aria-expanded="false">
+                            <span>Program Resources</span>
+                        </button>
+                        <ul id="extended-nav-section-four" class="usa-nav-submenu" aria-hidden="true">
+                            <li><a>PI Guide - Coming Soon!</a></li>
+                            <li><a href="/docs/FINAL%20SFS-Student%20Guidance%20Document.pdf" target="_blank">Student Guide</a></li>
+                            <li><a href="/docs/Promissory%20Note_Agreement%20Sample%201.pdf" target="_blank">Promissory Note Sample 1</a></li>
+                            <li><a href="/docs/Promissory%20Note_Agreement%20Sample%202.pdf" target="_blank">Promissory Note Sample 2</a></li>
+                            <li><a href="/docs/Promissory%20Note_Agreement%20Sample%203.pdf" target="_blank">Promissory Note Sample 3</a></li>
+                            <li><a href="/docs/Promissory%20Note_Agreement%20Sample%204.pdf" target="_blank">Promissory Note Sample 4</a></li>
+                            <li><a href="/docs/Promissory%20Note_Agreement%20Sample%205.pdf" target="_blank">Promissory Note Sample 5</a></li>
+                            <li><a>System Release Notes - Coming Soon!</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-controls="extended-nav-section-five" aria-expanded="false">
+                            <span>Employment Resources</span>
+                        </button>
+                        <ul id="extended-nav-section-five" class="usa-nav-submenu" aria-hidden="true">
+                            <li><a href="https://www.intelligencecareers.gov/" target="_blank">Intelligence Careers</a></li>
+                            <li><a href=" https://www.nitrd.gov/stem4all/" target="_blank">Internship Opportunities - NITRD</a></li>
+                            <li><a href="https://intern.usajobs.gov/" target="_blank">Federal Internships</a></li>
+                            <li><a href="https://www.usajobs.gov/Notification/Events" target="_blank">USAJOBS Events</a></li>
+                            <li><a>Federal Resume Writing - Coming Soon!</a></li>
+                            <li><a href="/AgencyOfficials">Agency official list</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-controls="extended-nav-section-six" aria-expanded="false">
+                            <span>Welcome @User.Identity.Name</span>
+                        </button>
+                        <ul id="extended-nav-section-six" class="usa-nav-submenu" aria-hidden="true">
+                            <li><a href="/Academia/Dashboard">Main Menu</a></li>
+                            <li><a href="/Academia/Profile">Profile Change</a></li>
+                            <li><a href="/Help/Account">SFS Help Center</a></li>
+                            <li><a href="/Logout">Log out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

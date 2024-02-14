@@ -1,0 +1,11 @@
+﻿@using OPM.SFS.Web.Models;
+@using OPM.SFS.Web.Pages.Student;
+@model EVFCommitmentViewModel
+<div id="cancelEvfModal" class="sfs-modal modal">
+    <h3 class="student-modal-header">Are you sure you want to continue?</h3>
+    <br />
+    <span>You have unsaved changes that will be lost.</span>
+    <br /><br />
+    <a id="lnkCancelEvfYes" href="/Student/EmploymentVerification?handler=CancelEvf&cid=@Model.CommitmentId" class="usa-button">Yes</a>
+    <a id="lnkCancelEvfNo" href="javascript:void(0);" class="usa-button">No</a>
+</div>

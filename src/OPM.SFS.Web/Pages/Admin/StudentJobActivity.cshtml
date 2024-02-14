@@ -1,0 +1,119 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.StudentJobActivityModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen" >
+	<div class="grid-row">
+		<div class="grid-col">
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/StudentLookup" class="usa-breadcrumb__link">
+					<span>Student Lookup</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Job Activity Report</span>
+				</li>
+			  </ol>
+			</nav>
+
+			 <h3>Administration: Job Activity Report</h3>
+
+			 <b><span>Student Name:  </span></b>
+                <span>@Model.Data.Studentname</span>
+                <br>
+                <b><span>University: </span></b>
+                <span>@Model.Data.University </span>
+                <br>
+                <b><span>Degree/Major: </span></b>
+                <span>@Model.Data.DegreeMajor</span>
+                <br>
+                <b><span>Expected Graduation Date: </span></b>
+                <span>@Model.Data.GradDate</span>
+
+			@if (Model.Data.Items != null && Model.Data.Items.Count > 0)
+			{
+
+				<table>
+					<thead>
+					<tr>
+						<th>
+							
+						</th>
+						<th>
+							Date Applied
+						</th>
+						<th>
+							Position Title
+						</th>
+						<th>
+							Agency Name
+					    </th>
+						<th>
+							Agency Type
+					    </th>
+						<th>
+							Contact Name
+					    </th>
+						<th>
+							Email Address
+					    </th>
+						@*<th>
+							Description of Activity
+					    </th>*@
+						<th>
+							Status
+					    </th>
+						@*<th>
+							Status Other
+					    </th>*@
+						<th>
+							Duty Location
+					    </th>
+						<th>
+							USAJOBS Control #
+					    </th>
+						<th>
+							Date Updated
+					    </th>
+					</tr>
+				</thead>
+				
+				 @foreach(var j in Model.Data.Items)
+                        {
+						<tbody>
+							<tr>
+								@if (User.FindFirst("AdminRole").Value != "Read Only")
+								{
+									<td><a href="/Admin/StudentJobActivityEdit?jid=@j.JobActivityId&sid=@Model.Data.StudentID">Edit</a></td>
+								}
+								<td>@j.DateApplied</td>                            
+                                <td>@j.PositionTitle </td>
+                                <td>@j.AgencyName</td>
+                                <td>@j.AgencyTypeName</td>
+                                <td>@j.ContactFullName </td>
+								<td>@j.ContactEmail </td>
+								@*<td>@j.Description </td>*@
+								<td>@j.StatusName </td>
+								@*<td>@j.StatusOther </td>*@
+								<td>@j.DutyLocation </td>
+								<td>@j.USAJOBSControlNum </td>
+							    <td>@j.LastUpdated </td>                               
+                            </tr>
+                        </tbody>
+                        }
+			</table>
+			}
+
+	    </div>
+	</div>
+
+</div>

@@ -1,0 +1,96 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.LoginModel
+@{
+    Layout = "_NoSideMenu";
+}
+
+<div class="grid-container-widescreen">
+    <div class="grid-row">
+        <div class="grid-col-8">
+            <div class="infopage participate">
+                <h2 class="login-header">Administrators:  <i>Login</i></h2>
+            </div>
+            <p>
+                <br />
+                The SFS website is an official U.S. Government System for authorized use only. Unauthorized use of this system or the information on this system could result in criminal prosecution. Signing into this website indicates you have read and accepted the Full Terms and Conditions of Use and you consent to security testing and monitoring.
+            </p>
+            <p>
+                <b>Full Terms and Conditions of Use</b><br />
+                This U.S. Government System is to be used by authorized users only. Information from this system resides on computer systems funded by the government.
+            </p>
+            <p>
+                The data and documents on this system include Federal records that contain sensitive information protected by various Federal statutes, including the Privacy Act, 5 U.S.C. § 552a.
+            </p>
+            <p>
+                All access or use of this system constitutes user understanding and acceptance of these terms and constitutes unconditional consent to review, monitoring, recording and action by all authorized government and law enforcement personnel.  While using this system, your use may be monitored, recorded, and subject to audit.
+            </p>
+            <p>
+                Unauthorized user attempts or acts to (1) access, upload, change, delete, or deface information on this system, (2) modify this system, (3) deny access to this system, (4) accrue resources for unauthorized use, or (5) otherwise misuse this system are strictly prohibited. Such attempts or acts are subject to action that may result in criminal, civil, or administrative penalties.
+            </p>
+            <p>
+                Welcome to the Administrative section of the SFS Program website. Please click the Smartcard login button to log on to the website. Click the Unable to log in using your Smartcard link if you are experiencing an issue logging in with your smartcard. If you encounter an error, please send an email to sfs@opm.gov.
+            </p>
+            <br />
+        </div>
+        <div class="grid-col-4">
+            <br />
+            @if(Model.Data != null && Model.Data.ShowPIVSuccessMessage){
+                <div class="usa-alert usa-alert-success">
+                    <div class="usa-alert-body">
+                        <p class="usa-alert-text">
+                            PIV registered successfully. Please login with your PIV card now. 
+                        </p>
+                    </div>
+               </div><br />
+            }   
+             @if(Model.Data != null && Model.Data.IsAccountInactive){
+                 <div class="usa-alert usa-alert-error" role="alert">
+                          <div class="usa-alert-body">
+                            <h3 class="usa-alert-heading">Error - Account Inactive</h3>
+                            <p class="usa-alert-text">
+                             Looks like you haven't signed in recently - your SFS account is inactive.
+                              <a href="@Model.Data.ReactivateUrl">Reactivate your account</a> 
+                            </p>
+                          </div>
+                        </div><br/>
+                 }
+
+            @if (Model.Data.ShowSuccessEmail)
+            {
+                <div class="usa-alert usa-alert-info">
+                  <div class="usa-alert-body">
+                    <p class="usa-alert-text">
+                     We sent you an email to reactivate your account. Please check your inbox and/or junk/spam. Click the link in the email to reactivate your account. 
+                     If you do not receive an email within 24 hours please contact <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>  for assistance
+                    </p>
+                  </div><br/>
+                </div>
+            }
+            @if (Model.Data.ShowEnforcePIVMessage)
+            {
+                <div class="usa-alert usa-alert-success">
+                    <div class="usa-alert-body">
+                        <p class="usa-alert-text">
+                            Smart Card is required for OPM Administrator users
+                        </p>
+                    </div>
+                </div>
+
+                <br />
+            }
+            <div id="admin-alt-login">
+                  <a href="/Admin/CertLogin">
+                      <img src="/img/PIVLogin.gif" alt="PIV Login"  style="border-width:0px;height: 40%; background: none;"/>
+                 </a> <br /><br />
+              
+                  <p><b><i>-- Or --</i></b></p>
+                 <div>
+                   <a href="?handler=Transition">
+                      <img src="/img/logingov-signin.png" alt="Login" style="border-width:0px;height: 40%; background: none;">
+                 </a>  
+                </div>
+
+            </div>
+        </div>
+    </div>
+ </div>

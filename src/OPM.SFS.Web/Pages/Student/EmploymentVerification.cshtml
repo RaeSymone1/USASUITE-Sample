@@ -1,0 +1,166 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.EmploymentVerificationModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+
+   
+<h2><span>Scholar:</span><i>add employment verification</i></h2>
+<h5>Commitment: @Model.Data.AgencySubAgencyDisplay, @Model.Data.JobTitle</h5>
+<hr class="sfs-panel-bar" />
+
+<partial name="_CancelEvfModal" model="Model.Data" />
+<form asp-page-handler="Upload" id="frmEVFSubmit" method="post" enctype="multipart/form-data">
+     <input type="hidden" id="hfCommitmentId" asp-for="Data.CommitmentId" />
+@*    <input type="hidden" id="hfDocumentId" asp-for="Data.DocumentId" value="Data.Documents.FirstOrDefault().EVFDocumentId" />
+*@    <div class="usa-form-group @(!ModelState.IsValid ? "usa-form-group--error" : "")">
+        <label for="file-input-specific">Choose a document(s) to upload</label><br/>
+        <span class="usa-hint" id="file-input-specific-hint">
+            Select a GIF, JPG, JPEG, PNG, RTF, TXT, PDF or Word (DOC or DOCX). Do not included classified information, social security number,
+            photos of yourself, or any other personal or sensitive information. 
+        </span>
+        <div asp-validation-summary="All">
+            <span>Please correct the following errors.</span>
+        </div>
+        <div class="usa-file-input">
+                <div class="usa-sr-only" aria-live="polite">No file selected.</div>
+                <div class="usa-file-input__target">
+                    <div class="usa-file-input__box"></div>
+                    <div class="usa-file-input__instructions" aria-hidden="true"><span class="usa-file-input__drag-text"></span> 
+                        <span class="usa-file-input__choose">Add document</span></div>
+                <input class="usa-file-input__input" type="file" aria-label="Drag file here or choose from folder" asp-for="Data.UploadedDocument"
+                       accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/png, image/gif, image/jpeg, application/rtf" />
+                      <span asp-validation-for="Data.UploadedDocument"></span>
+                   </div>
+            </div>       
+        <br/>
+        @if (Model.Data.Documents != null)
+        {
+            @foreach(var d in Model.Data.Documents)
+            {
+                <partial name="_DeleteDocumentModal" model="@d" />
+                 <div class="evf-document-display">
+                    <div class="grid-row">
+                        <div class="grid-col-2">
+                            <div class="sfs-icon">
+                                <svg class="usa-icon--size-9" aria-hidden="true" focusable="false" role="img">
+                                    <use xlink:href="/img/sprite.svg#file_present"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="grid-col-8">
+                            <span style="font-weight:bold">@d.EVFDocumentName</span>
+                            <br/>
+                            <a href="?handler=ViewDocument&fid=@d.EVFDocumentId">View Document</a>
+                        </div>
+                         <div class="grid-col-2">
+                            <div class="sfs-icon">
+                                <a class="lnkDeleteEvfDocument" href="javascript:void();" data-fid="@d.EVFDocumentId">
+                                    <svg class="usa-icon--size-4" aria-hidden="true" focusable="false" role="img">
+                                        <use xlink:href="/img/sprite.svg#close"></use>
+                                    </svg>
+                                    </a>
+                               </div>                        
+                        </div>
+                    </div>
+                </div>                
+                <br/>
+            }           
+        }
+     </div>
+<br/>
+<hr class="sfs-panel-bar" />
+</form>
+
+<form asp-page-handler="Submit">
+    <div id="TrainingSection">
+        <span style="font-weight:bold">Since the start of your employment, has your supervisor instructed you to complete any training on cybersecurity-related topics not covered during your education?</span>
+        <input type="hidden" id="hfCommitmentId" asp-for="Data.CommitmentId" />
+        <div class="control-group validate-input">
+            @foreach (var option in Model.Data.AnswerOptions)
+            {
+                <input type="radio" asp-for="Data.TakingRemedialTraining" value="@option" class="evf-question-remedialTraining" />
+                <label for="radAO">@option</label>
+                @if (option == "Yes")
+                {
+                    @if (Model.Data.TakingRemedialTraining == "Yes")
+                    {
+                        <div id="Training" style="display:block">
+                            <span asp-validation-for="Data.Training"></span>
+                            <textarea asp-for="Data.Training" rows="2" cols="20" id="txtTraining" size="10" placeholder="List all completed trainings here." style="overflow-y: scroll;" maxlength="500"></textarea>
+                            <span id="text-counter-Training">@(Model.Data.Training == null ? 0 : Model.Data.Training.Length)</span>
+                            of 500 characters used.
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="Training" style="display:none">
+                            <span asp-validation-for="Data.Training"></span>
+                            <textarea asp-for="Data.Training" rows="2" cols="20" id="txtTraining" size="10" placeholder="List all completed trainings here." style="overflow-y: scroll;" maxlength="500"></textarea>
+                            <span id="text-counter-Training">@(Model.Data.Training == null ? 0 : Model.Data.Training.Length)</span>
+                            out of 500 characters.
+                        </div>
+                    }
+                }
+            }
+            <span asp-validation-for="Data.TakingRemedialTraining"></span>
+        </div>
+        <br/>
+        <hr class="sfs-panel-bar" />
+        <br/>
+    </div>
+    <div id="CurrentPositionSection">
+        @if (Model.Data.Agency != null && Model.Data.SubAgency == "N/A")
+        {
+            <span style="font-weight:bold">Is this position with @Model.Data.Agency your current employment?</span>
+        }
+        else
+        {
+            <span style="font-weight:bold">Is this position with @Model.Data.Agency, @Model.Data.SubAgency your current employment?</span>
+        }
+        <div class="control-group validate-input">
+            @foreach (var option in Model.Data.AnswerOptions)
+            {
+                <input type="radio" asp-for="Data.IsSamePosition" value="@option" class="evf-question-currentPosition" />
+                <label for="radAO">@option</label>
+                @if (option == "No")
+                {
+                    <div id="CurrentPositionEndDate" style="display:none">
+                        <div class="usa-date-picker">
+                            <label for="PositionEndDate">Position end date</label>
+                            <input type="date" asp-for="Data.PositionEndDate" class="usa-input" />
+                            <span asp-validation-for="Data.PositionEndDate"></span>
+                        </div>
+                    </div>                   
+                }
+            }
+            <span asp-validation-for="Data.IsSamePosition"></span>
+        </div>
+    </div>
+
+    <div id="NewPositionSection" style="display:none">
+        <br />
+        <hr class="sfs-panel-bar" />
+        <br />
+        <span style="font-weight:bold">Do you have a current position to report?</span>
+        <div class="control-group validate-input">
+            @foreach (var option in Model.Data.AnswerOptions)
+            {
+                <input type="radio" asp-for="Data.HasNewCommitment" value="@option" class="evf-question-hasNewCommmitment" />
+                <label for="radAO">@option</label>
+                               
+            }
+            <span asp-validation-for="Data.HasNewCommitment"></span>
+        </div>
+
+
+
+    </div>
+    <a id="lnkCancelEVF" href="javascript:void(0);" class="usa-button usa-button-outline">Cancel</a>
+    <input id="SubmitEVF" type="submit" value="Submit" class="usa-button" />
+</form>
+
+@section Scripts {
+    <script src="~/js/evfBundle.js"></script>
+}
+

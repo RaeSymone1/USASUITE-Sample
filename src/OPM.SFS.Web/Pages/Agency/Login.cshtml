@@ -1,0 +1,140 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Agency.LoginModel
+@{
+    Layout = "_SideMenuLayoutAO";
+}
+
+<div class="usa-grid-full">
+    <div class="usa-width-one-whole infopage participate">
+        <h2 class="login-header">Agency Officials: <em>Login</em></h2>
+         <div asp-validation-summary="All">
+            <span>Login attempt was not successful. See below for errors.</span>
+        </div>
+    </div>
+   @if(Model.Data != null && Model.Data.IsAccountInactive){
+     <div class="usa-alert usa-alert-error" role="alert">
+              <div class="usa-alert-body">
+                <h3 class="usa-alert-heading">Error - Account Inactive</h3>
+                <p class="usa-alert-text">
+                 Looks like you haven't signed in recently - your SFS account is inactive.
+                  <a href="@Model.Data.ReactivateUrl">Reactivate your account</a> 
+                </p>
+              </div>
+            </div><br/>
+     }
+
+    @if (Model.Data.ShowSuccessEmail)
+    {
+        <div class="usa-alert usa-alert-info">
+          <div class="usa-alert-body">
+            <p class="usa-alert-text">
+             We sent you an email to reactivate your account. Please check your inbox and/or junk/spam. Click the link in the email to reactivate your account. 
+             If you do not receive an email within 24 hours please contact <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>  for assistance
+            </p>
+          </div>
+        </div><br/>
+    }
+    <div class="usa-width-one-half infopage participate">
+
+        <ul class="usa-accordion-bordered">
+            <li>
+                <button class="usa-accordion-button" aria-expanded="false" aria-controls="b-a1">
+                    Instruction
+                </button>
+                <div id="b-a1" class="usa-accordion-content" aria-hidden="true">
+                    <div class="infopage participate">
+                        <div id="container" style="padding-right:20px;">
+                            <div>
+                                <p>
+                                    Use the Smartcard option if you have one. If this is your first time signing in, you need to register your Smartcard. Certain areas are restricted to Agency Officials only. 
+                                    If you don't have a smartcard, please use the Login.gov link provided below to access the site. 
+                                    New agency user without smartcard must first create a Login.gov account to access the site. 
+                                    If you have issues logging in please send an email to
+                                    <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>.
+                                    <br>
+                                    <br>
+                                    <em>New User?</em> Please select <a href="/Agency/Registration" title="Agency Official Registration"><i>Agency Official Registration</i></a> from
+                                    the AGENCY OFFICIALS page.
+                                    <br>
+                                    <br>
+                                    <em>Already registered?</em> Login here:
+                                </p>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+         @if(Model.Data != null && Model.Data.ShowPIVSuccessMessage){
+                <div class="usa-alert usa-alert-success">
+                    <div class="usa-alert-body">
+                        <p class="usa-alert-text">
+                            PIV registered successfully. Please login with your PIV card now. 
+                        </p>
+                    </div>
+               </div><br />
+            }   
+        <div>
+            <br>
+            <br>
+                 <div class="form-actions">
+                    
+                    <div>
+                  <a href="?handler=Transition">
+                      <img src="/img/logingov-signin.png" alt="Login" style="border-width:0px;height: 40%; background: none;">
+                 </a>  
+            </div>
+                    <p><b><i>-- Or --</i></b></p>
+                    <p>
+                         <a href="/Agency/CertLogin">
+                            <img src="/img/PIVLogin.gif" alt="PIV Login"  style="border-width:0px;height: 40%; background: none;"/>
+                          </a>
+                        <br>
+                        <br>
+                    </p>
+                </div>
+        </div>
+    </div>
+    <div class="usa-width-one-half">
+        <div class="infopage participate">
+            <div id="container" style="padding-right:20px;">
+                <div id="ctl00_PlaceHolderMainContent_TermsOfUse1_divStandardPageMessage">
+                    <h3>Terms and Conditions of Use</h3>
+                    <p>
+                        The SFS website is an official U.S. Government System for authorized use only.
+                        Unauthorized use of this system or the information on this system could result
+                        in criminal prosecution. Signing into this website indicates you have read and
+                        accepted the Full Terms and Conditions of Use and you consent to security
+                        testing and monitoring.
+                    </p>
+                    <p>
+                        <strong>Full Terms and Conditions of Use</strong><br>
+                        This U.S. Government System is to be used by authorized users only. Information
+                        from this system resides on computer systems funded by the government.
+                    </p>
+                    <p>
+                        The data and documents on this system include Federal records that contain
+                        sensitive information protected by various Federal statutes, including the
+                        Privacy Act, 5 U.S.C. § 552a.
+                    </p>
+                    <p>
+                        All access or use of this system constitutes user understanding and acceptance
+                        of these terms and constitutes unconditional consent to review, monitoring,
+                        recording, and action by all authorized government and law enforcement
+                        personnel.&nbsp; While using this system, your use may be monitored, recorded,
+                        and subject to audit.
+                    </p>
+                    <p>
+                        Unauthorized user attempts or acts to (1) access, upload, change, delete or
+                        deface
+                        information on this system, (2) modify this system, (3) deny access to this
+                        system, (4) accrue resources for unauthorized use, or (5) otherwise misuse this
+                        system are strictly prohibited. Such attempts or acts are subject to action that
+                        may result in criminal, civil, or administrative penalties.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

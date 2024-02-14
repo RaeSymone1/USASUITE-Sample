@@ -1,0 +1,184 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.RegistrationApprovalModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+
+			 <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Registrations" class="usa-breadcrumb__link">
+					<span>Pending Registrations</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+						@if (Model.Data.Type == "students")
+						{
+							<span>Students</span>
+						}
+						else if (Model.Data.Type == "agencyusers")
+						{
+							<span>Agency Offcials</span>
+						}
+						else if (Model.Data.Type == "academiausers")
+						{
+							<span>Principal Investigators</span>
+						}
+						else
+						{
+							<span>Registration Approval</span>
+						}
+					</li>
+			  </ol>
+			</nav>
+			@if (Model.Data.Type == "students")
+			{
+				<h3>Administration: <em>Pending Student Registrations</em></h3>
+			}
+			else if (Model.Data.Type == "agencyusers")
+			{
+				<h3>Administration: <em>Pending Agency Offcial Registrations</em></h3>
+			}
+			else if (Model.Data.Type == "academiausers")
+			{
+				<h3>Administration: <em>Pending Principal Investigator Registrations</em></h3>
+			}
+			else
+			{
+			<h3>Administration: <em>Pending Registrations</em></h3>
+			}
+			
+			@if (Model.Data.Accounts.Count > 0)
+			{
+				<span>@Model.Data.Accounts.Count records found</span>
+				<table id="accounts">
+					<thead>
+						<tr>					
+							<th>
+								UID
+							</th>
+							<th>
+								Last Name
+							</th>
+							<th>
+								First Name
+							</th>
+							@if(Model.Data.Type == "agencyusers")
+							{
+								<th>
+									Agency
+								</th>
+								<th>
+									Sub-Agency
+								</th>
+							}
+							else
+							{
+								<th>
+									Institution
+								</th>
+							}
+							<th>
+								Email
+							</th>
+							@if (User.FindFirst("AdminRole").Value != "Read Only")
+							{
+
+										<th>
+											Approve
+										</th>
+										<th>
+											Reject
+										</th>
+							}
+						</tr>
+					</thead>
+					<tbody>
+						
+							@foreach (var item in Model.Data.Accounts)
+							{
+								<tr>
+									<td>
+									@if (Model.Data.Type == "students" && Model.Data.IsEnabledOnSite)
+									{
+										<a href="/Admin/StudentProfileEdit?sid=@item.ID">@item.UID</a>
+									}
+									else
+									{
+										@item.UID	
+									}
+									</td>
+									<td>
+										@item.LastName
+									</td>
+									<td>
+										@item.FirstName
+									</td>	
+									@if(Model.Data.Type == "agencyusers")
+									{
+										<td>
+											@item.Agency 
+										</td>
+										<td>
+											@item.SubAgency 
+										</td>
+									}
+									else {
+									<td>
+										@item.Instituion 
+									</td>
+									}
+									<td>
+										@item.Email 
+									</td>
+								@if (User.FindFirst("AdminRole").Value != "Read Only")
+								{
+
+											<td>
+												<a href="?handler=ApproveAccount&id=@item.ID&type=@Model.Data.Type" class="usa-button">Approve</a>
+											</td>
+											<td>
+												<a href="?handler=RejectAccount&id=@item.ID&type=@Model.Data.Type" class="usa-button">Reject</a>
+											</td>
+								}
+								</tr>
+							}
+						
+					</tbody>
+				</table>
+			}
+			else
+			{
+				<h3>No records found.</h3>
+			}
+			</div>
+		</div>
+	</div>
+
+	@section Scripts {
+    <script>
+  // $(document).ready(function () {
+  //      $("#students").DataTable();
+		//$("#agencyusers").DataTable();
+		//$("#academiausers").DataTable();
+
+		//$(".updatestatus").click({
+		//	var v = this.val();
+		//	console.log(v);
+		//	var currentStatus = $("#Updates").val();
+		//	$("#Updates").val(currentStatus + "|" + v);
+			
+		//})
+
+  //  });
+    </script>
+}

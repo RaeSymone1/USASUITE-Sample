@@ -1,0 +1,76 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.JobActivityModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+<div class="usa-layout-docs-main_content">     
+        <h2 align="center">Students:<i> Job Activity Report</i></h2>
+
+         @if(Model.Data.ShowSuccessMessage){
+            <div class="usa-alert usa-alert-success">
+                <div class="usa-alert-body">
+                    <p class="usa-alert-text">
+                        Activities updated successfully.
+                    </p>
+                </div>
+           </div>
+        }   
+        <div class="table-responsive">          
+            <div>
+                <br><br>
+                <b><span>Student Name:  </span></b>
+                <span>@Model.Data.Studentname</span>
+                <br>
+                <b><span>University: </span></b>
+                <span>@Model.Data.University </span>
+                <br>
+                <b><span>Degree/Major: </span></b>
+                <span>@Model.Data.DegreeMajor</span>
+                <br>
+                <b><span>Expected Graduation Date: </span></b>
+                <span>@Model.Data.GradDate</span>
+
+                <p><a href="/Student/JobActivityEdit?cid=0" class="usa-button">Add New Record to Job Activity Report</a></p>
+
+                @if (Model.Data.Items  != null && Model.Data.Items.Count > 0)
+                {
+                    <table class="table-gray" width="150px" border="1" cellspacing="0" cellpadding="3">
+                         <thead>
+                            <tr>
+                                <th>
+                                    Position Title
+                                </th>
+                                <th>
+                                   Agency Type
+                                </th>
+                                <th>
+                                    Agency
+                                </th>
+                                <th>
+                                    Date Applied
+                                </th>
+                                <th>
+                                   Date Last Updated
+                                </th>
+                                 <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        @foreach(var j in Model.Data.Items)
+                        {
+                        <tbody>
+                            <tr>                                
+                                <td>@j.PositionTitle</td>                            
+                                <td>@j.AgencyTypeName </td>
+                                <td>@j.AgencyName</td>
+                                <td>@j.DateApplied</td>
+                                <td>@j.LastUpdated</td>
+                                <td><a href="/Student/JobActivityEdit?cid=@j.JobActivityId">Edit</a></td>
+                            </tr>
+                        </tbody>
+                        }
+                    </table>
+                }
+            </div>
+        </div>
+</div>

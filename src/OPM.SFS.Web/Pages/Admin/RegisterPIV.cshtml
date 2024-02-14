@@ -1,0 +1,77 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.RegisterPIVModel
+@{
+    Layout = "_NoSideMenu";
+}
+
+<div class="grid-container-widescreen">
+    <div class="grid-row">
+        <div class="grid-col-8">
+            <div class="infopage participate">
+                <h2 class="login-header">Administrators:  <i>Login</i></h2>
+            </div>
+             @if(Model.Data != null && !string.IsNullOrWhiteSpace(Model.Data.Message ))
+            {
+                <div class="usa-alert usa-alert-success">
+                    <div class="usa-alert-body">
+                        <p class="usa-alert-text">
+                           @Model.Data.Message
+                        </p>
+                    </div>
+               </div>
+            }
+            @if (Model.Data != null && !string.IsNullOrWhiteSpace(Model.Data.ErrorMessage))
+            {
+                <div class="usa-alert usa-alert-error">
+                    <div class="usa-alert-body">
+                        <p class="usa-alert-text">
+                            @Model.Data.ErrorMessage
+                        </p>
+                    </div>
+                </div>
+            }
+            <p>
+                <br />
+                The SFS website is an official U.S. Government System for authorized use only. Unauthorized use of this system or the information on this system could result in criminal prosecution. Signing into this website indicates you have read and accepted the Full Terms and Conditions of Use and you consent to security testing and monitoring.
+            </p>
+            <p>
+                <b>Full Terms and Conditions of Use</b><br />
+                This U.S. Government System is to be used by authorized users only. Information from this system resides on computer systems funded by the government.
+            </p>
+            <p>
+                The data and documents on this system include Federal records that contain sensitive information protected by various Federal statutes, including the Privacy Act, 5 U.S.C. § 552a.
+            </p>
+            <p>
+                All access or use of this system constitutes user understanding and acceptance of these terms and constitutes unconditional consent to review, monitoring, recording and action by all authorized government and law enforcement personnel.  While using this system, your use may be monitored, recorded, and subject to audit.
+            </p>
+            <p>
+                Unauthorized user attempts or acts to (1) access, upload, change, delete, or deface information on this system, (2) modify this system, (3) deny access to this system, (4) accrue resources for unauthorized use, or (5) otherwise misuse this system are strictly prohibited. Such attempts or acts are subject to action that may result in criminal, civil, or administrative penalties.
+            </p>
+            <p>
+                Welcome to the Administrative section of the SFS Program website. Please click the Smartcard login button to log on to the website. Click the Unable to log in using your Smartcard link if you are experiencing an issue logging in with your smartcard. If you encounter an error, please send an email to sfs@opm.gov.
+            </p>
+            <br />
+        </div>
+        <div class="grid-col-4">
+             <h2 id="h2PageHeaderText" class="PageHeader">Register Your Smartcard</h2>
+            <p>
+                In order to navigate through the system with your Smartcard, you must register it. 
+                Please enter your email address. An email will be sent to confirm and complete your 
+                Smartcard registration. 
+            </p>
+            <div id="admin-alt-login">
+                 <form method="post" class="usa-form">
+                <fieldset>
+                    <legend class="usa-drop_text">Admin Login</legend>
+                    <div class="control-group validate-input">
+                        <label id="lblUserID" class="control-label" for="txtUserID">Email Address</label>
+                        <input placeholder="Enter your email address" asp-for="Data.Email" id="txtEmail" />
+                        <span asp-validation-for="Data.Email"></span>
+                    </div> 
+                    <input type="submit" value="Submit" class="usa-button" />
+                </fieldset>
+            </form>
+            </div>
+        </div>
+    </div>
+ </div>

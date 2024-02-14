@@ -1,0 +1,153 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.ResumeListModel
+@{
+	Layout = "_SideMenuLayoutStudent";
+}
+@Html.AntiForgeryToken()
+
+<h2><i>Students: Resumes</i></h2>
+<label id="errors" class="ErrorText" style="display:none;"></label>
+@if (!string.IsNullOrWhiteSpace(Model.Data.MalwareResultDocument))
+{
+    <div class="usa-alert usa-alert-error" role="alert">
+        <div class="usa-alert-body">       
+            <p class="usa-alert-text">
+                There was a problem uploading your document, @Model.Data.MalwareResultDocument. Please make sure it meets our acceptable formats and try again. 
+            </p>
+        </div>
+    </div>
+}
+<nav class="usajobs-nav-secondary" role="navigation">
+    <div class="usajobs-nav-secondary__body">
+        <ul class="usajobs-nav-secondary__menu">
+            <li class="usajobs-nav-secondary__container">
+                <a class="usajobs-nav-secondary__item is-active" href="/Student/ResumeList">
+                    Resumes (@Model.Data.ResumeList.Count/ @Model.Data.MaxResumes)
+                </a>
+            </li>
+            <li class="usajobs-nav-secondary__container">
+                <a class="usajobs-nav-secondary__item" href="/Student/DocumentList">
+                    Other (@Model.Data.OtherDocumentCount/ @Model.Data.MaxDocuments)
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="grid-row">
+   @foreach(var resume in Model.Data.ResumeList){
+       <div class="tablet:grid-col-4 sfs-document-container">      
+            <div class="sfs-document">
+                <div class="sfs-figure">
+                    <span class="sfs-document--placeholder__icon"></span>
+                </div>
+                @if(resume.Type == "Builder")
+                {
+                    <a data-id="0" href="/Student/ResumeView" class="sfs-view-document" title="View Resume">View</a>
+                }
+                else
+                {
+                    <a href="?handler=ViewDocument&fid=@resume.DocumentID" class="sfs-view-document" title="View Resume">View </a>
+                }                        
+                <div class="sfs-document__details">
+                    <p class="sfs-document-title">@resume.Name</p>
+                    <p class="sfs-document-dated">
+                        Created on @resume.Date
+                    </p>
+                    <div class="sfs-document-options">
+                    
+                        @if(resume.Type == "Builder")
+                        {
+                            <span>
+                                <a class="edit" href="/Student/BuilderResume">Edit</a>
+                            </span>
+                        }                       
+                        @if (resume.CanDelete)
+                        {
+                             <span>
+                                <a class="delete-doc" href="javascript:void(0);" data-id="@resume.DocumentID">Delete</a>
+                            </span>
+                        }
+                    
+                    </div>
+                    <div style="text-align:center">
+                        <input data-id="@resume.DocumentID" id="resume-@resume.DocumentID" type="radio" name="resume-item" class="set-shareable-resume" @(resume.IsSharable ? "checked" : "")>
+                        <label for="resume-@resume.DocumentID" class="usajobs-document__searchable-label">
+                            Allow agency view
+                        </label> 
+                    </div>
+                </div>
+            </div>      
+        </div>
+     }
+</div>
+
+@if (Model.Data.ResumeList.Count < 5)
+{
+    <div class="grid-row">    
+        <div class="tablet:grid-col-4">
+            <div class="sfs-document-add">
+                <button id="btn-add-resume" class="sfs-document-add-trigger" data-object-trigger="modal" data-target="#modal-resume-add">
+                    <span class="sfs-document-add__icon"></span>
+                    Upload or build resume
+                </button>
+            </div>
+            <p>
+                Uploaded documents must be less than 5MB and in one of the following document formats: TXT, PDF, Word (DOC or DOCX) or Excel (XLS, XSLX).
+            </p>
+        </div>
+        <div class="tablet:grid-col-4 document-help-content">
+            <h3>Do not include in documents</h3>
+            <ul>
+                <li>Classified or government sensitive information</li>
+                <li>Social Security Number (SSN)</li>
+                <li>Photos of yourself</li>
+                <li>Personal information, such as age, gender, religious affiliation, etc.</li>
+            </ul>
+        </div>    
+    </div>
+}
+
+
+<div id="addResumeModal" class="sfs-modal modal">
+ <h2 class="resume-modal-header">Add Resume</h2>
+    <div class="sfs-build-resume">
+        <a href="/Student/BuilderResume" style="font-size:25px">Build Resume</a>
+    </div>
+    <div class="sfs-upload-resume">
+        @*<form asp-page-handler="upload" id="upload-doc-form">*@
+            <a id="lnkUploadResume" href="javascript:void(0);" style="font-size:25px">Upload Resume</a>
+           @* <input asp-for="Data.UploadedResume" class="form-control" style="display:none">*@
+           <input type="file" name ="resultToUpload" id="resultToUpload" class="form-control" style="visibility:hidden">
+       @* </form>*@
+    </div>
+</div>
+
+<div id="addResumeUpload" class="sfs-modal modal">
+ <h2 class="resume-modal-header">Upload Resume</h2>
+    <label for="upload-doc-name">Document Name:</label>
+    <input id="upload-doc-name" type="text">
+    <label id="doc-name-error" class="ErrorText" style="display:none" for="upload-doc-name">Error!</label>
+    <button id="btn-upload-resume" class="usa-button usa-button-primary">Complete Upload</button>
+    <div class="loader" style="display:none">
+        <img src="/img/spinner.gif">
+        <span class="loadingText">Uploading document. Please wait..</span>
+    </div>
+</div>
+
+<div id="confirmDeleteModal" class="sfs-modal modal">
+ <h2 class="resume-modal-header">Delete Confirmation</h2>    
+     <form asp-page-handler="delete" id="delete-doc-form">
+         <input type="hidden" name="docid" id="docid" />
+         <div>This document will be deleted from your account. Once deleted the document cannot be recovered. </div>
+     </form>    
+    <button id="btn-cancel-delete" class="usa-button usa-button-primary">Cancel</button>
+    <button id="btn-confirm-delete" class="usa-button usa-button-primary">Delete Document</button>
+    <div class="loader" style="display:none">
+        <img src="/img/spinner.gif">
+        <span class="loadingText">Deleting document. Please wait..</span>
+    </div>
+</div>
+
+@section scripts{ 
+     <script src="~/js/resumeDocRepo.js"></script>
+}

@@ -1,0 +1,56 @@
+﻿<!doctype html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="SFS">
+    <meta name="description" content="Start your cybersecurity career with the U.S. government">
+    <meta property="og:description" content="Start your cybersecurity career with the U.S. government">
+    <title>CyberCorps&#174;: Scholarship for Service</title>
+    <!-- Include the JS for AG Grid -->
+   <script asp-add-nonce src="/lib/agGrid/ag-grid-enterprise.min.noStyle.js"></script>
+    <!-- Include the core CSS, this is needed by the grid -->
+   <link rel="stylesheet" href="/lib/agGrid/ag-grid-enterprise.css"/>
+   <!-- Include the theme CSS, only need to import the theme you are going to use -->
+   <link rel="stylesheet" href="/lib/agGrid/ag-theme-alpine-enterprise.css"/>
+    <link rel="stylesheet" href="/css/sfsbase.css" />
+</head>
+<body>
+     <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    <div class="official-website">
+         <div class="grid-container-widescreen">
+            <div class="grid-row grid-gap">
+                <div class="grid-col">
+                    <a href="http://www.opm.gov">
+                        <img src="~/img/OPM-header.png" alt="OPM Seal">
+                        <span>Official Website of the U.S. Office of Personnel Management</span>
+                    </a>
+                </div>
+                <div class="grid-col" style="text-align: right;">
+                    <span style="font-size: 11px; font-style: italic; display: inline-block; line-height: 14px; text-align: right;">
+                        OMB # 3206-0246
+                        <br>
+                        Expires: 11/4/2024
+                    </span>
+                </div>
+            </div>
+          </div>
+    </div>
+    <partial name="_Header" />
+
+    <div class="usa-overlay"></div>
+    @*This adds the partial/cut off hero banner*@
+    <div class="usa-hero interior"></div> 
+    <main class="" id="main-content">       
+        <div id="main-content-wrapper">
+            @RenderBody()
+        </div>
+    </main>
+
+    <partial name="_Footer" />
+    <script src="/js/sfsbasebundle.js"></script>   
+     @RenderSection("scripts", required: false)
+      <partial name="_SessionExpireAlert" />
+</body>
+</html>

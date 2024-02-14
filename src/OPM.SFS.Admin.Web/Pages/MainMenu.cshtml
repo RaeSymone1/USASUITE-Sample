@@ -1,0 +1,68 @@
+﻿@page
+@model OPM.SFS.Admin.Web.Pages.MainMenuModel
+@{
+	ViewData["Title"] = "Home page";
+	Layout = "_BasicLayout";
+}
+
+<h2 style="text-align: center;">Administration: <em>Main Menu</em></h2>
+
+
+<div class="usa-grid">
+	<div class="usa-width-one-half">
+		<h3 style="text-decoration: underline">Administration Tools</h3>
+		<ul style="list-style: none;">
+			<li><a href="DisplayRegistrationCode.aspx">Access Registration Code</a></li>
+			<li>Use this link to access the quarterly registration codes.</li>
+			<li><a href="AdminEditInfo.aspx">Student Account Administration</a></li>
+			<li>Use this link to change information of registered students.</li>
+			<li><a href="StudDashboardHome.aspx">Student Dashboard</a></li>
+			<li>Use this link to access student's institution and program information</li>
+			<li><a href="AccountAdmin.aspx">AO/PI Account Administration</a></li>
+			<li>Use this link to change information of registered AOs and PIs.</li>
+			<li style="font-weight:bold;font-style:italic">Add Student Internship Commitment</li>
+			<li>Use this link to add a student internship commitment.</li>
+			<li style="font-weight:bold;font-style:italic">Add Student Post Graduate Commitment</li>
+			<li>Use this link to add a student post graduate commitment.</li>
+			<li><a href="POCommitmentDashboard.aspx">Commitment Administration</a></li>
+			<li>Use this link to add and view commitments.</li>
+			<li><a href="AdminAgencyMaintenance.aspx">Agency Administration</a></li>
+			<li>Use this link to make changes to the Agency List.</li>
+		@*	<li><a href="DeleteCommitLookup.aspx">Delete a Commitment</a></li>
+			<li>Use this link to delete a single Internship or Post Graduate Commitment.</li>*@
+			@*<li><a href="DeleteProfileLookup2.aspx">Delete a Profile</a></li>
+			<li>Use this link to delete a Student, Agency Official, or Principal Investigator Profile.</li>*@
+			@*<li><a href="AdminNewAddFAQ.aspx">FAQ and Program Guidance Administration</a></li>
+			<li>Use this link to add, update and delete Student, Agency Official and Principal Investigator FAQ Information.</li>*@
+           @* <li><a href="Notifications.aspx?">Notification Administration</a></li>
+			<li>Use this link to send email notifications.</li>*@
+			<li><a href="AdminInstitutionMaintenance.aspx">Participating Institutions Administration </a></li>
+			<li>Use this link to change contact information for participating institutions.</li>
+			<li><a href="AdminPassword.aspx">Password Administration</a></li>
+			<li>Use this link to give login information to users who have forgotten their user </li>
+			<li><a href="AdminRegPage2.aspx">Registration Administration</a></li>
+			<li>Use this link to approve and release pending registrations.</li>
+			<li><a href="AdminLookup.aspx">Lookup Administration</a></li>
+			<li>Use this link to add, edit and view lookup values.</li>
+			<li><a href="AdminStudentMatchLookup.aspx">Report a Match Administration</a></li>
+			<li>Use this link to change information of reported matches.</li>
+		</ul>
+	</div>
+	<div class="usa-width-one-half">
+		<h3 style="text-decoration: underline">Administration Reports</h3>
+		<ul style="list-style: none;">
+			<li><a href="AdminAOReport.aspx">Agency Officials Report</a></li>
+			<li>Use this link to see a list of Agency Officials and their contact information.</li>
+			<li><a href="AdminStudentCurReport.aspx">Enrolled Students Report</a></li>
+			<li>Use this link to see enrolled students report and add comments.</li>
+			<li><a href="AdminStudentReport.aspx?TypeOfStudent=I">Internship Commitment Report</a></li>
+			<li>Use this link to see report.</li>
+			<li><a href="AdminPIReport.aspx">Principal Investigators Report</a></li>
+			<li>Use this link to see a list of Principal Investigators and their contact information.</li>
+			<li><a href="AdminStudentReportPG.aspx?TypeOfStudent=P">Post Graduate Commitment Report</a></li>
+			<li>Use this link to see report and manage Appointment Letter.</li>
+			<li><a href="AdminSummaryOpportunitiesReport.aspx">Summary of Opportunities Report</a></li>
+			<li>Use this link to see report.</li>
+		</ul>
+    </div>
+</div>

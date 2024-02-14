@@ -1,0 +1,78 @@
+﻿<!doctype html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="SFS">
+    <meta name="description" content="Start your cybersecurity career with the U.S. government">
+    <meta property="og:description" content="Start your cybersecurity career with the U.S. government">
+
+
+    <title>CyberCorps&#174;: Scholarship for Service</title>
+    <link rel="stylesheet" href="/css/sfsbase.css" />
+
+</head>
+<body>
+    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    <partial name="_OPMTopBanner" />
+    <partial name="_Header" />
+
+
+    <div class="usa-overlay"></div>
+    <div class="usa-hero interior"></div>
+
+    <main class="usa-grid usa-section usa-content usa-layout-docs grid-extra-wide" id="main-content">
+        <aside id="StudMenuArea" class="usa-width-one-fourth usa-width-one-fourth usa-layout-docs-sidenav">
+            @if (User.Identity.IsAuthenticated && User.IsInRole("AO"))
+            {
+                <ul class="usa-sidenav-list">
+                    <li><a href="/AgencyOfficials">Agency Official List</a></li>
+                    <li><a href="/Help/Account">SFS Help Center</a></li>
+                    <li><a href="/Logout">Log out</a></li>
+                    <li><a href="/Agency/Dashboard">Main Menu</a></li>
+                    <li><a href="/Agency/Profile">Profile Change</a></li>
+                    <li>
+                        <a class="usa-current" style="color: #212121" href="javascript:void(0);">Resources</a>
+                        <ul class="usa-sidenav-sub_list">
+                            <li>
+                                <a href="/docs/Cybersecurity Workforce Management Resources.pdf" target="_blank" title="This link directs you to information about cybersecurity position-coding, cybersecurity JOA tagging, and a cybersecurity hiring resources hub.">
+                                    Cybersecurity Workforce Management Resources
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="/">SFS Main</a></li>
+                    <li><a href="/Agency/StudentSearch">Student Search</a></li>
+
+
+
+                </ul>
+            }
+            else
+            {
+                <ul class="usa-sidenav-list">
+                    <li><a href="/Help/Account" target="_blank">SFS Help Center</a></li>
+                    <li><a href="/Agency/Login">Login</a></li>
+                    <li><a href="/Agency/Information">Recruiting SFS Students</a></li>
+                    <li><a href="/Agency/Registration">Registration</a></li>
+                    <li><a href="/Agency/Resources">Resources</a></li>
+                    <li><a href="/">SFS Main</a></li>
+                </ul>
+            }
+        </aside>
+
+        <section class="usa-width-three-fourths usa-layout-docs-main_content">
+            <div id="main-content-wrapper">
+                @RenderBody()
+            </div>
+        </section>
+    </main>
+
+    <partial name="_Footer" />
+    <script src="/js/sfsbasebundle.js"></script>
+    @RenderSection("scripts", required: false)
+    <partial name="_SessionExpireAlert" />
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@page
+@model OPM.SFS.Web.Pages.ActionRequiredModel
+@{
+	Layout = "_BasicLayout";
+}
+
+<div class="grid-container-widescreen">
+                <div class="grid-row">
+                    <div class="grid-col">
+                        <div class="usa-alert usa-alert-warning">
+                          <div class="usa-alert-body">
+                            <h3 class="usa-alert-heading">You will need to link your Login.gov account and SFS account</h3>
+                          </div>
+                        </div>
+                        <br/>
+                        <p class="description">
+                           You will receive an email with next steps to complete the linking process. If you do not receive an email within 30 minutes please confirm
+                           the following: 
+                           <ol>
+                               <li> The email address used for your Login.gov account matches your SFS account. 
+                               </li>
+                               <li>
+                                  Your SFS account is active.   
+                               </li>
+                           </ol>                         
+                        </p>
+                        Please refer to the <a href = "/Help/Account">SFS Help Center</a> for more information or contact <a href="mailto:sfs@opm.gov">sfs@opm.gov</a> for further assistance. 
+                    </div>
+                </div>
+            </div>

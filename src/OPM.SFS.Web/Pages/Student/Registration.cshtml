@@ -1,0 +1,55 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.RegistrationModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+
+<div class="infopage participate">
+    <h2>
+        <span>Students:</span><i> Student Registration</i>
+    </h2>
+   <br>
+   <div asp-validation-summary="All">
+    </div>
+    <div>
+        <ul class="usa-accordion-bordered">
+            <li>
+                <button class="usa-accordion-button" aria-expanded="false" aria-controls="b-a1">
+                    Instruction
+                </button>
+                <div id="b-a1" class="usa-accordion-content" aria-hidden="true">
+                    <p>
+                        <strong>Only Students previously accepted by a participating university and enrolled in the Scholarship For Service (SFS) Program may register and gain access to this system.</strong>
+                        If you are not an SFS enrollee, please click on <a href="/Student/Information" title="Student Program Guide">this link</a> for information on the SFS Program.
+                    </p>
+                    <p id="ctl00_PlaceHolderMainContent_pToRegister">
+                        To register as an enrolled student, provide the registration code emailed to you and then select 
+                        <strong>Submit</strong>. 
+                    </p>                        
+                   
+                    <p>
+                        NOTE: If you are uncertain on what to enter, send an email to the SFS Program
+                        Office at <a href="mailto:sfs@opm.gov" title="send an email to the SFS Program Office">sfs@opm.gov</a>.
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="usa-grid">
+        <div class="usa-width-one-half">
+            <div>
+                <div>
+                    <form method="post" class="usa-form">
+                        <div class="control-group validate-input">
+                            <label id="lblCode" class="control-label" for="txtCode">Enter Registration Code:</label><br>
+                            <input asp-for="Data.Code" id="txtCode" />
+                            <span asp-validation-for="Data.Code"></span>
+                        </div>
+                        <br><br>
+                        <input type="submit" value="Submit" class="usa-button" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

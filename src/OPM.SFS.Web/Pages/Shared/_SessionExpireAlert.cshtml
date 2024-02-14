@@ -1,0 +1,16 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+
+	<div id="session-expire-warning" class="sfs-modal modal">
+		<p> Your session is about to expire. You will be automatically signed out in 5 minutes.</p>
+		<p>
+			To continue your session, select <strong>Stay Signed In</strong>.
+		</p>
+		<button id="stay-logged-in-button" type="button" class="usa-button">
+			Stay Signed In
+		</button>
+		<button id="signout-button" type="button" class="usa-button">
+			Sign out
+		</button>
+	</div>
+}

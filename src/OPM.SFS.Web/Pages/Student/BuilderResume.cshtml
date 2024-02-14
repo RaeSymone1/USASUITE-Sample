@@ -1,0 +1,331 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.BuilderResumeModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+
+  <div asp-validation-summary="All">
+        <span>One or more errors occcured.</span>
+    </div>
+    <div class="usa-grid border border-secondary" style="margin:0 auto; padding:20px; background-color:#dce4ef">
+        <div class="usa-width-one-half text-lg-center">
+            <a href="/Student/ResumeInstructions" target="_blank"><span style="color:#e31c3d">Instructions and Tips</span></a>
+        </div>
+        <div class="usa-width-one-half text-lg-center">
+            <a href="/Student/PrivacyAct" target="_blank"><span style="color:#e31c3d">Privacy Act &amp; Public Burden Statements</span></a>
+        </div>
+    </div>
+
+
+    @if(Model.Data.ShowSuccessMessage){
+        <div class="usa-alert usa-alert-success">
+            <div class="usa-alert-body">
+                <p class="usa-alert-text">
+                    Resume updated successfully.
+                </p>
+            </div>
+       </div>
+    }   
+
+    <h3>Student Contact Information</h3>
+    
+    <fieldset>
+
+        <legend>Student Contact Information</legend>
+        <label for="lblName" class="no-margin-top" style="font-weight:bold;">Name</label>
+        <span id="lblName">@Model.Data.FullName </span>
+
+        <label for="lblAddress" class="margin-top-5" style="font-weight:bold;">Current Mailing Address</label>
+        <span id="lblAddress">@Model.Data.FullAddress</span>
+       
+
+        <label for="lblCurrentPhone" class="margin-top-5" style="font-weight:bold;">Current Phone Number</label>
+        <span id="lblCurrentPhone">@Model.Data.Phone</span>
+
+        <label for="lblFaxPhone" class="margin-top-5" style="font-weight:bold;">Current Fax Number</label>
+        <span id="lblFaxPhone">@Model.Data.Fax</span>
+
+        <label for="lblOtherPhone" class="margin-top-5" style="font-weight:bold;">Other Phone Number</label>
+        <span id="lblOtherPhone">@Model.Data.OtherPhone</span>
+
+        <label for="lblEmail" class="margin-top-5" style="font-weight:bold;">Email Address</label>
+        <span id="lblEmail">@Model.Data.Email</span>
+
+        <div>
+            <label for="lblEmailAlt" class="margin-top-5" style="font-weight:bold;">Alternate Email Address</label>
+            <span id="lblEmailAlt">@Model.Data.AltEmail</span>
+        </div>
+    </fieldset>
+
+    <br>
+    <ul class="usa-accordion-bordered">
+
+        <li>
+            <button class="usa-accordion-button" aria-expanded="false" aria-controls="a1">
+                Instruction
+            </button>
+            <div id="a1" class="usa-accordion-content" aria-hidden="true">
+                <p>
+                    As an enrolled student, you must create and maintain your resumé online. It is
+                    imperative that you keep your resumé up to date. Most importantly, please
+                    maintain your current email address(es), home/school/work phone numbers, and
+                    mailing address by updating your student profile. If you need to change your
+                    student profile, please select "Profile Change" from the <b>STUDENTS</b> page.
+                    Remember, this information feeds into your online resumé and some fields can
+                    only be changed by the SFS Program Office.
+                </p>
+                <p>
+                    Please review the "Instructions and Tips" by selecting the links below. In
+                    addition, a link is provided below (and on all page footers) to view the Privacy
+                    Act.
+                </p>
+                <p>
+                    You will have the option to view and print your online resumé upon submission.
+                    You can revise your resumé at any time. Fields marked with an asterisk (<font color="#e31c3d">*</font>) are required.
+                </p>
+                <p>
+                    If you have any problems, contact the SFS Program Office by sending an email to
+                    <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>.
+                </p>
+            </div>
+        </li>
+    </ul>
+
+    <form method="post">
+
+        <h3>*OBJECTIVE</h3>
+            <legend>*OBJECTIVE</legend>
+            <p>
+                Give a brief one or two sentence description of the type of employment or
+                position you desire. Limit your response to five lines.
+            </p>
+             <div class="control-group validate-input">
+                <textarea rows="2" cols="20" id="txtObjective" title="Student Objectives" class="textarea-style" asp-for="Data.Objective"></textarea>
+                 <span asp-validation-for="Data.Objective"></span>
+            </div>
+        <h3>*WORK EXPERIENCE</h3>
+            <legend>*WORK EXPERIENCE</legend>
+            <p>
+                Describe your paid and unpaid
+                work experience related to the job for which you are applying, beginning with
+                the most recent. Experience will be listed in the order entered.
+
+            </p>
+
+            @if (@Model.Data.WorkExperienceList is not null && @Model.Data.WorkExperienceList.Count() > 0)
+            {
+                <table>
+                    <tr>
+                        <th>Employer</th>
+                        <th>Title</th>
+                        <th>Dates</th>
+                        <th></th>
+                        <th></th>
+                  </tr>
+                  @foreach(var item in @Model.Data.WorkExperienceList){
+                      <tr>
+                          <td>@item.Employer</td>
+                          <td>@item.Title</td>
+                          <td>@item.EmploymentDate</td>
+                          <td><a href="/Student/WorkExperience?cid=@item.WorkExperienceId" class="usa-button">Edit</a></td>
+                          <td>
+                               <button onclick="ConfirmDelete(event)" asp-page-handler="DeleteWorkExp" asp-route-wid="@item.WorkExperienceId" class="usa-button">Delete</button>
+                          </td>
+                      </tr>
+                  }
+                </table>
+            }
+            <a href="/Student/WorkExperience" class="usa-button">Add Work Experience</a>
+        <h3>EDUCATION</h3>
+            <legend>EDUCATION</legend>
+            <p>
+                List schools, colleges and/or universities attended from most
+                to least recent.
+            </p>
+
+             @if (@Model.Data.EducationList is not null && @Model.Data.EducationList.Count() > 0)
+            {
+                <table>
+                    <tr>
+                        <th>School</th>
+                        <th>Degree</th>
+                        <th>Major</th>
+                        <th></th>
+                        <th></th>
+                  </tr>
+                  @foreach(var item in @Model.Data.EducationList){
+                      <tr>
+                          <td>@item.School</td>
+                          <td>@item.Degree</td>
+                          <td>@item.Major</td>
+                          <td><a href="/Student/Education?cid=@item.EducationId" class="usa-button">Edit</a></td>
+                          <td>                             
+                               <button onclick="ConfirmDelete(event)" asp-page-handler="DeleteEducation" asp-route-eid="@item.EducationId " class="usa-button">Delete</button>
+                          </td>
+                      </tr>
+                  }
+                </table>
+            }
+
+            <a href="/Student/Education" class="usa-button">Add Education</a>
+        <h3>OTHER QUALIFICATIONS</h3>
+
+            <legend>OTHER QUALIFICATIONS</legend>
+            <ul class="usa-accordion-bordered">
+                <li>
+                    <button class="usa-accordion-button" aria-expanded="true" aria-controls="q2">
+                        Job-Related Training Courses
+                    </button>
+                    <div id="q2" class="usa-accordion-content border-bottom-0" aria-hidden="false">
+                        <p>
+                            Please list job-related training courses that you feel are relevant to the
+                            position in which you are interested. You may include on the job training as
+                            well. Include course title and year of completion. Limit your response to 15
+                            lines.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+              <div class="control-group validate-input">
+                <textarea rows="2" cols="20" id="txtCourseWork" title="Job Related Training Courses" class="textarea-style" asp-for="Data.Coursework"></textarea>
+                <span asp-validation-for="Data.Coursework"></span>
+            </div>
+
+            <ul class="usa-accordion-bordered">
+
+                <li>
+                    <button class="usa-accordion-button" aria-expanded="true" aria-controls="n2">
+                        Job-Related Skills
+                    </button>
+                    <div id="n2" class="usa-accordion-content border-bottom-0" aria-hidden="false">
+                        <p>
+                            You may use this area to list any job-related skills that you would like to
+                            appear on your resumé. For example, other languages, computer software/hardware,
+                            tools, machinery, typing competencies, etc. Limit your response to 15 lines.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="control-group validate-input">
+                <textarea rows="2" cols="20" id="txtJobSkills" title="Job Related Skills" class="textarea-style" asp-for="Data.JobRelatedSkils"></textarea>
+                 <span asp-validation-for="Data.Coursework"></span>
+            </div>
+            <ul class="usa-accordion-bordered">
+                <li>
+                    <button class="usa-accordion-button" aria-expanded="true" aria-controls="t2">
+                        Job-Related Certificates/Licenses
+                    </button>
+                    <div id="t2" class="usa-accordion-content border-bottom-0" aria-hidden="false">
+                        <p>
+                            Please list current certificates and licenses only. You do not need to include
+                            your Driver's License. Limit your response to 10 lines.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="control-group validate-input">
+                <textarea rows="2" cols="20" id="txtCertificates" title="Job Related Certificates and Licenses" class="textarea-style" asp-for="Data.Certs"></textarea>
+                <span asp-validation-for="Data.Certs"></span>
+            </div>
+            <ul class="usa-accordion-bordered">
+                <li>
+                    <button class="usa-accordion-button" aria-expanded="true" aria-controls="u2">
+                        Job-Related Honors, Awards, Memberships, etc.
+                    </button>
+                    <div id="u2" class="usa-accordion-content border-bottom-0" aria-hidden="false">
+                        <p>
+                            Please list job-related honors, awards, special accomplishments and memberships.
+                            For example, publications, memberships in professional or honor societies,
+                            leadership activities, public speaking and performance awards. Limit your
+                            response to 10 lines.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="control-group validate-input">
+                <textarea rows="2" cols="20" id="txtHonors" title="Job Related Honors, Awards, Memberships, Etc." class="textarea-style" asp-for="Data.Honors"></textarea>
+                 <span asp-validation-for="Data.Honors"></span>
+            </div>
+            <ul class="usa-accordion-bordered">
+                <li>
+                    <button class="usa-accordion-button" aria-expanded="true" aria-controls="S2">
+                        <b>Supplemental Information: </b>
+                    </button>
+                    <div id="S2" class="usa-accordion-content border-bottom-0" aria-hidden="false">
+                        <p>
+                            Please use this area to provide any additional information, such as responses to
+                            knowledge, skills and abilities that may be requested on specific vacancy
+                            announcements. It is essential to read and follow announcement instructions.
+                            Completion of the basic resumé elements may not meet all the application
+                            requirements. Limit your response to 15 lines.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="control-group validate-input">
+                <textarea rows="2" cols="20" id="txtSupplemental" title="Suplemental Information" class="textarea-style" asp-for="Data.Supplemental"></textarea>
+                <span asp-validation-for="Data.Supplemental"></span>
+            </div>
+
+            <ul class="usa-accordion-bordered">
+
+                <li>
+                    <button class="usa-accordion-button" aria-expanded="true" aria-controls="k2">
+                        Instruction - Saving Your Resume
+                    </button>
+                    <div id="k2" class="usa-accordion-content border-bottom-0" aria-hidden="false">
+
+                        <p>
+                            <b>
+                                SAVING YOUR RESUMÉ: You have now completed your online resumé. Please read
+                                the following instructions before saving your resumé.
+                            </b>
+                        </p>
+                        <p>
+                            Your resumé will be formatted in a standard style and contain the data elements
+                            suitable for applying for most Federal jobs.
+                        </p>
+                        <p>
+                            Select the <b>Save</b> button below to save your resumé online. To print your
+                            resumé, select the <b>View</b> button below and then use your browser's print
+                            function. To disable the headers and footers that may appear on the document, go
+                            to your browser and select "File" from the toolbar, then "Page Setup". Deselect
+                            the items shown on "Header" and "Footer".
+                        </p>
+                        <p>
+                            You should save a copy of your resumé as a text file on a computer disk and/or
+                            hard drive. Select the <b>View</b> button below to look at your formatted
+                            resumé. From your browser's toolbar, select "Save As..." under the "File" menu.
+                            Enter a file name and change the "Save as Type" field to ".txt", then select <b>
+                                Save
+                            </b>.
+                        </p>
+                        <p>
+                            When selecting the <b>View</b> button below, your resumé will appear in a
+                            separate window and in the standard style mentioned above. While viewing your
+                            resumé, be sure to look it over for grammar, spelling, line limitations, etc.
+                            When finished viewing your resumé, close the window and save it online.
+                        </p>
+                        <p>
+                            Be sure to select the <b>Save</b> button below to save your resumé online. You
+                            will receive a confirmation that your resumé has been successfully saved. You
+                            will then be returned to the <b>STUDENTS</b> page. Please be sure to keep your
+                            online resumé current!
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            
+            <input type="submit" value="Save Resume" class="usa-button" />
+    </form>
+    @section scripts{ 
+        <script asp-add-nonce>
+            function ConfirmDelete(e)
+            {
+                if(!confirm('Are you sure you want to delete?')) {
+                    e.preventDefault();
+                }
+            }
+        </script>
+
+    }

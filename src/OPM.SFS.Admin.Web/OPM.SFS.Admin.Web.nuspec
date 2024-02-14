@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>OPM.SFS.Admin.Web</id>
+    <title>Scholarship For Service Admin Site</title>
+    <version>1.0.0</version>
+    <authors>HRSITPMO</authors>
+    <owners>OPM</owners>
+    <language>en-us</language>
+    <projectUrl>http://adminsfs.opm.gov</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Scholarship For Service (SFS) Program Administration Site</description>
+    <summary>SFS Administration Site</summary>
+    <tags>SFS ScholarshipForService Admin</tags>
+  </metadata>
+  <files>
+    <file src="bin\sfsadminsite\**\*.*" target="" />
+  </files>
+</package>

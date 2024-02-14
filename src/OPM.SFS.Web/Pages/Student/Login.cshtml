@@ -1,0 +1,136 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.LoginModel
+@{
+    Layout = "_NoSideMenu";
+}
+
+<div class="grid-container-widescreen">
+    <div class="grid-row">
+        <div class="grid-col infopage participate">
+            <h2 class="login-header">Students:  <i>Login</i></h2>
+            <div asp-validation-summary="All">
+            <span>Login attempt was not successful. See below for errors.</span>
+        </div>
+        </div>
+        
+    </div>
+     @if(Model.Data != null && Model.Data.IsAccountInactive){
+     <div class="usa-alert usa-alert-error" role="alert">
+              <div class="usa-alert-body">
+                <h3 class="usa-alert-heading">Error - Account Inactive</h3>
+                <p class="usa-alert-text">
+                 Looks like you haven't signed in recently - your SFS account is inactive.
+                  <a href="@Model.Data.ReactivateUrl">Reactivate your account</a> 
+                </p>
+              </div>
+            </div>
+     }
+
+    @if (Model.Data.ShowSuccessEmail)
+    {
+        <div class="usa-alert usa-alert-info">
+          <div class="usa-alert-body">
+            <p class="usa-alert-text">
+             We sent you an email to reactivate your account. Please check your inbox and/or junk/spam. Click the link in the email to reactivate your account. 
+             If you do not receive an email within 24 hours please contact <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>  for assistance
+            </p>
+          </div>
+        </div>
+    }
+</div>
+<br/>
+<div class="grid-container-widescreen">
+    <div class="grid-row grid-gap">    
+        <div class="tablet:grid-col-6">          
+
+            <ul class="usa-accordion-bordered">
+                <li>
+                    <button class="usa-accordion-button" aria-expanded="false" aria-controls="b-a1">
+                        Instruction
+                    </button>
+
+                    <div id="b-a1" class="usa-accordion-content" aria-hidden="false">
+                        <div class="infopage participate">
+                            <div id="container" style="padding-right:20px;">
+                                <div>
+                                    <p>
+                                        SFS is a U.S. Government system to be used only in the manner authorized.  You are authorized
+                                        to use this system's menus, controls, and features to do any and all of the following as a SFS student participant,
+                                        subject to any limitations that may be imposed, such as due dates and deadlines:
+                                    </p>
+                                    <ul>
+                                        <li>Prepare, complete, modify, save, and print resume and job search activity report.</li>
+                                        <li>Prepare, complete, and save internship and post graduation commitments.</li>
+                                        <li>View and print agency official contact information.</li>
+                                    </ul>
+                                    <p>
+                                        <strong>
+                                            Only Students previously accepted by a participating university and enrolled in the Scholarship For
+                                            Service (SFS) Program may register and gain access to this system.
+                                        </strong>
+                                        If you are an SFS enrollee, please
+                                        register first by selecting <a href="/Student/Registration" title="Student Registration">here</a>.
+                                        If you are not an SFS enrollee, please select
+                                        <a href="/Student/FAQs" title="Student Program Guidance">here</a> for information on the SFS Program.<br>
+                                        <br>
+
+                                        Login access to the site is through Login.gov. All new users must first setup their Login.gov account by clicking the link provided below. Returning users can access the site thru the same link. 
+                                        If you encounter a problem creating your login account or logging in, please send an email to the SFS Program Office at <a href="mailto:sfs@opm.gov" title="Email the SFS Program Office">sfs@opm.gov</a>.
+                                        <br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div>             
+                <a href="?handler=Transition">
+                      <img src="/img/logingov-signin.png" alt="Login" style="border-width:0px;height: 40%; background: none;">
+                 </a>            
+            </div>           
+        </div>
+    <div class="tablet:grid-col-6">
+        <div class="infopage participate">
+            <div id="container" style="padding-right:20px;">
+                <div>
+                    <h3>Terms and Conditions of Use</h3>
+                    <p>
+                        The SFS website is an official U.S. Government System for authorized use only.
+                        Unauthorized use of this system or the information on this system could result
+                        in criminal prosecution. Signing into this website indicates you have read and
+                        accepted the Full Terms and Conditions of Use and you consent to security
+                        testing and monitoring.
+                    </p>
+                    <p>
+                        <strong>Full Terms and Conditions of Use</strong><br>
+                        This U.S. Government System is to be used by authorized users only. Information
+                        from this system resides on computer systems funded by the government.
+                    </p>
+                    <p>
+                        The data and documents on this system include Federal records that contain
+                        sensitive information protected by various Federal statutes, including the
+                        Privacy Act, 5 U.S.C. § 552a.
+                    </p>
+                    <p>
+                        All access or use of this system constitutes user understanding and acceptance
+                        of these terms and constitutes unconditional consent to review, monitoring,
+                        recording, and action by all authorized government and law enforcement
+                        personnel.&nbsp; While using this system, your use may be monitored, recorded,
+                        and subject to audit.
+                    </p>
+                    <p>
+                        Unauthorized user attempts or acts to (1) access, upload, change, delete or
+                        deface
+                        information on this system, (2) modify this system, (3) deny access to this
+                        system, (4) accrue resources for unauthorized use, or (5) otherwise misuse this
+                        system are strictly prohibited. Such attempts or acts are subject to action that
+                        may result in criminal, civil, or administrative penalties.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+

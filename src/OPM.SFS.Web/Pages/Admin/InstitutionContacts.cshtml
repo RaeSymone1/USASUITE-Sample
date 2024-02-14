@@ -1,0 +1,140 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.InstitutionContactsModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container">
+	<div class="grid-row">
+		<div class="grid-col">
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+                <li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/InstitutionList" class="usa-breadcrumb__link">
+					<span>Institutions</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Institution Contacts</span>
+				</li>
+			  </ol>
+			</nav>
+
+			<h3>Administration: <em>Institution Contacts for @Model.Data.Institution </em></h3>
+			<div asp-validation-summary="All">
+				<span>One or more errors occcured.</span>
+			</div>
+
+			<span>Contacts: </span>
+			<ol>
+				@foreach(var item in Model.Data.Contacts){
+					<li>
+						<p><b>@item.Role</b>: @item.Name<br>Phone: @item.Phone<br>E-mail: <a href="mailto:@item.Email">@item.Email</a><br></p>
+						@if (User.FindFirst("AdminRole").Value != "Read Only")
+						{
+							<a id="editButton" href="/Admin/InstitutionContacts?iid=@Model.Data.InstitutionID&cid=@item.ContactID">Edit</a>
+						}	
+						<span>				
+						</span>
+						@if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+						{
+							<a id="deleteButton" href="/Admin/InstitutionContacts?iid=@Model.Data.InstitutionID&cid=@item.ContactID" >Delete</a>
+						}
+					</li>
+
+				}				
+			</ol>
+
+			<div class="usa-alert  usa-alert-info usa-alert-info">
+				<div class="usa-alert-body">
+					<p class="usa-alert__text">Add, Edit or Delete contacts for @Model.Data.Institution below.</p>
+				</div>
+			</div>
+			
+			@if (Model.Data.ShowSuccessMessage)
+			{
+				<div class="usa-alert usa-alert-success">
+					<div class="usa-alert-body">
+						<p class="usa-alert-text">
+							@Model.Data.SuccessMessage
+						</p>
+					</div>
+				</div>
+			}
+			<form method="post" class="usa-form-large">
+				<input type="hidden" asp-for="Data.InstitutionContactID" />
+				<input type="hidden" asp-for="Data.InstitutionID" />
+				<div class="control-group validate-input">
+					<label for="ddlContactType">*Contact Type</label>
+					<select id="ddlContactType"asp-items="Model.Data.ContactTypeList" asp-for="Data.ContactType">		
+						<option value="0">-- Please select --</option>
+					</select>
+					 <span asp-validation-for="Data.ContactType"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtFirstName">*First Name</label>
+					<input type="text" id="txtFirstName" asp-for="Data.FirstName">
+					 <span asp-validation-for="Data.FirstName"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtLastName">*Last Name</label>
+					<input type="text" id="txtLastName" asp-for="Data.LastName">
+					 <span asp-validation-for="Data.LastName"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtTitle">Title</label>
+					<input type="text" id="txtTitle" asp-for="Data.Title">
+					 <span asp-validation-for="Data.Title"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtEmail">*Email</label>
+					<input type="text" id="txtEmail" asp-for="Data.Email">
+					 <span asp-validation-for="Data.Email"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPhone">*Phone</label>
+					<input type="text" id="txtPhone" asp-for="Data.Phone">
+					 <span asp-validation-for="Data.Phone"></span>		 
+				</div>
+
+				<div class="control-group validate-input">
+					<label for="txtPhoneExt">Phone Extension</label>
+					<input type="text" id="txtPhoneExt" asp-for="Data.PhoneExt">
+					 <span asp-validation-for="Data.PhoneExt"></span>		 
+				</div>
+			@if (User.FindFirst("AdminRole").Value != "Read Only")
+		    {
+				<input id="saveSubmitBtn" type="submit" value="Save" class="usa-button" />
+			}
+			@if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+		    {
+				<input id="deleteSubmitBtn" asp-page-handler="Delete" type="submit" value="Delete" class="usa-button" />
+			}
+			</form>
+		</div>
+	</div>
+</div>
+	@section Scripts {
+    <script asp-add-nonce>
+		$(function () {
+			 $("#editButton").on("click", function() {
+							document.getElementById("saveSubmitBtn").disabled = true;
+							document.getElementById("deleteSubmitBtn").disabled = false;
+					});
+			$("#deleteButton").on("click", function() {
+	                    document.getElementById("saveSubmitBtn").disabled = false;
+							document.getElementById("deleteSubmitBtn").disabled = true;
+					});
+		});
+	</script>
+	}

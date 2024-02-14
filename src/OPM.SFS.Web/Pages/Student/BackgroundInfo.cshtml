@@ -1,0 +1,121 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Student.BackgroundInfoModel
+@{
+	Layout = "_SideMenuLayoutStudent";
+}
+
+
+<h2> Students:&nbsp;&nbsp;<i>Background Information</i></h2>
+<div asp-validation-summary="All">
+</div>
+@if(Model.Data.ShowIncompleteWarning){
+ <div class="usa-alert usa-alert-warning">
+            <div class="usa-alert-body">
+				<h3 class="usa-alert-heading">Profile Incomplete</h3>
+                <p class="usa-alert-text">                    
+					You must complete the Background Information Survey before proceeding.
+                </p>
+            </div>
+       </div>
+}
+@if(Model.Data.ShowSuccessMessage){
+        <div class="usa-alert usa-alert-success">
+            <div class="usa-alert-body">
+                <p class="usa-alert-text">
+                    Background information updated successfully.
+                </p>
+            </div>
+       </div>
+    }   
+<p align="justify" size="12">
+	This information is used to determine if our recruitment efforts are reaching
+	all segments of the population. Your voluntary responses are treated in a highly
+	confidential manner. The data will be used for studies and statistics and <b>
+		<i>
+			will
+			not
+		</i>
+	</b> be used to identify individual respondents. All the fields are required
+	and their values must be submitted before you can access the website.
+</p>
+
+<form method="post" class="usa-form-large" autocomplete="off">
+		<div class="control-group validate-input">
+			<label for="ddlGender">*Gender</label>
+			<select id="ddlGender" asp-for="Data.Gender" asp-items="Model.Data.GenderList">
+				<option value="0">-- Select --</option>
+			</select>
+			 <span asp-validation-for="Data.Gender"></span>
+		</div>
+		
+		<div class="control-group validate-input">
+			<label for="ddlEthnicity">*Ethnicity</label>
+			<select id="ddlEthnicity" asp-for="Data.Ethnicity" asp-items="Model.Data.EthnicityList">
+				<option value="0">-- Select --</option>
+			</select>
+			<span asp-validation-for="Data.Ethnicity"></span>
+		</div>
+
+		<label>*Race</label>
+		<label id="label1">Check all that apply</label>
+		<span asp-validation-for="Data.SelectedRace"></span>
+		 <ul class="usa-unstyled-list raceList">
+			 @if(Model.Data.RaceOptions is not null)
+			 {
+				@foreach(var item in Model.Data.RaceOptions)
+				{
+					<li>
+						<input name="Data.SelectedRace" type="checkbox" value="@item.ID" checked="@item.Selected"  /> 
+						<label for="@item.ID">@item.Name</label>
+					</li>
+				}
+			 }
+		</ul>
+		<br>
+
+		<div class="control-group validate-input">
+			<label for="ddlHighSchoolState">*High School State</label>
+			<select id="ddlHighSchoolState" asp-for="Data.HighSchoolState" asp-items="Model.Data.HighSchoolStateList">
+				<option value="0">-- Select --</option>
+			</select>
+			<span asp-validation-for="Data.HighSchoolState"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="ddlHighSchoolType">*High School Type</label>
+			<select id="ddlHighSchoolType" asp-for="Data.HighSchoolType" asp-items="Model.Data.HighSchoolTypeList">
+			</select>
+			<span asp-validation-for="Data.HighSchoolType"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="ddlArmedForces">*Are you a current or former member of the US Armed Forces?</label>
+			<select id="ddlArmedForces" asp-for="Data.IsArmedForces" asp-items="Model.Data.IsArmedForcesList">
+			</select>
+			<span asp-validation-for="Data.IsArmedForces"></span>
+		</div>
+
+
+		<label>
+			*How many <b>years</b> were you employed in
+			the public/private sector in a cyber-security position after receiving your first undergraduate
+			degree but prior to receiving the SFS award? Specify your years of cyber-security experience by entering a value of 0, 1
+			or higher in the box below.
+		</label>
+		<br>
+
+		<div class="control-group validate-input">
+			<label for="txtEmploymentHistory">*Years of Employment</label>
+			<input type="text" asp-for="Data.YearsInSecurityPosition" id="txtEmploymentHistory" style="width:70px;">
+			<span asp-validation-for="Data.YearsInSecurityPosition"></span>
+		</div>
+
+
+		<label>
+			<i>
+				<b>Please Note:</b> Employment as a research assistant or
+				teaching assistant while pursuing a master’s degree does <b>NOT</b> count as employment.
+			</i>
+		</label>
+		<input type="submit" value="Submit">
+</form>

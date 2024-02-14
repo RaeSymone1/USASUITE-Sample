@@ -1,0 +1,7 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://github.com/RaeSymone1/USASUITE-Sample.git

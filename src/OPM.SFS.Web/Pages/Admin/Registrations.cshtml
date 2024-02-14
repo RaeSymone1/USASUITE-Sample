@@ -1,0 +1,61 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.RegistrationsModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container">
+	<div class="grid-row">
+		<div class="grid-col">
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Pending Registrations</span>
+				</li>
+			  </ol>
+			</nav>
+
+
+			<h3>Administration: <i>Pending Registrations</i></h3>
+
+			<table id="pendingapprovals">
+				<thead>
+					<tr>						
+						<th>
+							Account Type
+						</th>
+						<th>
+							Count 
+						</th>
+						<th>
+							
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Students Pending Approval</td>
+						<td>@Model.Data.StudentPendingApproval</td>
+						<td><a href="/Admin/RegistrationApproval?t=students">Review</a></td>
+					</tr>
+					<tr>
+						<td>Principal Investigators Pending Approval</td>
+						<td>@Model.Data.PIPendingApproval</td>
+						<td><a href="/Admin/RegistrationApproval?t=academiausers">Review</a></td>
+					</tr>
+					<tr>
+						<td>Agency Officials Pending Approval</td>
+						<td>@Model.Data.AOPendingApproval</td>
+						<td><a href="/Admin/RegistrationApproval?t=agencyusers">Review</a></td>
+					</tr>					
+				</tbody>
+			</table>
+			
+			</div>
+		</div>
+	</div>

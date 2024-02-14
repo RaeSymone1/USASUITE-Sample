@@ -1,0 +1,147 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.AgencyListModel
+@{
+	Layout = "_AdminLayout";
+}
+
+@*//https://clintmcmahon.com/add-a-custom-search-filter-to-datatables-header/*@
+
+<div class="grid-container-widescreen" >
+	<div class="grid-row">
+		<div class="grid-col">
+
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Manage Agencies</span>
+				</li>
+			  </ol>
+			</nav>
+
+			<h3>Administration: <em>Agency Maintenance</em></h3>
+			<p>Welcome to the Agency Administrative section of the SFS Program website. Please select an Agency Type and then select the top level, parent agency from the drop down to find the Agency you wish to edit.  Click the Select button of the Agency to navigate to the edit page for it.  To Add a new Agency, click the Add New Agency link and you will be taken to the Add Agency page.</p>
+			@if (User.FindFirst("AdminRole").Value != "Read Only")
+			{
+			<a class="usa-button" href="/Admin/AgencyEdit?aid=0">Add New Agency</a>
+			}
+			<br />
+
+			 <div class="category-filter">
+				
+			  <label style="text-align:left;">Filter by Agency Type: </label>	
+			  <select id="agencyTypeFilter" class="form-control"  asp-for="Data.FilterAgencyType" asp-items="Model.Data.AgencyTypeList">
+			  </select>
+			  <br />
+			  <span id="loadingMsg" style="color:red;font-weight:bold;display:none">Loading agencies. Please wait...</span>
+			</div>
+
+			<div class="agency-filter-state" style="display:none">
+                     <div class="control-group validate-input">
+		                <label for="ddlLocalStateFilter">*Filter Agency by State</label>
+		                <select id="ddlLocalStateFilter" asp-items="Model.Data.StateList" asp-for="Data.StateFilter">		
+		                </select>
+		                 <span asp-validation-for="Data.StateFilter"></span>		 
+	                </div>
+                </div>
+			
+			<table id="agencies">
+				<thead>
+					<tr>
+					@if (User.FindFirst("AdminRole").Value != "Read Only")
+					{
+						<th>
+							
+						</th>
+					}
+						<th>
+							Agency Type
+						</th>
+						<th>
+							Agency Name
+						</th>
+						<th>
+							Sub-Agency Name
+					    </th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.Data.Agencies.Count() > 0)
+					{
+						@foreach (var item in Model.Data.Agencies)
+						{
+							<tr>
+								@if (User.FindFirst("AdminRole").Value != "Read Only")
+								{
+									<td>									
+										<a href="/Admin/AgencyEdit?aid=@item.AgencyID">Edit</a>									
+									</td>
+								}
+								<td>
+									@item.AgencyType
+								</td>
+								<td>
+									@item.AgencyName
+								</td>
+								<td>
+									@item.SubAgency 
+								</td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+
+
+		</div>
+	</div>
+</div>
+@section Scripts {
+     <script asp-add-nonce>
+	   $(document).ready(function () {
+			$("#agencies").DataTable();
+		
+			$("#agencyTypeFilter" ).change(function() {
+				$("#loadingMsg").show();
+				var id = $(this).val();
+				var typeName = $("#agencyTypeFilter option:selected" ).text();
+				if(typeName == "State" || typeName == "Local" || typeName == "Tribal"){
+					$(".agency-filter-state").show();
+					var stateID = $("#ddlLocalStateFilter option:selected" ).val();
+					$("#agencies").load(`?handler=FilterTablePartial&typeID=${id}&stateID=${stateID}`, function() {
+						 $("#agencies").DataTable({
+						   destroy: true
+						});
+						$("#loadingMsg").hide();
+					});
+				}
+				else {
+					$(".agency-filter-state").hide();
+					$("#agencies").load(`?handler=FilterTablePartial&typeID=${id}`, function() {
+						 $("#agencies").DataTable({
+						   destroy: true
+						});
+						$("#loadingMsg").hide();
+					});
+				}
+			});
+
+			$("#ddlLocalStateFilter" ).change(function() {
+				var id = $("#agencyTypeFilter option:selected" ).val();
+				var stateID = $(this).val();
+				$("#agencies").load(`?handler=FilterTablePartial&typeID=${id}&stateID=${stateID}`, function() {
+						 $("#agencies").DataTable({
+						   destroy: true
+						});
+						$("#loadingMsg").hide();
+				});
+			});
+
+
+		});
+    </script>
+}

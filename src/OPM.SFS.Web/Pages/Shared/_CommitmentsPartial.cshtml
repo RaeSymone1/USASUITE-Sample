@@ -1,0 +1,125 @@
+﻿@using OPM.SFS.Web.Models;
+@using OPM.SFS.Web.Pages.Student;
+@model CommitmentVerificationViewModel
+@{
+    Layout = null;
+}
+
+<div class="grid-row">
+    <div class="grid-col-4" style="font-weight:bold">
+        Total service obligation
+    </div>
+    @* <div class="grid-col-3" style="font-weight:bold">
+    Service Owed
+    </div>*@
+    <div class="grid-col-3" style="font-weight:bold">
+        Next verification due
+    </div>
+</div>
+<div class="grid-row">
+    <div class="grid-col-4">
+        @Model.TotalServiceObligation
+    </div>
+    @* <div class="grid-col-3">
+    @Model.ServiceOwed
+    </div>*@
+    <div class="grid-col-3">
+        @Model.NextVerificationDueDate
+    </div>
+</div>
+<br />
+<br />
+<!--Repeating sections!-->
+@foreach (var c in Model.Commitments)
+{
+    <div class="grid-row">
+        <div style="display: flex; justify-content: space-between;" class="grid-col-4 sfs-panel">
+            <div style="float:left">Commitment details</div>
+            <div style="display: flex; justify-content: space-between;">
+                <div>Status:&nbsp;</div>
+                <div class="commitmentCardHeaderInfo">@c.CommitmentStatus</div>
+            </div>
+            <div style="float:right"><a href="/Student/CommitmentEdit?cid=@c.Id">View</a></div>
+        </div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12 sfs-panel-content">
+            <div class="grid-row">
+                <div class="grid-col-6 sfs-panel-header">
+                    Commitment type
+                </div>
+                <div class="grid-col-6 sfs-panel-header">
+                    Employment start date
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-col-6 commitmentCardContent">
+                    @c.CommitmentType
+                </div>
+                <div class="grid-col-6">
+                    @c.StartDate
+                </div>
+            </div>
+            <br />
+            <div class="grid-row">
+                <div class="grid-col-6 sfs-panel-header">
+                    Agency name
+                </div>
+                <div class="grid-col-6 sfs-panel-header">
+                    Job title
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-col-6 commitmentCardContent">
+                    @c.AgencyName
+                </div>
+                <div class="grid-col-6">
+                    @c.JobTitle
+                </div>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(c.EVFStatus))
+            {
+                <br />
+                <div class="grid-row">
+                    <div class="grid-col-12">
+                        Verification 1
+                        <hr class="sfs-panel-bar" />
+                    </div>
+                </div>
+                <br />
+                <div class="grid-row">
+                    <div class="grid-col-3 sfs-panel-header">
+                        Status
+                    </div>
+                    <div class="grid-col-4 sfs-panel-header">
+                        Date Submitted
+                    </div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-col-3">
+                        @c.EVFStatus
+                    </div>
+                    <div class="grid-col-4">
+                        @c.EVFDateSubmitted
+                    </div>
+                </div>
+                <br />
+@*                <div class="grid-row">
+                    <div class="grid-col-12">
+                        Placeholder for document section
+                    </div>
+                </div>*@
+            }
+            @if (c.ShowAddVerification)
+            {
+                <div class="grid-row">
+                    <div class="grid-col-12">
+                        <br />
+                        <a href="/Student/EmploymentVerification?cid=@c.Id" class="usa-button">Add verification</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+}

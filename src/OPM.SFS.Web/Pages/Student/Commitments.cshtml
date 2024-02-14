@@ -1,0 +1,128 @@
+﻿@page 
+@model OPM.SFS.Web.Pages.Student.CommitmentsModel
+@{
+    Layout = "_SideMenuLayoutStudent";
+}
+
+<h2><span>Students:</span><i> Commitment Management</i></h2>
+<div class="usa-width">
+  <ul class="usa-accordion-bordered">
+  <li>
+    <button class="usa-accordion-button" aria-expanded="false" aria-controls="b-a1">
+      Instruction</button>
+    <div id="b-a1" class="usa-accordion-content" style="padding-bottom:30px" aria-hidden="true">
+    <p class="usa-alert-text"> The commitment List displays the current status of each commitment in the commitment approval process.
+        Below are the list of the different commitment statuses:              
+
+                </p><p><b>List of Commitment Status</b></p>
+        <p>Status requiring student's action</p>
+                <ol>
+                    <li style="text-align:left">  Incomplete - Commitment not submitted for approval</li>
+                    <li style="text-align:left">  PI Approval Pending</li>
+                    <li style="text-align:left"><b>  PI Request Info</b></li>
+                    <li style="text-align:left">  PI Reject</li>
+                    <li style="text-align:left">  PO Approval Pending</li>
+                    <li style="text-align:left"><b>  PO Request Info</b></li>
+                    <li style="text-align:left">  PO Reject</li>
+                    <li style="text-align:left"><b>  PO Request Final Offer Letter</b></li>
+                    
+                    <li style="text-align:left">  PO Approval Pending Final Offer</li>
+                    <li style="text-align:left"><b>  PO Request Final Offer Info</b></li>
+                    <li style="text-align:left">  PO Reject Final Offer</li>
+                    <li style="text-align:left">  Approved</li>
+                    
+        	    </ol>
+        <p>Status requiring Principal Investigator's action</p>
+                <ol></ol>    
+
+        <p>Status requiring Admin (Program Owner) action</p>
+                <ol></ol>   
+        
+        <p>NOTE: Have questions?, email <a href="mailto:sfs@opm.gov">sfs@opm.gov</a><br>
+
+        </p>
+        </div>
+      </li>
+                </ul>
+          </div>
+
+<a href="/Student/CommitmentEdit?cid=0" class="usa-button">Add New Commitment</a>
+
+<table id="commitments" class="usa-table-borderless" style="width: 818px;">
+   <thead>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+                Commitment Type
+            </th>
+            <th>
+                Agency
+            </th>
+            <th>
+                Job Title
+            </th>
+            <th>
+               Start Date
+            </th>
+             <th>
+               Manager
+            </th>
+             <th>
+               Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         @if (Model.Data.Count() > 0)
+        {
+            @foreach (var item in Model.Data)
+            {
+               <tr>
+                   <td>
+                        @if(item.StatusCode.ToUpper() == "INCOMPLETE")
+                        {
+                            <a href="/Student/CommitmentEdit?cid=@item.Id">Edit</a>
+                        }
+                        else
+                        {
+                            <a href="/Student/CommitmentEdit?cid=@item.Id">View</a>
+                        }
+                    </td>
+                   <td>
+                       @item.CommitmentType
+                   </td>
+                   <td>
+                       @item.Agency
+                   </td>
+                   <td>
+                       @item.JobTitle
+                   </td>
+                    <td>
+                       @item.StartDate
+                   </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(item.Manager) && !string.IsNullOrWhiteSpace(item.ManagerEmail))
+                        {
+                            <a href="mailto:@item.ManagerEmail">@item.Manager</a>
+ 
+                        }
+                       
+                   </td>
+                    <td title="@item.StatusDescription">
+                       @item.StatusDisplay
+                   </td>
+               </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script asp-add-nonce>
+   $(document).ready(function () {
+        $("#commitments").DataTable();
+    });
+    </script>
+}

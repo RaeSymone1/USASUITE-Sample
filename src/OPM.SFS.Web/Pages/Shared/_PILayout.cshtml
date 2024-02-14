@@ -1,0 +1,42 @@
+﻿<!doctype html>
+
+<html lang="en">
+<head runat="server">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta property="og:title" content="SFS">
+	<meta name="description" content="Start your cybersecurity career with the U.S. government">
+	<meta property="og:description" content="Start your cybersecurity career with the U.S. government">
+
+
+	<title>CyberCorps&#174;: Scholarship for Service</title>
+	<link rel="stylesheet" href="/css/sfsbase.css" />
+	<script asp-add-nonce src="/lib/agGrid/ag-grid-enterprise.min.noStyle.js"></script>
+	<!-- Include the core CSS, this is needed by the grid -->
+	<link rel="stylesheet" href="/lib/agGrid/ag-grid-enterprise.css" />
+	<!-- Include the theme CSS, only need to import the theme you are going to use -->
+	<link rel="stylesheet" href="/lib/agGrid/ag-theme-alpine-enterprise.css" />
+
+</head>
+<body>
+	<a class="usa-skipnav" href="#main-content">Skip to main content</a>
+	<partial name="_OPMTopBanner" />
+	<partial name="_PIHeader" />
+	<div class="usa-overlay"></div>
+	<div class="usa-hero interior"></div>
+	<main class="usa-grid usa-section usa-content usa-layout-docs grid-extra-wide" id="main-content">
+		<section class="usa-width-one-whole usa-layout-docs-main_content">
+			<div id="main-content-wrapper">
+				@RenderBody()
+			</div>
+		</section>
+	</main>
+
+	<partial name="_Footer" />
+	<script src="/js/sfsbasebundle.js"></script>
+	<script src="/js/menuCollapse.js"></script>
+	@RenderSection("scripts", required: false)
+	<partial name="_SessionExpireAlert" />
+</body>
+</html>

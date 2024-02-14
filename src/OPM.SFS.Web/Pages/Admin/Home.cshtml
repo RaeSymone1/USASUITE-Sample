@@ -1,0 +1,52 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.HomeModel
+@{
+	Layout = "_NoSideMenu";
+}
+ <div class="infopage participate">
+	<h2 style="text-align:center">Main Menu</h2>
+</div>
+<div class="grid-container" style="text-align:center">
+    <div class="grid-row">
+		<div class="grid-col">
+			<div>
+				<h3 style="text-align:center">Welcome @User.Identity.Name! </h3>
+				<a href="/Logout">Logout</a>
+			</div>
+
+			<h4 style="text-decoration:underline">Administration Tools</h4>
+			<ul style="list-style-type: none;">
+				<li><a href="/Admin/RegistrationCodes">Access Registration Code</a></li>
+				<li>Use this link to access the quarterly registration codes.</li>
+				<li><a href="/Admin/StudentLookup">Student Account Administration</a></li>
+				<li>Use this link to change information of registered students.</li>
+                @if (User.FindFirst("AdminRole").Value == "Read Only")
+				{
+					<li>Student Dashboard</li>
+					<li>Use this link to access student's institution and program information.</li>
+					<li>Student Dashboard Data Management</li>
+					<li>Use this link to access manage data options available on the Student Dashboard.</li>
+				}
+				else
+				{
+					<li><a href="/Admin/StudentDashboard">Student Dashboard</a></li>
+					<li>Use this link to access student's institution and program information.</li>
+					<li><a href="/Admin/DataManagement">Student Dashboard Data Management</a></li>
+					<li>Use this link to access manage data options available on the Student Dashboard.</li>
+				}
+				<li><a href="/Admin/AccountList">AO/PI Account Administration</a></li>
+				<li>Use this link to change information of registered AOs and PIs.</li>
+				<li><a href="/Admin/Commitments">Commitment Administration</a></li>
+				<li>Use this link to add and view commitments.</li>
+				<li><a href="/Admin/AgencyList">Agency Administration</a></li>
+				<li>Use this link to make changes to the Agency List.</li>
+				<li><a href="/Admin/InstitutionList">Participating Institutions Administration</a></li>
+				<li>Use this link to change contact information for participating institutions. </li>
+				<li><a href="/Admin/Registrations">Registration Administration</a></li>
+				<li>Use this link to approve and release pending registrations.</li>
+				<li style="font-weight:bold; text-decoration:underline">Notification Administration (In Development)</li>
+				<li>Use this link to send email notifications.</li>
+			</ul>
+		</div>
+	</div>
+</div>

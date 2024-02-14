@@ -1,0 +1,55 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Academia.StudentDashboardModel
+@{
+    Layout = "_PILayout";
+}
+@using OPM.SFS.Web.SharedCode
+@inject IFeatureManager FeatureManager
+<div class="grid-container-widescreen" style="max-width: 165rem">
+
+    <div class="grid-row">
+        <div class="grid-col">
+            <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+                <ol class="usa-breadcrumb__list">
+                    <li class="usa-breadcrumb__list-item">
+                        <a href="/Academia/Dashboard" class="usa-breadcrumb__link">
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+                        <span>Student Dashboard</span>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="usa-alert  usa-alert-info usa-alert-info">
+        <div class="usa-alert-body">
+            <p class="usa-alert-text">
+                <h3 style="margin-top: -10px;">Please note:</h3>
+
+                We are working on this page and the content displayed. Thank you for your patience.
+            </p>
+        </div>
+    </div>
+    <div class="usa-alert  usa-alert-info usa-alert-info">
+        <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">Student Dashboard</h3>
+            <p class="usa-alert-text">
+                This dashboard identifies the status of all SFS scholars associated with your Participating Institution.<br /><br />
+
+                To review an individual scholar’s profile page, job activity report, and view their document repository (i.e., resume, offer letter, employment verification, etc.), click on the student’s name.<br /><br />
+
+                To configure column viewing, select the column header and choose feature (i.e., pin column, search/filter, hide columns, etc.).<br /><br />
+
+                If updates are needed to a scholars information, please contact the SFS Program Office by sending an email to <a href="mailto:sfs@opm.gov">sfs@opm.gov</a>.
+            </p>
+        </div>
+    </div>
+    <button id="btnExcelDownload">Export to Excel</button>
+    <div id="myGrid" class="ag-theme-alpine" style="height: 500px"></div>
+</div>
+@section scripts{
+    <script src="~/js/griddatepicker.js"></script>
+    <script src="/js/sfsacademiaDashboardBundle.js"></script>
+}

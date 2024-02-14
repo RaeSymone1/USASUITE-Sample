@@ -1,0 +1,53 @@
+﻿@page
+@model OPM.SFS.Web.Pages.TransitionModel
+@{
+	Layout = "_BasicLayout";
+}
+
+<div class="grid-container-widescreen">
+	<h2>You now need to create a login.gov account to sign in to SFS</h2>
+	<h3>To maintain your existing profile: 1. Use your existing SFS email address and 2. Create a new password.</h3>
+
+	<h4><a href="?handler=ContinueLoginGov">Continue to Login.gov</a> and select "Create account"</h4>
+
+	<p>Already have an account? <a href="?handler=ContinueLoginGov">Sign-In</a></p>
+	<p>By clicking "Continue" or "Sign-In" you agree to our <a href="/Terms">Terms and conditions</a></p>
+
+	<h2>FAQs</h2>
+
+	<h3>What is login.gov?</h3>
+	<p>Login.gov is a service that offers secure and private online access to government programs, such as federal benefits, services and applications. 
+		With a login.gov account, you can sign into multiple government websites with the same username and password.</p>
+
+	<h3>What do I need to do?</h3>
+	<p>
+		You need to create a login.gov account, if you don't already have one. Your old SFS username and password won't work anymore. You'll need to:
+	</p>
+	<ul>
+		<li>Create a login.gov account - you only need to do this once.</li>
+		<li>Enter an email address - use the same email address you use for SFS (your primary or alternate email address).</li>
+		<li>Create a new password.</li>
+		<li>Have a working phone number (mobile or landline) - login.gov will send you a security code.</li>
+		<li>Link your login.gov account with your SFS account/profile (one-time step)</li>
+	</ul>
+
+	<h3>How do I sign into SFS after I create my login.gov account?</h3>
+	<p>
+		Every time you click Sign In on SFS, you'll go to the login.gov sign in page. You need to enter your login.gov email address, password and the security code that is sent to your mobile or landline phone.
+	</p>
+
+	<h3>Can I use my existing username and password?</h3>
+	<p>No. You must create a new account with login.gov. This is a one-time step where you will use your existing SFS email address but must create a new password.</p>
+
+	<h3>What email address do I use to create a login.gov account?</h3>
+	<p>
+		Use your primary or alternative SFS email address, so we can link your SFS profile to your login.gov account. If you use a different email address, we won’t be able to link your profile.
+	</p>
+
+	<h3>What will happen to my profile?</h3>
+	<p>
+		Nothing will happen to the information stored in your SFS account and profile. You will keep all of your job activities, documents/resumes, and reported commitments.
+	</p>
+
+   <a href="https://login.gov/help/">Learn more about login.gov</a>
+</div>

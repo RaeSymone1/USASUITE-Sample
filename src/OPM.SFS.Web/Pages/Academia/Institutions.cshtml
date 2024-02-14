@@ -1,0 +1,77 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Academia.InstitutionsModel
+@{
+	Layout = "_SideMenuLayoutPI";
+}
+
+
+<div id="map" style="width: 700px;"></div>
+<script src="/js/institutionMapBundle.js"></script>
+
+
+<center>
+	<h2><i>Students: Participating Institutions</i> </h2>
+</center>
+<hr style="background-color: #d6d7d9" />
+<div id="ctl00_PlaceHolderMainContent_divSelect">
+	
+	@{int i = 0;}
+	
+	<ul class="usa-accordion-bordered">
+		@foreach (var item in Model.Data.AllActiveInstitutions)
+		{
+			string divKey = $"key_{i.ToString()}";
+			<li>
+				<button id = "@item.Key"
+					class="usa-accordion-button"
+					aria-expanded="false"
+					aria-controls="@divKey">
+					@item.Key
+				</button>
+				<div id="@divKey" class="usa-accordion-content">				
+					<p>
+						<i>PI - Principal Investigator</i><br>
+						<i>Co-PI - Co Principal Investigator</i><br>
+						<i>PC - Program Coordinator</i>
+				   </p>				
+
+					<h5>Participating Institutions:</h5>
+					@foreach (var details in item.Value)
+						{						
+							
+
+							<b><i><a name="@details.ID"></a><a href="@details.Link" target="_blank">@details.Name</a></i></b>
+							if (!details.IsAcceptingApplications)
+							{
+								<br />
+								<span style="color:red;font-size:small">*Not currently accepting scholarship applications*</span>
+								<br />
+							}
+							<br>
+
+							@details.AddressLine
+							if (!string.IsNullOrWhiteSpace(details.ProgramPage))
+							{
+								<br />
+								<span>SFS Program:</span> <a href="@details.ProgramPage" target="_blank">@details.ProgramPage</a>
+
+								<br>
+
+							}
+							<p></p>
+							foreach (var contact in details.Contacts)
+							{
+								<p><b>@contact.Role</b>: @contact.Name<br>Phone: @contact.Phone<br>E-mail: <a href="mailto:@contact.Email">@contact.Email</a><br></p>
+
+							}
+						}
+					<a href="#top"><img src="/img/upblue.gif" border="0" alt="Go to the Top"></a>
+				</div>
+			</li>
+			i = i + 1;
+		}
+
+	</ul>
+</div>
+
+

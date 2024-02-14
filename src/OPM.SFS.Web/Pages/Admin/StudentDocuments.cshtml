@@ -1,0 +1,181 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.StudentDocumentsModel
+@{
+	Layout = "_AdminLayout";
+}
+@Html.AntiForgeryToken()
+<div class="grid-container-widescreen" >
+
+	<div class="grid-row">
+		<div class="grid-col">
+			    <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/StudentLookup" class="usa-breadcrumb__link">
+					<span>Student Lookup</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Student Documents</span>
+				</li>
+			  </ol>
+			</nav>
+			@if (!string.IsNullOrWhiteSpace(Model.Data.MalwareResultDocument))
+			{
+				<div class="usa-alert usa-alert-error" role="alert">
+					<div class="usa-alert-body">
+						<p class="usa-alert-text">
+							There was a problem uploading your document, @Model.Data.MalwareResultDocument. Please make sure it meets our acceptable formats and try again. 
+						</p>
+					</div>
+				</div>
+			}
+			 <h3>Administration: Student Documents</h3>
+       
+			<label id="lblName" class="margin-top-5"><b>Student Name</b></label>
+			<span>@Model.Data.Studentname</span>
+			<label id="lblUnivName" class="margin-top-5"><b>University/College Attending</b></label>
+			<span>@Model.Data.University</span>
+
+			<label class="margin-top-5"><b>Discipline</b></label>
+			<span>@Model.Data.Major</span>
+
+
+			<label class="margin-top-5"><b>Degree Program</b></label>
+			<span>@Model.Data.Degree</span>
+
+			<label class="margin-top-5"><b>Expected Graduation Date</b></label>
+			<span>@Model.Data.GradDate</span>
+        </div>
+
+        <div class="grid-row">
+            <div class="tablet:grid-col-4">
+			 @if (User.FindFirst("AdminRole").Value != "Read Only")
+				{
+                <div class="sfs-document-add">
+                    <button id="btn-add-document" class="sfs-document-add-trigger" data-object-trigger="modal" data-target="#modal-resume-add">
+                        <span class="sfs-document-add__icon"></span>
+                        Upload Document
+                    </button>
+                    <input type="file" id="resultToUpload" class="form-control" style="visibility:hidden" />
+                </div>
+				}
+                <p>
+                    Uploaded documents must be less than 5MB and in one of the following document formats: TXT, PDF, Word (DOC or DOCX) or Excel (XLS, XSLX).
+                </p>
+            </div>
+            <div class="usa-width-one-third document-help-content">
+                <h3>Do not include in documents</h3>
+                <ul>
+                    <li>Classified or government sensitive information</li>
+                    <li>Social Security Number (SSN)</li>
+                    <li>Photos of yourself</li>
+                    <li>Personal information, such as age, gender, religious affiliation, etc.</li>
+                </ul>
+            </div>
+        </div>
+			@if (Model.Data.Documents != null && Model.Data.Documents.Count > 0)
+			{
+
+			<table>
+				<thead>
+					<tr>						
+						<th>
+							Name
+						</th>
+						<th>
+							Type
+						</th>
+						<th>
+							Upload Date
+						</th>
+						<th>
+
+						</th>
+						@if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+						{
+							<th>
+
+							</th>
+						}
+					</tr>
+				</thead>
+				
+				 @foreach(var j in Model.Data.Documents)
+                 {
+                        <tbody>
+                            <tr>								
+                                <td>@j.DocumentName</td>                            
+                                <td>@j.DocumentType </td>
+                                <td>@j.DateUploaded</td>
+								@if(j.IsBuilderResume)
+								{
+									<td><a target="_blank" href="/Admin/StudentBuilder?sid=@Model.Data.StudentID" class="usa-button">View </a></td>
+								}
+								else
+								{
+									<td><a href="?handler=ViewDocument&fid=@j.DocumentID" class="usa-button">View </a></td>
+								}
+							@if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+							{
+								<td><a href="?handler=DeleteDocument&fid=@j.DocumentID&sid=@Model.Data.StudentID" class="usa-button">Delete </a></td>
+							}
+								
+                            </tr>
+                        </tbody>
+                 }
+			</table>
+			}
+			else {
+				<h3>No documents found for this student.</h3>
+			}
+		</div>
+	 <div id="addDocumentUpload" class="sfs-modal modal">
+        <h2 class="resume-modal-header">Upload Document</h2>
+        <label for="upload-doc-name">Document Name:</label>
+        <input id="upload-doc-name" type="text"/>
+	    <input id="StudentID" asp-for="Data.StudentID" value=@Model.Data.StudentID type="hidden">
+        <span id="doc-name-error" class="ErrorText" style="display:none" for="upload-doc-name">Error!</span>
+        <fieldset class="usa-fieldset-inputs" style="padding: 15px;">
+            <div class="usa-width-one-half">
+                <ul class="usa-unstyled-list">      
+                    @foreach(var type in Model.Data.DocTypes.Take(7))
+                    {                     
+                        <li>
+                            <input id="@type.DocumentTypeID" name="DocumentType" type="radio" value="@type.DocumentTypeID">
+                            <label for="@type.Code">@type.DocumentTypeDispley</label>
+                        </li>
+                   
+                    }               
+                </ul>
+            </div>    
+             <div class="usa-width-one-half">
+                <ul class="usa-unstyled-list">      
+                    @foreach(var type in Model.Data.DocTypes.Skip(7).Take(20))
+                    {                     
+                        <li>
+                            <input id="@type.DocumentTypeID" name="DocumentType" type="radio" value="@type.DocumentTypeID">
+                            <label for="@type.Code">@type.DocumentTypeDispley</label>
+                        </li>                   
+                    }               
+                </ul>
+            </div> 
+        </fieldset>
+        @if (User.FindFirst("AdminRole").Value != "Read Only")
+		{
+			<button id="btn-admin-upload-document" class="usa-button usa-button-primary">Complete Upload</button>
+		}
+		<div class="loader" style="display: none">
+            <img src="/img/spinner.gif"/>
+            <span class="loadingText">Uploading document. Please wait..</span>
+        </div>
+	</div>
+</div>
+@section scripts{ 
+     <script src="~/js/documentRepo.js"></script>
+}

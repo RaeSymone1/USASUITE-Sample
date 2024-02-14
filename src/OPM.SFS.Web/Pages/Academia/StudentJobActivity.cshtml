@@ -1,0 +1,112 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Academia.StudentJobActivityModel
+@{
+	Layout = "_PILayout";
+
+}
+<div class="grid-container-widescreen" >
+	<div class="grid-row">
+		<div class="grid-col">
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+						<a href="/Academia/Dashboard" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+						<a href="/Academia/StudentProfile?sid=@Model.Data.StudentID" class="usa-breadcrumb__link">
+					<span>Student Profile</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Job Activity Report</span>
+				</li>
+			  </ol>
+			</nav>
+
+			 <h3>Principal Investigators: Job Activity Report</h3>
+
+			 <b><span>Student Name:  </span></b>
+                <span>@Model.Data.Studentname</span>
+                <br>
+                <b><span>University: </span></b>
+                <span>@Model.Data.University </span>
+                <br>
+                <b><span>Degree/Major: </span></b>
+                <span>@Model.Data.DegreeMajor</span>
+                <br>
+                <b><span>Expected Graduation Date: </span></b>
+                <span>@Model.Data.GradDate</span>
+
+			@if (Model.Data.Items != null && Model.Data.Items.Count > 0)
+			{
+
+				<table>
+					<thead>
+					<tr>
+						<th>
+							Date Applied
+						</th>
+						<th>
+							Position Title
+						</th>
+						<th>
+							Agency Name
+					    </th>
+						<th>
+							Agency Type
+					    </th>
+						<th>
+							Contact Name
+					    </th>
+						<th>
+							Email Address
+					    </th>
+						@*<th>
+							Description of Activity
+					    </th>*@
+						<th>
+							Status
+					    </th>
+						@*<th>
+							Status Other
+					    </th>*@
+						<th>
+							Duty Location
+					    </th>
+						<th>
+							USAJOBS Control #
+					    </th>
+						<th>
+							Date Updated
+					    </th>
+					</tr>
+				</thead>
+				
+				 @foreach(var j in Model.Data.Items)
+                        {
+                        <tbody>
+                            <tr>
+                                <td>@j.DateApplied</td>                            
+                                <td>@j.PositionTitle </td>
+                                <td>@j.AgencyName</td>
+                                <td>@j.AgencyTypeName</td>
+                                <td>@j.ContactFullName </td>
+								<td>@j.ContactEmail </td>
+								@*<td>@j.Description </td>*@
+								<td>@j.StatusName </td>
+								@*<td>@j.StatusOther </td>*@
+								<td>@j.DutyLocation </td>
+								<td>@j.USAJOBSControlNum </td>
+							    <td>@j.LastUpdated </td>                               
+                            </tr>
+                        </tbody>
+                        }
+			</table>
+			}
+
+	    </div>
+	</div>
+
+</div>

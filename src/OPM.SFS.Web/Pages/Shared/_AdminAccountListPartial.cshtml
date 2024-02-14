@@ -1,0 +1,66 @@
+﻿@using OPM.SFS.Web.Models
+
+
+@model AdminAccountListViewModel
+
+<thead>
+	<tr>
+	@if (User.FindFirst("AdminRole").Value != "Read Only")
+	{
+		<th>
+
+		</th>
+	}
+		<th>
+			User Name
+		</th>
+		<th>
+			Email
+		</th>
+		<th>
+			First Name
+		</th>
+		<th>
+			Last Name
+		</th>
+		<th>Agency / Institution</th>
+		<th>
+			Profile Status
+		</th>
+		
+	</tr>
+</thead>
+<tbody>
+	@if (Model.Accounts.Count() > 0)
+	{
+		@foreach (var item in Model.Accounts)
+		{
+			<tr>
+				@if (User.FindFirst("AdminRole").Value != "Read Only")
+				{
+					<td>
+						<a href="/Admin/AccountEdit?aid=@item.AccountID&t=@Model.AccountType">Edit</a>	
+					</td>
+				}
+				<td>
+					@item.Username 
+				</td>
+				<td>
+					@item.Email
+				</td>
+				<td>
+					@item.FirstName
+				</td>
+				<td>
+					@item.Lastname
+				</td>
+				
+				<td>@item.AgencyOrInstitution</td>	
+				
+				<td title="@item.Display">@item.ProfileStatus</td>
+			</tr>
+		}
+	}
+</tbody>
+
+

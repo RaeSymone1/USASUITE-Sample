@@ -1,0 +1,125 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.CommitmentDocumentsModel
+@{
+    Layout = "_AdminLayout";
+}
+@using OPM.SFS.Web.SharedCode;
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+          
+            <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+                <li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Commitments" class="usa-breadcrumb__link">
+					<span>Commitments</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Commitment Documents</span>
+				</li>
+			  </ol>
+			</nav>
+
+            <h3>Commitment Documents</h3>
+
+            @if (Model.Data.Status.ToUpper() == "INCOMPLETE")
+            {
+                <h4>Please upload the following documents to complete your commitment</h4>
+            }
+            <div asp-validation-summary="All">
+                    <span>One or more errors occcured.</span>
+             </div>
+            <div class="usa-alert usa-alert-info">          
+                <div class="usa-alert-body">
+                    <h3 class="usa-alert-heading">File Upload Information</h3>
+                <p class="usa-alert-text">
+                    Uploaded documents must be less than 5MB and in one of the following document formats: TXT, PDF, Word (DOC or DOCX) or Excel (XLS, XSLX).
+                </p>
+                </div>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+
+                <input type="hidden" id="hfCommitmentId" asp-for="Data.CommitmentID" />
+                <input type="hidden" id="hfApprovalFlow" asp-for="Data.ApprovalFlow" />
+                <input type="hidden" id="hfSavedDocumentCount" asp-for="Data.SavedDocumentCount" />
+                <input type="hidden" id="hfStatus" asp-for="Data.Status" />
+                 <input type="hidden" id="hfStudentID" asp-for="Data.StudentID" />
+                <!--Document List for edit-->
+                @if(Model.Data.SavedDocuments is not null && Model.Data.SavedDocuments.Count() > 0)
+                {
+                    <table> 
+                        <thead>
+                            <tr>
+                                <th>
+                                    Document Name
+                                </th>
+                                <th>
+                                    Type
+                                </th>
+                                <th>                            
+                                </th>
+                                @if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+                                {
+                                    <th>                           
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                            @foreach(var doc in Model.Data.SavedDocuments)
+                            {
+                                <tr>
+                                    <td>@doc.Name</td>
+                                    <td>@doc.Type</td>
+                                    <td><a href="?handler=ViewDocument&fid=@doc.Id" class="usa-button">View </a></td>
+                                @if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+                                {
+                                    <td><a href="?handler=DeleteDocument&fid=@doc.Id&cid=@Model.Data.CommitmentID" class="usa-button">Delete </a></td>        
+                                }
+                                </tr>                  
+                            }
+                    </table>
+                }
+                else {
+                    <h3>No documents found for this commitment.</h3>
+                }  
+  
+                
+             
+            <!--Document upload area-->
+                @if (User.FindFirst("AdminRole").Value != "Read Only")
+                {
+                    <div class="preapproval">
+                        <label>*Upload tentative job offer letter</label>
+                        <input type="file" asp-for="Data.TenativeJobOffer" />
+                        <input asp-page-handler="UploadTenativeJobOffer" type="submit" value="Upload Tentative Job Offer" />
+                        <span asp-validation-for="Data.TenativeJobOffer"></span>
+                    </div>
+
+
+                    <div class="approved">
+                        <label>*Upload final job offer letter</label>
+                        <input type="file" asp-for="Data.FinalJobOffer" />
+                        <input asp-page-handler="UploadFinalJobOffer" type="submit" value="Upload Final Job Offer Letter"/>
+                        <span asp-validation-for="Data.FinalJobOffer"></span>
+                    </div>
+
+                    <div class="approved">
+                        <label>*Upload position description document</label>
+                        <input type="file" asp-for="Data.PostionDescription" />
+                        <input asp-page-handler="UploadPosDescription" type="submit" value="Upload Position Description" />
+                        <span asp-validation-for="Data.PostionDescription"></span>
+                    </div>
+                }
+                <br />
+            <a class="usa-button" href="/Admin/CommitmentEdit?sid=@Model.Data.StudentID&cid=@Model.Data.CommitmentID">Save Changes</a>
+            </form>
+        </div>
+    </div>
+</div>

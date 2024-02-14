@@ -1,0 +1,127 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace OPM.SFS.Data.Migrations
+{
+    public partial class UpdateInstitutionAddGrantNumberAndExpirationDate : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(@"
+                                     Update Institution Set GrantNumber = 1663651, GrantExpirationDate = '06/30/2023' WHERE Name = 'Arizona State University'
+                                    Update Institution Set GrantNumber = 1663616, GrantExpirationDate = '08/31/2023' WHERE Name = 'Auburn University'
+                                    Update Institution Set GrantNumber = 2043302, GrantExpirationDate = '01/31/2026' WHERE Name = 'Augusta University'
+                                    Update Institution Set GrantNumber = 2146212, GrantExpirationDate = '01/31/2027' WHERE Name = 'Binghamton University (SUNY)'
+                                    Update Institution Set GrantNumber = 1842074, GrantExpirationDate = '08/31/2022' WHERE Name = 'Brookdale Community College'
+                                    Update Institution Set GrantNumber = 1504526, GrantExpirationDate = '06/30/2022' WHERE Name = 'Cal Poly Pomona'
+                                    Update Institution Set GrantNumber = 1754092, GrantExpirationDate = '08/01/2023' WHERE Name = 'Carnegie Mellon'
+                                    Update Institution Set GrantNumber = 1504547, GrantExpirationDate = '06/30/2023' WHERE Name = 'California State University - Sacramento'
+                                    Update Institution Set GrantNumber = 2043237, GrantExpirationDate = '07/31/2026' WHERE Name = 'California State University - San Bernardino'
+                                    Update Institution Set GrantNumber = 1921726, GrantExpirationDate = '06/30/2024' WHERE Name = 'Dakota State University'
+                                    Update Institution Set GrantNumber = 1921840, GrantExpirationDate = '06/30/2024' WHERE Name = 'Davenport University'
+                                    Update Institution Set GrantNumber = 1922202, GrantExpirationDate = '07/24/2024' WHERE Name = 'Drexel University'
+                                    Update Institution Set GrantNumber = 2146462, GrantExpirationDate = '01/31/2027' WHERE Name = 'Embry-Riddle Aeronautical University'
+                                    Update Institution Set GrantNumber = 1663051, GrantExpirationDate = '12/31/2022' WHERE Name = 'Florida International University'
+                                    Update Institution Set GrantNumber = 1565215, GrantExpirationDate = '08/31/2022' WHERE Name = 'Florida State University'
+                                    Update Institution Set GrantNumber = 1565215, GrantExpirationDate = '08/31/2022' WHERE Name = 'Florida State University'
+                                    Update Institution Set GrantNumber = 2142229, GrantExpirationDate = '01/31/2027' WHERE Name = 'Fordham University'
+                                    Update Institution Set GrantNumber = 1753983, GrantExpirationDate = '09/01/2023' WHERE Name = 'George Washington University'
+                                    Update Institution Set GrantNumber = 1663060, GrantExpirationDate = '12/31/2023' WHERE Name = 'Georgetown University'
+                                    Update Institution Set GrantNumber = 1565523, GrantExpirationDate = '09/30/2023' WHERE Name = 'Georgia Institute of Technology'
+                                    Update Institution Set GrantNumber = 2146497, GrantExpirationDate = '01/31/2027' WHERE Name = 'Georgia State University'
+                                    Update Institution Set GrantNumber = 1754054, GrantExpirationDate = '07/31/2023' WHERE Name = 'Hampton University'
+                                    Update Institution Set GrantNumber = 1504528, GrantExpirationDate = '06/30/2023' WHERE Name = 'Idaho State University'
+                                    Update Institution Set GrantNumber = 1946537, GrantExpirationDate = '07/31/2025' WHERE Name = 'Indiana University'
+                                    Update Institution Set GrantNumber = 2146359, GrantExpirationDate = '01/31/2027' WHERE Name = 'Indiana University Purdue University Indianapolis'
+                                    Update Institution Set GrantNumber = 1565130, GrantExpirationDate = '09/30/2022' WHERE Name = 'Iowa State University'
+                                    Update Institution Set GrantNumber = 2146254, GrantExpirationDate = '04/30/2027' WHERE Name = 'Johns Hopkins University'
+                                    Update Institution Set GrantNumber = 1946557, GrantExpirationDate = '05/31/2025' WHERE Name = 'Kansas State University'
+                                    Update Institution Set GrantNumber = 1946626, GrantExpirationDate = '12/31/2024' WHERE Name = 'Louisiana State University'
+                                    Update Institution Set GrantNumber = 1754048, GrantExpirationDate = '12/31/2023' WHERE Name = 'Louisiana Tech University'
+                                    Update Institution Set GrantNumber = 2146278, GrantExpirationDate = '04/30/2027' WHERE Name = 'Marymount University'
+                                    Update Institution Set GrantNumber = 2043022, GrantExpirationDate = '01/31/2026' WHERE Name = 'Michigan Technological University'
+                                    Update Institution Set GrantNumber = 1565484, GrantExpirationDate = '07/31/2024' WHERE Name = 'Mississippi State University'
+                                    Update Institution Set GrantNumber = 1842077, GrantExpirationDate = '08/31/2022' WHERE Name = 'Moraine Valley Community College'
+                                    Update Institution Set GrantNumber = 2042700, GrantExpirationDate = '06/29/2026' WHERE Name = 'Morgan State University'
+                                    Update Institution Set GrantNumber = 1565443, GrantExpirationDate = '09/30/2022' WHERE Name = 'Naval Postgraduate School'
+                                    Update Institution Set GrantNumber = 2043104, GrantExpirationDate = '07/31/2026' WHERE Name = 'New Jersey Institute of Technology'
+                                    Update Institution Set GrantNumber = 1946650, GrantExpirationDate = '05/31/2025' WHERE Name = 'New Mexico Institute of Mining and Technology'
+                                    Update Institution Set GrantNumber = 1922291, GrantExpirationDate = '06/30/2024' WHERE Name = 'New York University'
+                                    Update Institution Set GrantNumber = 1922270, GrantExpirationDate = '07/31/2025' WHERE Name = 'Norfolk State University'
+                                    Update Institution Set GrantNumber = 2146498, GrantExpirationDate = '05/31/2027' WHERE Name = 'North Carolina Agriculture and Technical State University'
+                                    Update Institution Set GrantNumber = 1946607, GrantExpirationDate = '12/31/2024' WHERE Name = 'North Carolina State University'
+                                    Update Institution Set GrantNumber = 1661532, GrantExpirationDate = '07/31/2023' WHERE Name = 'Northeastern University'
+                                    Update Institution Set GrantNumber = 1754014, GrantExpirationDate = '09/30/2023' WHERE Name = 'Norwich University'
+                                    Update Institution Set GrantNumber = 2146280, GrantExpirationDate = '01/31/2027' WHERE Name = 'Oakland University'
+                                    Update Institution Set GrantNumber = 2042882, GrantExpirationDate = '01/31/2026' WHERE Name = 'Old Dominion University'
+                                    Update Institution Set GrantNumber = 2043095, GrantExpirationDate = '07/31/2026' WHERE Name = 'Pace University'
+                                    Update Institution Set GrantNumber = 1663343, GrantExpirationDate = '07/31/2024' WHERE Name = 'Pennsylvania State University'
+                                    Update Institution Set GrantNumber = 2140638, GrantExpirationDate = '06/30/2027' WHERE Name = 'Polytechnic University of Puerto Rico'
+                                    Update Institution Set GrantNumber = 1754090, GrantExpirationDate = '12/31/2023' WHERE Name = 'Purdue University Northwest'
+                                    Update Institution Set GrantNumber = 1922169, GrantExpirationDate = '08/01/2024' WHERE Name = 'Rochester Institute of Technology'
+                                    Update Institution Set GrantNumber = 1842287, GrantExpirationDate = '08/31/2023' WHERE Name = 'San Antonio College'
+                                    Update Institution Set GrantNumber = 1842074, GrantExpirationDate = '09/30/2022' WHERE Name = 'Sinclair Community College'
+                                    Update Institution Set GrantNumber = 1503875, GrantExpirationDate = '06/30/2022' WHERE Name = 'St. Cloud State University'
+                                    Update Institution Set GrantNumber = 1433795, GrantExpirationDate = '08/31/2022' WHERE Name = 'Stevens Institute of Technology'
+                                    Update Institution Set GrantNumber = 1433795, GrantExpirationDate = '08/31/2022' WHERE Name = 'Stevens Institute of Technology'
+                                    Update Institution Set GrantNumber = 2043324, GrantExpirationDate = '07/31/2026' WHERE Name = 'Tennessee Tech University'
+                                    Update Institution Set GrantNumber = 1754101, GrantExpirationDate = '12/31/2023' WHERE Name = 'Texas A&M University'
+                                    Update Institution Set GrantNumber = 1946553  , GrantExpirationDate = '12/30/2024' WHERE Name = 'Citadel'
+                                    Update Institution Set GrantNumber = 1663184, GrantExpirationDate = '06/30/2023' WHERE Name = 'Towson University'
+                                    Update Institution Set GrantNumber = 1663350, GrantExpirationDate = '12/31/2022' WHERE Name = 'Tuskegee University'
+                                    Update Institution Set GrantNumber = 1662762, GrantExpirationDate = '08/31/2023' WHERE Name = 'University of Alabama at Birmingham (UAB)'
+                                    Update Institution Set GrantNumber = 1753900, GrantExpirationDate = '06/30/2023' WHERE Name = 'University of Alabama in Huntsville'
+                                    Update Institution Set GrantNumber = 1946599, GrantExpirationDate = '12/31/2024' WHERE Name = 'University of Alabama'
+                                    Update Institution Set GrantNumber = 1921485, GrantExpirationDate = '07/31/2024' WHERE Name = 'University of Arizona'
+                                    Update Institution Set GrantNumber = 1922180, GrantExpirationDate = '07/31/2024' WHERE Name = 'University of Arkansas'
+                                    Update Institution Set GrantNumber = 1754085, GrantExpirationDate = '08/31/2023' WHERE Name = 'University at Buffalo, SUNY'
+                                    Update Institution Set GrantNumber = 2042996, GrantExpirationDate = '01/31/2026' WHERE Name = 'University of Central Florida'
+                                    Update Institution Set GrantNumber = 2043106, GrantExpirationDate = '01/31/2026' WHERE Name = 'University of Cincinnati'
+                                    Update Institution Set GrantNumber = 1922410, GrantExpirationDate = '07/31/2024' WHERE Name = 'University of Colorado - Colorado Springs'
+                                    Update Institution Set GrantNumber = 1662976, GrantExpirationDate = '12/31/2022' WHERE Name = 'University of Florida'
+                                    Update Institution Set GrantNumber = 1662487, GrantExpirationDate = '12/31/2023' WHERE Name = 'University of Hawaii'
+                                    Update Institution Set GrantNumber = 1433817, GrantExpirationDate = '07/31/2022' WHERE Name = 'University of Houston'
+                                    Update Institution Set GrantNumber = 1565572, GrantExpirationDate = '08/31/2023' WHERE Name = 'University of Idaho'
+                                    Update Institution Set GrantNumber = 1922072, GrantExpirationDate = '07/31/2024' WHERE Name = 'University of Illinois at Urbana Champaign'
+                                    Update Institution Set GrantNumber = 1565570, GrantExpirationDate = '12/31/2023' WHERE Name = 'University of Kansas'
+                                    Update Institution Set GrantNumber = 1753681, GrantExpirationDate = '08/31/2024' WHERE Name = 'University of Maryland, Baltimore County (UMBC)'
+                                    Update Institution Set GrantNumber = 1753857, GrantExpirationDate = '12/31/2023' WHERE Name = 'University of Maryland, College Park'
+                                    Update Institution Set GrantNumber = 2043084, GrantExpirationDate = '06/30/2026' WHERE Name = 'University of Massachusetts Amherst'
+                                    Update Institution Set GrantNumber = 2146427, GrantExpirationDate = '01/31/2027' WHERE Name = 'University of Memphis'
+                                    Update Institution Set GrantNumber = 1946619, GrantExpirationDate = '07/31/2025' WHERE Name = 'University of Missouri Columbia Missouri University of S and T'
+                                    Update Institution Set GrantNumber = 1750038, GrantExpirationDate = '06/30/2023' WHERE Name = 'University of Nebraska at Omaha'
+                                    Update Institution Set GrantNumber = 2146146, GrantExpirationDate = '01/31/2027' WHERE Name = 'University of Nevada, Reno'
+                                    Update Institution Set GrantNumber = 1921813, GrantExpirationDate = '07/31/2024' WHERE Name = 'University of New Haven'
+                                    Update Institution Set GrantNumber = 1565547, GrantExpirationDate = '09/30/2022' WHERE Name = 'University of New Mexico'
+                                    Update Institution Set GrantNumber = 1662364, GrantExpirationDate = '07/31/2023' WHERE Name = 'University of North Carolina at Charlotte'
+                                    Update Institution Set GrantNumber = 1241768, GrantExpirationDate = '06/30/2021' WHERE Name = 'University of North Texas'
+                                    Update Institution Set GrantNumber = 2042416, GrantExpirationDate = '01/31/2026' WHERE Name = 'University of Rhode Island'
+                                    Update Institution Set GrantNumber = 2142948, GrantExpirationDate = '05/31/2027' WHERE Name = 'University of South Alabama'
+                                    Update Institution Set GrantNumber = 1663105, GrantExpirationDate = '12/31/2022' WHERE Name = 'University of Tennessee at Chattanooga'
+                                    Update Institution Set GrantNumber = 1303328, GrantExpirationDate = '08/31/2021' WHERE Name = 'University of Texas at Austin'
+                                    Update Institution Set GrantNumber = 1922398, GrantExpirationDate = '06/30/2024' WHERE Name = 'University of Texas at Dallas'
+                                    Update Institution Set GrantNumber = 2043250, GrantExpirationDate = '07/31/2026' WHERE Name = 'University of Texas at El Paso'
+                                    Update Institution Set GrantNumber = 2146466, GrantExpirationDate = '04/30/2027' WHERE Name = 'University of Texas at San Antonio'
+                                    Update Institution Set GrantNumber = 1501177, GrantExpirationDate = '06/30/2023' WHERE Name = 'University of Tulsa'
+                                    Update Institution Set GrantNumber = 1921576, GrantExpirationDate = '07/31/2024' WHERE Name = 'University of Washington - Tacoma'
+                                    Update Institution Set GrantNumber = 1946442, GrantExpirationDate = '12/31/2024' WHERE Name = 'University of West Florida'
+                                    Update Institution Set GrantNumber = 1946493, GrantExpirationDate = '07/31/2025' WHERE Name = 'Virginia Polytechnic Institute and State University'
+                                    Update Institution Set GrantNumber = 1842096, GrantExpirationDate = '08/31/2022' WHERE Name = 'Anne Arundel Community College'
+                                    Update Institution Set GrantNumber = 1842096, GrantExpirationDate = '08/31/2022' WHERE Name = 'Clark State Community College'
+                                    Update Institution Set GrantNumber = 1842096, GrantExpirationDate = '08/31/2022' WHERE Name = 'Oklahoma City Community College'
+                                    Update Institution Set GrantNumber = 1842096, GrantExpirationDate = '08/31/2022' WHERE Name = 'Whatcom Community College'
+                                    Update Institution Set GrantNumber = 1941415, GrantExpirationDate = '12/31/2025' WHERE Name = 'Worcester Polytechnic Institute'
+
+
+                                    ");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(@"
+                                Update Institution SET GrantNumber = NULL , GrantExpirationDate = NULL
+                            ");
+        }
+    }
+}

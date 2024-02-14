@@ -1,0 +1,88 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.InstitutionListModel
+@{
+	Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+
+            <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Institutions</span>
+				</li>
+			  </ol>
+			</nav>
+
+			<h3>Administration: Participating Institutions Maintenance</h3>
+			<a href="https://www.nsf.gov/awards/award_visualization.jsp?org=NSF&pims_id=504991&ProgEleCode=1668&from=fund" target="_blank">NSF-SFS Grant Award Lookup</a><br/><br/>
+			@if (User.FindFirst("AdminRole").Value != "Read Only")
+		    {
+				<a href="/Admin/InstitutionEdit?sid=0" class="usa-button">Add New Institution</a>
+			}
+			    <div class="" style="overflow-x:auto;">   
+                    <table id="Institutions" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+							 @if (User.FindFirst("AdminRole").Value != "Read Only")
+							{
+                                <th class="left-align"></th>
+							}
+                                <th class="left-align">Institution</th>
+                                <th class="left-align">Institution Type</th>
+								<th>Grant Number</th>
+								<th>Grant Expiration Date</th>
+                                <th class="left-align">Is Accepting Scholarships</th>
+								<th class="left-align">Is Active</th>
+								<th class="left-align">Contacts</th>
+                            </tr>
+                        </thead>
+						<tbody>
+					@if (Model.Data.Institutions.Count() > 0)
+					{
+						@foreach (var item in Model.Data.Institutions)
+						{
+							<tr>
+						    @if (User.FindFirst("AdminRole").Value != "Read Only")
+							{
+								<td style="vertical-align:top"><a href="/Admin/InstitutionEdit?iid=@item.InstitutionID">Edit</a></td>
+						    }
+								<td style="vertical-align:top">@item.Institution</td>
+								<td style="vertical-align:top">@item.InstitutionType</td>
+								<td style="vertical-align:top">@item.GrantNumber</td>
+								<td style="vertical-align:top">@item.GrantExpirationDate</td>
+								<td style="vertical-align:top">@item.IsAcceptingApplicataions</td>
+								<td style="vertical-align:top">@item.IsActive</td>
+								<td>
+									@foreach(var contact in item.Contacts)
+									 {
+										<p><b>@contact.Role</b>: @contact.Name<br>Phone: @contact.Phone<br>E-mail: <a href="mailto:@contact.Email">@contact.Email</a><br></p>
+
+									 }
+								</td>
+							</tr>
+						}
+
+					}
+					
+			  </tbody>
+                    </table>
+                </div>
+			</div>
+		</div>
+	</div>
+    @section Scripts {
+		<script asp-add-nonce>
+		   $(document).ready(function () {
+				$("#Institutions").DataTable();
+			});
+
+		</script>
+}

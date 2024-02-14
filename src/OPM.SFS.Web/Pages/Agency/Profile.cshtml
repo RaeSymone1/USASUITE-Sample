@@ -1,0 +1,141 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Agency.ProfileModel
+@{
+	Layout = "_SideMenuLayoutAO";
+}
+
+<form method="post" autocomplete="off">
+	<h2>Agency&nbsp;Officials:&nbsp;&nbsp;<em>Profile&nbsp;Change</em></h2>
+	<p style="text-align: justify; font-size: 12px">
+		The fields below display your current profile. To make changes, simply edit that
+		field's data and select <b>Submit</b>.  Required fields are indicated by an
+		asterisk(*). Only the SFS Program Office can change your agency name. Please use your government email as your email address. You will
+		receive confirmation that your change(s) have been successfully processed.  Changes
+		might take up to two business days to update.
+	</p>
+
+	@if(Model.Data.ShowSuccessMessage){
+        <div class="usa-alert usa-alert-success">
+            <div class="usa-alert-body">
+                <p class="usa-alert-text">
+                    Profile updated successfully.
+                </p>
+            </div>
+       </div>
+    }   
+	<div>		
+
+		<div class="control-group validate-input">
+			<label for="txtAgencyType">*Agency</label>			
+			<input asp-for="Data.AgencyType" type="text" id="txtAgencyType" disabled>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="txtAgency">*Agency</label>			
+			<input asp-for="Data.Agency" type="text" id="txtAgency" disabled>
+		</div>
+
+		@if(!string.IsNullOrWhiteSpace(Model.Data.SubAgency))
+		{
+			<div class="control-group validate-input">
+				<label for="txtSubAgency">*Sub Agency</label>			
+				<input asp-for="Data.SubAgency" type="text" id="txtSubAgency" disabled>
+			</div>		
+		}
+
+		<div class="control-group validate-input">
+			<label for="txtFirstName">*First Name</label>
+			<input asp-for="Data.FirstName" type="text" id="txtFirstName">
+			<span asp-validation-for="Data.FirstName"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="txtLastName">*Last Name</label>
+			<input asp-for="Data.LastName" type="text" id="txtLastName">
+			<span asp-validation-for="Data.LastName"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="drpRole">*Role</label>
+			<select asp-for="Data.Role" asp-items="Model.Data.RoleList" id="drpRole">
+				<option value="0">Not Selected</option>
+			</select>
+			<span asp-validation-for="Data.Role"></span>
+		</div>
+
+
+		<div class="control-group validate-input">
+			<label for="txtAddress1">*Address 1</label>
+			<input asp-for="Data.Address1" type="text" maxlength="40" id="txtAddress1" tabindex="6">
+			<span asp-validation-for="Data.Address1"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="txtAddress2">Address 2</label>
+			<input asp-for="Data.Address2" type="text" id="txtAddress2">
+			<span asp-validation-for="Data.Address2"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="txtCity">*City</label>
+			<input asp-for="Data.City" type="text" id="txtCity">
+			<span asp-validation-for="Data.City"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="ddlState">*State</label>
+			<select id="ddlState" asp-for="Data.State" asp-items="Model.Data.StateList">
+				<option value="0"> - Please Select - </option>
+			</select>
+			<span asp-validation-for="Data.State"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="txtZIP">*ZIP+4 Code (+4 is optional)</label>
+			<input asp-for="Data.PostalCode" type="text" id="txtZIP" />
+			<span asp-validation-for="Data.PostalCode"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="txtPhone">*Phone Number (Example: ### - ### - ####)</label>
+			<input asp-for="Data.Phone" type="text" id="txtPhone" />
+			<span asp-validation-for="Data.Phone"></span>
+		</div>
+
+		<div class="control-group validate-input">
+			<label for="txtExtension">Ext:&nbsp;&nbsp;</label>
+			<input asp-for="Data.Extension" type="text" maxlength="6" id="txtExtension" />
+			<span asp-validation-for="Data.Extension"></span>
+		</div>
+		<br>
+
+		<div class="control-group validate-input">
+			<label for="txtFax">Fax Number (Example: ### - ### - ####)</label>
+			<input asp-for="Data.Fax" type="text" id="txtFax" />
+			<span asp-validation-for="Data.Fax"></span>
+		</div>
+		<br>
+
+		@*<div class="control-group validate-input">
+			<label for="txtEmail">*Email Address</label>
+			<input asp-for="Data.Email" type="text" id="txtEmail" tabindex="15" readonly disabled>
+			<span asp-validation-for="Data.Email"></span>
+			<a href="@Model.Data.LoginGovEditUrl" class="usa-button" target="_blank">Edit at Login.gov</a>
+		</div>*@
+
+		<label for="PrimaryEmail" style="font-weight:bold;">Email Address</label>
+		<span id="PrimaryEmail" title="Email Address"> @Model.Data.Email </span><br/><br />
+	     <span>Your email can only be changed at login.gov. Click <a target="_blank" href="https://login.gov/help/manage-your-account/change-your-email-address/">here</a> for more details. </span><br/>
+		<a href="@Model.Data.LoginGovEditUrl" class="usa-button" target="_blank">Edit at Login.gov</a>
+
+		<div class="control-group validate-input">
+			<label for="txtWebsite">Website</label>
+			<input asp-for="Data.Website" type="text" id="txtWebsite">
+			<span asp-validation-for="Data.Website"></span>
+		</div>
+	
+
+		<input type="submit" value="Submit">
+
+	</div>
+</form>

@@ -1,0 +1,50 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.StudentDashboardModel
+@{
+	Layout = "_AdminLayout";
+}
+@using OPM.SFS.Web.SharedCode
+@inject IFeatureManager FeatureManager
+
+<div class="grid-container-widescreen" style="max-width: 165rem">
+
+    <div class="grid-row">
+		<div class="grid-col">
+            <nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Student Dashboard</span>
+				</li>
+			  </ol>
+			</nav>
+         </div>
+      </div>
+      <h3 class="customH1">Student Dashboard - Home</h3>
+      <div class="usa-alert  usa-alert-info usa-alert-info">
+      <div class="usa-alert-body">       
+          <p class="usa-alert-text">Use this page to filter add or edit student information.</p>
+      </div>
+    </div>
+    <button id="btnExcelDownload">Export to Excel</button>
+    <a href="/Admin/DataManagement" class="usa-button">Student Dashboard Data Management</a>
+
+        <button id="btn-add-student"  data-object-trigger="modal" data-target="#modal-resume-add">
+            Add Student
+        </button>
+    
+    <div id="myGrid" class="ag-theme-alpine" style="height: 500px"></div>
+</div>
+<partial name="_AddNewStudentModal" />
+<partial name="_DuplicateStudentModal" />
+
+@section scripts{ 
+    <script src="~/js/griddatepicker.js"></script>
+   <script src="/js/sfsadminDashboardBundle.js"></script>
+ 
+    
+}

@@ -1,0 +1,11 @@
+﻿@using OPM.SFS.Web.Models;
+@using OPM.SFS.Web.Pages.Student;
+@model EvfDocumentInfo
+<div class="deleteEvfDocumentModal sfs-modal modal" style="z-index:99999" id="@Model.EVFDocumentId">
+    <h3 class="student-modal-header">Are you sure you want to continue?</h3>
+    <br />
+    <span>Your document will be deleted.</span>
+    <br /><br />
+    <a href="/Student/EmploymentVerification?handler=DeleteDocument&fid=@Model.EVFDocumentId&cid=@Model.CommitmentId" class="usa-button">Yes</a>
+    <a href="javascript:void(0);" class="lnkCancelModal usa-button">No</a>
+</div>

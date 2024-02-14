@@ -1,0 +1,99 @@
+﻿@page
+@model OPM.SFS.Web.Pages.Admin.DataManagementModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="grid-container-widescreen">
+	<div class="grid-row">
+		<div class="grid-col">
+
+			<nav class="usa-breadcrumb" aria-label="Breadcrumbs,,">
+			  <ol class="usa-breadcrumb__list">
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/Home" class="usa-breadcrumb__link">
+					<span>Home</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item">
+				  <a href="/Admin/StudentDashboard" class="usa-breadcrumb__link">
+					<span>Student Dashboard</span>
+				  </a>
+				</li>
+				<li class="usa-breadcrumb__list-item usa-current" aria-current="page">
+				  <span>Student Dashboard Data Management</span>
+				</li>
+			  </ol>
+			</nav>
+			
+			<h3>Administration: <i>Student Dashboard Data Management</i></h3>
+			<div class="usa-alert usa-alert-info">
+				<div class="usa-alert-body">
+					<h3 class="usa-alert-heading">Instructions</h3>
+					<p class="usa-alert-text">
+						Use this page to manage the various options for the student dashboard and profile. To edit double 
+						click on the value in the tables and hit enter to save. To delete a row simply highlight the row in the table
+						and click the 'Delete Selected Row' button. 
+					</p>
+				</div>
+			</div>
+			<br />
+			<label for="cars">Select Option to Edit</label>
+			<select name="dataoptions" id="dataoptions">
+			 <option value="discipline">Majors & Minors</option>
+			  <option value="degree">Degrees</option>			
+			  <option value="year">Years</option>
+			  <option value="contract">Contract</option>
+			  <option value="status">Student Status & Options</option>			  
+			  <option value="followupactiontype">Followup Action Type</option>
+			</select>
+			@if (User.FindFirst("AdminRole").Value != "Read Only" && User.FindFirst("AdminRole").Value != "General User")
+		    {
+			<button id="btnDelete" class="usa-button usa-button-primary">Delete Selected Row</button>
+		    }
+			 @if (User.FindFirst("AdminRole").Value != "Read Only")
+			{
+				<button id="btnAddRow" class="usa-button usa-button-primary">Add New Row</button>
+			}
+			<h3 id="typeDisplay">Majors & Minors</h3>			
+
+			<div id="session" class="ag-theme-alpine" style="height: 300px; width:450px;"></div>
+			<div id="year" class="ag-theme-alpine" style="height: 400px; width:650px;"></div>
+			<div id="contract" class="ag-theme-alpine" style="height: 300px; width:450px;"></div>
+			<div id="degree" class="ag-theme-alpine" style="height: 400px; width:650px; display:none"></div>
+			<div id="discipline" class="ag-theme-alpine" style="height: 400px; width:650px; display:none"></div>
+			<div id="status" class="ag-theme-alpine" style="height: 400px; display:none"></div>
+			<div id="extensiontype" class="ag-theme-alpine" style="height: 400px; display:none"></div>
+			<div id="followupactiontype" class="ag-theme-alpine" style="height: 400px; display:none"></div>
+		</div>
+	</div>
+</div>
+
+<div id="addDataForGridFormatOne" class="sfs-modal modal">
+ <h3 id="modalHeader1" class="resume-modal-header">Add option for XXXX</h3>  
+ <span id="error-message" style="color:red; font:bold"></span>
+   <div>
+		<label for="txtNameValue" id="lblName" class="modal-label">Name:</label>
+		<input id="txtNameValue" type="text" class="modal-fields" />
+		
+		<label for="txtCode" id="lblCode" class="modal-label">Code:</label>
+		<input id="txtCode" type="text" class="modal-fields" />
+
+		<label for="txtOption" id="lblOption" class="modal-label">Option:</label>
+		<input id="txtOption" type="text" class="modal-fields" />
+
+		<label for="txtStatus" id="lblStatus" class="modal-label">Status:</label>
+		<input id="txtStatus" type="text" class="modal-fields" />
+
+		<label for="txtPhase" id="lblPhase" class="modal-label">Phase:</label>
+		<input id="txtPhase" type="text" class="modal-fields" />
+
+		<label for="txtPlacement" id="lblPlacement" class="modal-label">Post Grad Placement Group:</label>
+		<input id="txtPlacement" type="text" class="modal-fields" />
+
+		<button id="btn-add-data" class="usa-button usa-button-primary">Add Data</button>
+		<button id="btn-cancel-add" class="usa-button usa-button-primary">Cancel</button>
+   </div> 
+</div>
+
+<script src="~/js/admindatamanager.js"></script>
